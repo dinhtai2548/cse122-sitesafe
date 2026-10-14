@@ -1,0 +1,1323 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SiteSafe - Bản đồ nhiệt rủi ro | Quản lý an toàn công trường</title>
+  <!-- Google Fonts: Plus Jakarta Sans / Inter -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <!-- Stylesheet -->
+  <link rel="stylesheet" href="t2.css">
+</head>
+<body> 
+  <div class="app-container">
+    <!-- SIDEBAR -->
+    <aside class="sidebar" id="sidebar">
+      <div class="sidebar-header">
+        <div class="brand-logo">
+          <div class="logo-icon">▧</div>
+          <span class="logo-text">Site<span class="logo-accent">Safe</span></span>
+        </div>
+        <button class="mobile-close-btn" id="sidebarCloseBtn" aria-label="Đóng menu">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <line x1="18" y1="6" x2="6" y2="18"></line>
+            <line x1="6" y1="6" x2="18" y2="18"></line>
+          </svg>
+        </button>
+      </div>
+
+      <div class="project-selector-wrapper">
+        <label class="section-label">CÔNG TRƯỜNG</label>
+        <div class="project-select-btn">
+          <span class="project-name">Metro Tower - Khu B</span>
+          <svg class="select-arrows" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polyline points="7 15 12 20 17 15"></polyline>
+            <polyline points="7 9 12 4 17 9"></polyline>
+          </svg>
+        </div>
+      </div>
+
+      <nav class="sidebar-nav">
+        <div class="nav-section-title">QUẢN LÝ CÔNG TRƯỜNG</div>
+        <a href="t2.html" class="nav-item active" id="navHeatmap">
+          <svg class="nav-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="3" y="3" width="7" height="7" rx="1"></rect>
+            <rect x="14" y="3" width="7" height="7" rx="1"></rect>
+            <rect x="14" y="14" width="7" height="7" rx="1"></rect>
+            <rect x="3" y="14" width="7" height="7" rx="1"></rect>
+          </svg>
+          <span>Bản đồ rủi ro</span>
+        </a>
+        <a href="t3.html" class="nav-item">
+          <svg class="nav-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path>
+            <line x1="12" y1="9" x2="12" y2="13"></line>
+            <line x1="12" y1="17" x2="12.01" y2="17"></line>
+          </svg>
+          <span>Hành động khắc phục</span>
+        </a>
+        <a href="t4.html" class="nav-item">
+          <svg class="nav-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+            <polyline points="14 2 14 8 20 8"></polyline>
+            <line x1="16" y1="13" x2="8" y2="13"></line>
+            <line x1="16" y1="17" x2="8" y2="17"></line>
+            <polyline points="10 9 9 9 8 9"></polyline>
+          </svg>
+          <span>Báo cáo an toàn</span>
+        </a>
+      </nav>
+
+      <div class="sidebar-footer">
+        <div class="user-profile">
+          <div class="user-avatar">NM</div>
+          <div class="user-info">
+            <span class="user-name">Nguyễn Văn Minh</span>
+            <span class="user-role-badge">Quản lý công trường</span>
+          </div>
+          <button class="logout-icon-btn" title="Đăng xuất" aria-label="Thoát tài khoản">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
+              <polyline points="16 17 21 12 16 7"></polyline>
+              <line x1="21" y1="12" x2="9" y2="12"></line>
+            </svg>
+          </button>
+        </div>
+        <button class="logout-btn">Đăng xuất</button>
+      </div>
+    </aside>
+
+    <!-- MAIN CONTENT AREA -->
+    <div class="main-wrapper">
+      <!-- TOP NAVIGATION BAR -->
+      <header class="top-header">
+        <div class="top-header-left">
+          <button class="menu-toggle-btn" id="menuToggleBtn" aria-label="Mở menu">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <line x1="3" y1="12" x2="21" y2="12"></line>
+              <line x1="3" y1="6" x2="21" y2="6"></line>
+              <line x1="3" y1="18" x2="21" y2="18"></line>
+            </svg>
+          </button>
+          <div class="current-site-info">
+            <div class="site-icon-box">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <rect x="4" y="2" width="16" height="20" rx="2" ry="2"></rect>
+                <line x1="9" y1="22" x2="9" y2="22.01"></line>
+                <line x1="15" y1="22" x2="15" y2="22.01"></line>
+                <line x1="9" y1="6" x2="9" y2="6.01"></line>
+                <line x1="15" y1="6" x2="15" y2="6.01"></line>
+                <line x1="9" y1="10" x2="9" y2="10.01"></line>
+                <line x1="15" y1="10" x2="15" y2="10.01"></line>
+                <line x1="9" y1="14" x2="9" y2="14.01"></line>
+                <line x1="15" y1="14" x2="15" y2="14.01"></line>
+              </svg>
+            </div>
+            <div class="site-title-group">
+              <span class="sub-label">CÔNG TRƯỜNG ĐANG THEO DÕI</span>
+              <div class="site-dropdown-title">
+                <h2>Dự án Metro Tower - Zone B</h2>
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <polyline points="6 9 12 15 18 9"></polyline>
+                </svg>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="top-header-right">
+          <div class="search-box">
+            <svg class="search-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="11" cy="11" r="8"></circle>
+              <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+            </svg>
+            <input type="text" placeholder="Tìm mối nguy, hồ sơ..." />
+            <kbd class="shortcut-tag">⌘ K</kbd>
+          </div>
+          <button class="icon-circle-btn" title="Thông báo" aria-label="Thông báo">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path>
+              <path d="M13.73 21a2 2 0 0 1-3.46 0"></path>
+            </svg>
+          </button>
+          <button class="icon-circle-btn" title="Trợ giúp" aria-label="Trợ giúp">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="12" cy="12" r="10"></circle>
+              <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path>
+              <line x1="12" y1="17" x2="12.01" y2="17"></line>
+            </svg>
+          </button>
+        </div>
+      </header>
+
+      <!-- PAGE CONTENT -->
+      <main class="content-body">
+        <!-- PAGE TITLE & ACTIONS -->
+        <div class="page-title-row">
+          <div class="title-meta">
+            <h1 class="page-heading">Bản đồ nhiệt rủi ro</h1>
+            <p class="page-timestamp">Thứ Bảy, 03/10/2026 · Ca sáng · Cập nhật lúc 10:32</p>
+          </div>
+          <div class="title-actions">
+            <!-- Nút Demo chuyển nhanh giữa Trang 1 và Trang 2 -->
+            <button class="btn btn-secondary quick-toggle-btn" id="toggleDetailModeBtn">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="10"></circle>
+                <line x1="12" y1="16" x2="12" y2="12"></line>
+                <line x1="12" y1="8" x2="12.01" y2="8"></line>
+              </svg>
+              <span id="toggleModeText">Xem chi tiết mối nguy (Trang 2)</span>
+            </button>
+            <button class="btn btn-secondary" id="openExportModalBtn">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                <polyline points="7 10 12 15 17 10"></polyline>
+                <line x1="12" y1="15" x2="12" y2="3"></line>
+              </svg>
+              <span>Xuất báo cáo</span>
+            </button>
+            <button class="btn btn-primary" id="openHazardModalBtn">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <line x1="12" y1="5" x2="12" y2="19"></line>
+                <line x1="5" y1="12" x2="19" y2="12"></line>
+              </svg>
+              <span>Ghi nhận mối nguy</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- 4 KPI SUMMARY CARDS -->
+        <div class="kpi-grid">
+          <div class="kpi-card">
+            <span class="kpi-title">Khu vực theo dõi</span>
+            <div class="kpi-value-row">
+              <span class="kpi-number">04</span>
+              <span class="kpi-note">Toàn bộ mặt bằng công trường</span>
+            </div>
+          </div>
+
+          <div class="kpi-card kpi-danger clickable" id="kpiHotspotCard" title="Click để xem chi tiết Zone B">
+            <span class="kpi-title">Điểm nóng rủi ro cao</span>
+            <div class="kpi-value-row">
+              <span class="kpi-number text-danger">01</span>
+              <span class="kpi-note">Zone B · 3 mối nguy</span>
+            </div>
+          </div>
+
+          <div class="kpi-card kpi-warning">
+            <span class="kpi-title">Sự cố đang mở</span>
+            <div class="kpi-value-row">
+              <span class="kpi-number text-warning">04</span>
+              <span class="kpi-note">3 cao · 1 trung bình</span>
+            </div>
+          </div>
+
+          <div class="kpi-card kpi-success">
+            <span class="kpi-title">Khu vực an toàn</span>
+            <div class="kpi-value-row">
+              <span class="kpi-number text-success">02</span>
+              <span class="kpi-note">Zone C, Zone D · Không có mối nguy</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- MAIN DASHBOARD GRID (MAP + AI INSIGHTS) -->
+        <div class="dashboard-grid">
+          <!-- CỘT TRÁI: BẢN ĐỒ MẶT BẰNG & CHI TIẾT SỰ CỐ -->
+          <div class="map-column">
+            <div class="dashboard-card map-card">
+              <!-- Map Card Header -->
+              <div class="map-header">
+                <div class="map-heading-group">
+                  <h3>Mặt bằng công trường</h3>
+                  <span class="map-subheading">Mặt bằng công trường · 4 Zone giám sát</span>
+                </div>
+                <div class="live-status-pill">
+                  <span class="pulse-dot"></span>
+                  <span>Cập nhật trực tiếp</span>
+                </div>
+              </div>
+
+              <!-- Map Toolbar -->
+              <div class="map-toolbar">
+                <div class="map-tabs">
+                  <button class="map-tab active" data-view="heatmap">Bản đồ nhiệt</button>
+                  <button class="map-tab" data-view="2d">Mặt bằng 2D</button>
+                </div>
+                <div class="map-filter-dropdown">
+                  <button class="filter-btn">
+                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <line x1="4" y1="21" x2="4" y2="14"></line>
+                      <line x1="4" y1="10" x2="4" y2="3"></line>
+                      <line x1="12" y1="21" x2="12" y2="12"></line>
+                      <line x1="12" y1="8" x2="12" y2="3"></line>
+                      <line x1="20" y1="21" x2="20" y2="16"></line>
+                      <line x1="20" y1="12" x2="20" y2="3"></line>
+                      <line x1="1" y1="14" x2="7" y2="14"></line>
+                      <line x1="9" y1="8" x2="15" y2="8"></line>
+                      <line x1="17" y1="16" x2="23" y2="16"></line>
+                    </svg>
+                    <span>Sự cố đang mở</span>
+                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <polyline points="6 9 12 15 18 9"></polyline>
+                    </svg>
+                  </button>
+                </div>
+              </div>
+
+              <!-- Interactive Blueprint Canvas -->
+              <div class="blueprint-container" id="blueprintContainer">
+                <!-- Thước đo và La bàn định hướng -->
+                <div class="blueprint-meta-bar">
+                  <div class="scale-ruler">
+                    <div class="ruler-line">
+                      <span>0</span>
+                      <span>10</span>
+                      <span>20 m</span>
+                    </div>
+                  </div>
+                  <div class="street-name">ĐƯỜNG NGUYỄN VĂN LINH</div>
+                  <div class="compass-rose">
+                    <span class="compass-arrow">▲</span>
+                    <span class="compass-text">BẮC</span>
+                  </div>
+                </div>
+
+                <!-- Sơ đồ quy hoạch phân khu -->
+                <div class="blueprint-layout">
+                  <!-- Hàng trên: Zone A, Zone B, Zone C -->
+                  <div class="zones-row top-zones">
+                    <!-- Zone A -->
+                    <div class="site-zone zone-warning" id="zoneA" data-zone="A">
+                      <div class="zone-badge">
+                        <span class="zone-letter badge-orange">A</span>
+                        <div class="zone-info">
+                          <strong class="zone-title">Kho vật liệu</strong>
+                          <span class="zone-desc text-warning">Trung bình · 1 sự cố</span>
+                        </div>
+                      </div>
+                      <div class="zone-subgrid">
+                        <div class="cell"></div>
+                        <div class="cell"></div>
+                        <div class="cell"></div>
+                        <div class="cell"></div>
+                        <div class="cell"></div>
+                        <div class="cell"></div>
+                      </div>
+                      <!-- Hotspot Điểm nhiệt Zone A -->
+                      <div class="hotspot hotspot-orange" title="Kho vật liệu: 1 sự cố">
+                        <div class="hotspot-halo"></div>
+                        <span class="hotspot-badge">1</span>
+                      </div>
+                    </div>
+
+                    <!-- Zone B - Hố đào & móng (Trọng tâm) -->
+                    <div class="site-zone zone-danger is-highlighted" id="zoneB" data-zone="B">
+                      <div class="zone-badge">
+                        <span class="zone-letter badge-red">B</span>
+                        <div class="zone-info">
+                          <strong class="zone-title">Hố đào & móng</strong>
+                          <span class="zone-desc text-danger">Rủi ro cao · 3 sự cố</span>
+                        </div>
+                      </div>
+                      <div class="zone-subgrid">
+                        <div class="cell"></div>
+                        <div class="cell"></div>
+                        <div class="cell"></div>
+                        <div class="cell"></div>
+                        <div class="cell"></div>
+                        <div class="cell"></div>
+                      </div>
+                      <!-- Hotspot Điểm nhiệt Zone B -->
+                      <div class="hotspot hotspot-red" id="hotspotB" title="Hố đào & móng: 3 sự cố nghiêm trọng">
+                        <div class="hotspot-halo halo-pulse"></div>
+                        <span class="hotspot-badge">3</span>
+                      </div>
+                    </div>
+
+                    <!-- Zone C -->
+                    <div class="site-zone zone-safe" id="zoneC" data-zone="C">
+                      <div class="zone-badge">
+                        <span class="zone-letter badge-green">C</span>
+                        <div class="zone-info">
+                          <strong class="zone-title">Gia công</strong>
+                          <span class="zone-desc text-success">An toàn · 0 sự cố</span>
+                        </div>
+                      </div>
+                      <div class="zone-inner-plan">
+                        <div class="workshop-box">XƯỞNG THÉP</div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- Đường nội bộ 1 -->
+                  <div class="roadway-row">
+                    <span class="road-label">LỐI XE THI CÔNG →</span>
+                    <span class="gate-label">
+                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4M10 17l5-5-5-5M15 12H3"/></svg>
+                      CỔNG B · KIỂM SOÁT RA VÀO
+                    </span>
+                  </div>
+
+                  <!-- Hàng dưới: Zone D & Khu phụ trợ -->
+                  <div class="zones-row bottom-zones">
+                    <!-- Zone D -->
+                    <div class="site-zone zone-safe zone-office" id="zoneD" data-zone="D">
+                      <div class="zone-badge">
+                        <span class="zone-letter badge-green">D</span>
+                        <div class="zone-info">
+                          <strong class="zone-title">Văn phòng / HSE</strong>
+                          <span class="zone-desc text-success">An toàn · 0 sự cố</span>
+                        </div>
+                      </div>
+                      <div class="office-layout">
+                        <div class="office-room"></div>
+                        <div class="office-room"></div>
+                      </div>
+                    </div>
+
+                    <!-- Khu vực phụ trợ & Logistics -->
+                    <div class="auxiliary-zone">
+                      <div class="roadway-sub">
+                        <span>LỐI XE THI CÔNG →</span>
+                        <span>
+                          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4M10 17l5-5-5-5M15 12H3"/></svg>
+                          CỔNG B · KIỂM SOÁT RA VÀO
+                        </span>
+                      </div>
+                      <div class="aux-cells">
+                        <div class="aux-box"></div>
+                        <div class="aux-box"></div>
+                        <div class="aux-box"></div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- Đáy công trình -->
+                  <div class="bottom-site-label">SÀN GIAO NHẬN VẬT TƯ</div>
+
+                  <!-- POPUP / DRAWER CHI TIẾT MỐI NGUY (TRANG 2 - FIGMA DETAIL OVERLAY) -->
+                  <div class="danger-detail-card" id="dangerDetailCard">
+                    <!-- Card Header -->
+                    <div class="detail-header">
+                      <div class="detail-header-left">
+                        <span class="alert-icon-wrap">
+                          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#dc2626" stroke-width="2.2">
+                            <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path>
+                            <line x1="12" y1="9" x2="12" y2="13"></line>
+                            <line x1="12" y1="17" x2="12.01" y2="17"></line>
+                          </svg>
+                        </span>
+                        <h4 class="detail-title" id="detailZoneTitle">Zone B · Mối nguy đang tồn tại</h4>
+                      </div>
+                      <button class="detail-close-btn" id="closeDetailCardBtn" aria-label="Đóng bảng chi tiết">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                          <line x1="18" y1="6" x2="6" y2="18"></line>
+                          <line x1="6" y1="6" x2="18" y2="18"></line>
+                        </svg>
+                      </button>
+                    </div>
+
+                    <!-- Risk Pills Subheader -->
+                    <div class="detail-risk-badges">
+                      <span class="badge-pill badge-pill-danger" id="detailRiskScore">Rủi ro cao · 82/100</span>
+                      <span class="badge-pill-text" id="detailIssuesCount">3 sự cố đang mở · 3 mức cao</span>
+                    </div>
+
+                    <!-- Issues List -->
+                    <div class="issues-list" id="issuesList">
+                      <!-- Issue Item 1 -->
+                      <div class="issue-item">
+                        <div class="issue-dot dot-red"></div>
+                        <div class="issue-content">
+                          <div class="issue-main-row">
+                            <span class="issue-title">Hệ thống dây điện chưa nối đất</span>
+                            <span class="status-tag tag-unresolved">Chưa xử lý</span>
+                          </div>
+                          <div class="issue-meta">
+                            <span>B-129</span>
+                            <span>·</span>
+                            <span>08:42</span>
+                            <span>·</span>
+                            <span>Phạm Tuấn</span>
+                            <span>·</span>
+                            <span>Đội M&E</span>
+                          </div>
+                        </div>
+                      </div>
+
+                      <!-- Issue Item 2 -->
+                      <div class="issue-item">
+                        <div class="issue-dot dot-red"></div>
+                        <div class="issue-content">
+                          <div class="issue-main-row">
+                            <span class="issue-title">Cáp điện đặt tại lối đi</span>
+                            <span class="status-tag tag-processing">Đang xử lý</span>
+                          </div>
+                          <div class="issue-meta">
+                            <span>B-130</span>
+                            <span>·</span>
+                            <span>09:15</span>
+                            <span>·</span>
+                            <span>Trần Hùng</span>
+                            <span>·</span>
+                            <span>Đội kết cấu</span>
+                          </div>
+                        </div>
+                      </div>
+
+                      <!-- Issue Item 3 -->
+                      <div class="issue-item">
+                        <div class="issue-dot dot-red"></div>
+                        <div class="issue-content">
+                          <div class="issue-main-row">
+                            <span class="issue-title">Tủ điện thiếu nắp bảo vệ</span>
+                            <span class="status-tag tag-unresolved">Chưa xử lý</span>
+                          </div>
+                          <div class="issue-meta">
+                            <span>B-132</span>
+                            <span>·</span>
+                            <span>09:48</span>
+                            <span>·</span>
+                            <span>Lê Hoàng</span>
+                            <span>·</span>
+                            <span>Đội kết cấu</span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <!-- Detail Card Actions -->
+                    <div class="detail-actions-row">
+                      <a href="#" class="detail-link" id="viewZoneProfileLink">
+                        <span>Xem hồ sơ khu vực</span>
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                          <line x1="5" y1="12" x2="19" y2="12"></line>
+                          <polyline points="12 5 19 12 12 19"></polyline>
+                        </svg>
+                      </a>
+                      <button class="btn btn-action-orange" id="dispatchActionBtn">
+                        Giao xử lý 3 sự cố
+                      </button>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Footer Legend của Bản đồ -->
+                <div class="blueprint-footer">
+                  <div class="legend-group">
+                    <div class="legend-item">
+                      <span class="legend-color-box box-danger"></span>
+                      <span>Cao / Điểm nóng</span>
+                    </div>
+                    <div class="legend-item">
+                      <span class="legend-color-box box-warning"></span>
+                      <span>Trung bình</span>
+                    </div>
+                    <div class="legend-item">
+                      <span class="legend-color-box box-success"></span>
+                      <span>An toàn</span>
+                    </div>
+                  </div>
+                  <div class="zone-selection-status" id="zoneSelectionStatus">
+                    Chọn một Zone để xem sự cố
+                  </div>
+                </div>
+              </div>
+
+              <!-- Thẻ Thông tin trực ca bổ trợ dưới bản đồ -->
+              <div class="shift-summary-bar">
+                <div class="shift-info-block">
+                  <span class="shift-label">ƯU TIÊN TRONG CA</span>
+                  <div class="shift-highlight text-danger">Zone B · 3 sự cố cần xử lý</div>
+                  <p class="shift-subtext">Hệ thống dây điện chưa nối đất là nguyên nhân chính.</p>
+                </div>
+                <div class="shift-info-block">
+                  <span class="shift-label">PHỤ TRÁCH HIỆN TRƯỜNG</span>
+                  <div class="shift-highlight">Lê Hoàng · Đội kết cấu</div>
+                  <p class="shift-subtext">Phối hợp cán bộ an toàn HSE</p>
+                </div>
+                <div class="shift-info-block">
+                  <span class="shift-label">KIỂM TRA LẠI</span>
+                  <div class="shift-highlight">11:00 · Trong ca sáng</div>
+                  <p class="shift-subtext">Xác minh rào chắn và lối đi</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- CỘT PHẢI: AI RISK HOTSPOT INSIGHT -->
+          <div class="insights-column">
+            <div class="dashboard-card ai-insight-card">
+              <!-- AI Card Header -->
+              <div class="ai-header">
+                <div class="ai-icon-title">
+                  <div class="ai-spark-icon">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#ea580c" stroke-width="2.2">
+                      <path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"></path>
+                    </svg>
+                  </div>
+                  <div class="ai-title-wrap">
+                    <h3>AI Risk Hotspot Insight</h3>
+                    <span class="ai-subtitle">Phân tích ca sáng · Cập nhật 10:32</span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- AI Alert Notice Banner -->
+              <div class="ai-alert-banner">
+                <div class="alert-banner-top">
+                  <svg class="alert-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#b45309" stroke-width="2.2">
+                    <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path>
+                    <line x1="12" y1="9" x2="12" y2="13"></line>
+                    <line x1="12" y1="17" x2="12.01" y2="17"></line>
+                  </svg>
+                  <p class="alert-banner-highlight">
+                    Zone B có tỷ lệ tái diễn mối nguy cao hơn 35% do hệ thống dây điện chưa nối đất
+                  </p>
+                </div>
+                <p class="alert-banner-desc">
+                  3 sự cố đang mở tại Zone B cần được xử lý ngay trong ca sáng để giảm nguy cơ tai nạn điện và va chạm.
+                </p>
+                <div class="risk-score-display">
+                  <span class="score-label">Điểm rủi ro hiện tại</span>
+                  <div class="score-number-wrap">
+                    <strong class="score-number">82</strong>
+                    <span class="score-max">/100</span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Risk Trend Line Chart -->
+              <div class="risk-trend-section">
+                <div class="trend-header">
+                  <span class="trend-title">Xu hướng rủi ro - Zone B</span>
+                  <span class="trend-badge-up">
+                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                      <line x1="12" y1="19" x2="12" y2="5"></line>
+                      <polyline points="5 12 12 5 19 12"></polyline>
+                    </svg>
+                    21 điểm
+                  </span>
+                </div>
+
+                <div class="chart-legend-row">
+                  <span class="chart-legend-item">
+                    <span class="legend-line orange-solid"></span>
+                    Điểm rủi ro / 100
+                  </span>
+                  <span class="chart-legend-item">
+                    <span class="legend-line red-dashed"></span>
+                    - - Ngưỡng cao: 70
+                  </span>
+                </div>
+
+                <!-- SVG Trend Chart Responsive -->
+                <div class="svg-chart-container">
+                  <svg class="trend-chart-svg" viewBox="0 0 360 160" preserveAspectRatio="none">
+                    <!-- Grid background lines -->
+                    <line x1="30" y1="20" x2="350" y2="20" stroke="#f1f5f9" stroke-width="1" />
+                    <line x1="30" y1="50" x2="350" y2="50" stroke="#f1f5f9" stroke-width="1" />
+                    <line x1="30" y1="80" x2="350" y2="80" stroke="#f1f5f9" stroke-width="1" />
+                    <line x1="30" y1="110" x2="350" y2="110" stroke="#f1f5f9" stroke-width="1" />
+                    <line x1="30" y1="140" x2="350" y2="140" stroke="#f1f5f9" stroke-width="1" />
+
+                    <!-- Ngưỡng cao 70 line (Dashed red line) -->
+                    <line x1="30" y1="56" x2="350" y2="56" stroke="#f87171" stroke-width="1.2" stroke-dasharray="4 3" />
+
+                    <!-- Y-Axis Labels -->
+                    <text x="22" y="24" class="chart-axis-text">100</text>
+                    <text x="22" y="60" class="chart-axis-text">70</text>
+                    <text x="22" y="96" class="chart-axis-text">40</text>
+                    <text x="25" y="142" class="chart-axis-text">0</text>
+
+                    <!-- Chart Gradient Area Fill -->
+                    <defs>
+                      <linearGradient id="chartGradient" x1="0" y1="0" x2="0" y2="1">
+                        <stop offset="0%" stop-color="#ea580c" stop-opacity="0.25" />
+                        <stop offset="100%" stop-color="#ea580c" stop-opacity="0.0" />
+                      </linearGradient>
+                    </defs>
+                    <polygon points="40,90 90,82 150,86 210,64 270,52 335,40 335,140 40,140" fill="url(#chartGradient)" />
+
+                    <!-- Main Trend Line -->
+                    <polyline
+                      fill="none"
+                      stroke="#ea580c"
+                      stroke-width="2.6"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      points="40,90 90,82 150,86 210,64 270,52 335,40"
+                    />
+
+                    <!-- Data dots -->
+                    <circle cx="40" cy="90" r="3.5" fill="#ea580c" stroke="#fff" stroke-width="1.5" />
+                    <circle cx="90" cy="82" r="3" fill="#ea580c" stroke="#fff" stroke-width="1" />
+                    <circle cx="150" cy="86" r="3" fill="#ea580c" stroke="#fff" stroke-width="1" />
+                    <circle cx="210" cy="64" r="3.5" fill="#ea580c" stroke="#fff" stroke-width="1.5" />
+                    <circle cx="270" cy="52" r="3.5" fill="#ea580c" stroke="#fff" stroke-width="1.5" />
+                    <!-- Final High Dot with Badge -->
+                    <circle cx="335" cy="40" r="4.5" fill="#dc2626" stroke="#fff" stroke-width="2" />
+                    <text x="330" y="30" class="chart-score-label">82</text>
+
+                    <!-- X-Axis Labels -->
+                    <text x="40" y="154" class="chart-time-text" text-anchor="middle">06:00</text>
+                    <text x="90" y="154" class="chart-time-text" text-anchor="middle">07:00</text>
+                    <text x="150" y="154" class="chart-time-text" text-anchor="middle">08:00</text>
+                    <text x="210" y="154" class="chart-time-text" text-anchor="middle">09:00</text>
+                    <text x="270" y="154" class="chart-time-text" text-anchor="middle">10:00</text>
+                    <text x="335" y="154" class="chart-time-text" text-anchor="middle">10:30</text>
+                  </svg>
+                </div>
+                <p class="trend-summary-note">
+                  Tăng từ 61 lên 82 trong 90 phút, sau 2 sự cố mới tại Zone B.
+                </p>
+              </div>
+
+              <!-- AI Recommendations -->
+              <div class="ai-recommendation-block">
+                <div class="rec-header">
+                  <span class="rec-title">Khuyến nghị AI</span>
+                  <span class="rec-tag">Đề xuất</span>
+                </div>
+
+                <div class="rec-card">
+                  <div class="rec-shield-icon">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#ea580c" stroke-width="2.2">
+                      <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+                    </svg>
+                  </div>
+                  <div class="rec-content">
+                    <strong class="rec-heading">Tăng cường 1 cán bộ HSE giám sát Zone B</strong>
+                    <p class="rec-description">
+                      Tập trung kiểm tra hệ thống dây điện, lối đi và tủ điện trước khi cho phép thi công.
+                    </p>
+                    <span class="rec-meta">Đội HSE · Ngay trong ca</span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- AI Disclaimer -->
+              <div class="ai-disclaimer">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#94a3b8" stroke-width="2">
+                  <circle cx="12" cy="12" r="10"></circle>
+                  <line x1="12" y1="16" x2="12" y2="12"></line>
+                  <line x1="12" y1="8" x2="12.01" y2="8"></line>
+                </svg>
+                <p>
+                  <strong>AI hỗ trợ, không thay thế đánh giá hiện trường.</strong> Chỉ huy trưởng / HSE cần xác minh trước khi giao hành động hoặc cho phép thi công lại.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- FOOTER SYSTEM BAR -->
+        <footer class="app-footer">
+          <div class="footer-left">SiteSafe · An toàn để xây dựng.</div>
+          <div class="footer-right">
+            <span class="sync-dot"></span>
+            <span>Đã đồng bộ lúc 10:32 · Dữ liệu minh họa</span>
+          </div>
+        </footer>
+      </main>
+    </div>
+  </div>
+
+  <!-- TOAST NOTIFICATION POPUP -->
+  <div class="toast-notification" id="toastNotification">
+    <div class="toast-icon">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#16a34a" stroke-width="2.5">
+        <polyline points="20 6 9 17 4 12"></polyline>
+      </svg>
+    </div>
+    <span class="toast-message" id="toastMessage">Đã giao xử lý thành công!</span>
+  </div>
+
+  <div class="sidebar-backdrop" id="sidebarBackdrop"></div>
+
+  <!-- ================================================
+       MODAL: XUẤT BÁO CÁO
+       ================================================ -->
+  <div class="modal-overlay" id="exportModal" role="dialog" aria-modal="true" aria-labelledby="exportModalTitle">
+    <div class="modal-panel" id="exportModalPanel">
+      <!-- Header -->
+      <div class="modal-header">
+        <div class="modal-header-left">
+          <div class="modal-icon-box modal-icon-blue">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+              <polyline points="7 10 12 15 17 10"></polyline>
+              <line x1="12" y1="15" x2="12" y2="3"></line>
+            </svg>
+          </div>
+          <div>
+            <h2 class="modal-title" id="exportModalTitle">Xuất báo cáo an toàn</h2>
+            <p class="modal-subtitle">Tạo báo cáo từ dữ liệu ca sáng · 03/10/2026</p>
+          </div>
+        </div>
+        <button class="modal-close-btn" id="closeExportModal" aria-label="Đóng">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <line x1="18" y1="6" x2="6" y2="18"></line>
+            <line x1="6" y1="6" x2="18" y2="18"></line>
+          </svg>
+        </button>
+      </div>
+
+      <!-- Body -->
+      <div class="modal-body">
+        <!-- Loại báo cáo -->
+        <div class="form-section">
+          <label class="form-label">Loại báo cáo</label>
+          <div class="report-type-grid">
+            <label class="report-type-card selected" data-type="full">
+              <input type="radio" name="reportType" value="full" checked hidden>
+              <div class="rtc-icon">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <rect x="3" y="3" width="18" height="18" rx="2"></rect>
+                  <path d="M9 9h6M9 12h6M9 15h4"></path>
+                </svg>
+              </div>
+              <div class="rtc-text">
+                <strong>Báo cáo tổng hợp</strong>
+                <span>Toàn bộ dữ liệu công trường</span>
+              </div>
+              <span class="rtc-check">✓</span>
+            </label>
+            <label class="report-type-card" data-type="zone">
+              <input type="radio" name="reportType" value="zone" hidden>
+              <div class="rtc-icon">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+                  <circle cx="12" cy="10" r="3"></circle>
+                </svg>
+              </div>
+              <div class="rtc-text">
+                <strong>Báo cáo theo Zone</strong>
+                <span>Chỉ các khu vực chọn</span>
+              </div>
+              <span class="rtc-check">✓</span>
+            </label>
+            <label class="report-type-card" data-type="incident">
+              <input type="radio" name="reportType" value="incident" hidden>
+              <div class="rtc-icon">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path>
+                  <line x1="12" y1="9" x2="12" y2="13"></line>
+                  <line x1="12" y1="17" x2="12.01" y2="17"></line>
+                </svg>
+              </div>
+              <div class="rtc-text">
+                <strong>Báo cáo sự cố</strong>
+                <span>Chỉ danh sách mối nguy</span>
+              </div>
+              <span class="rtc-check">✓</span>
+            </label>
+          </div>
+        </div>
+
+        <!-- Zone selector (ẩn/hiện theo loại) -->
+        <div class="form-section" id="zoneFilterSection" style="display:none;">
+          <label class="form-label">Chọn Zone</label>
+          <div class="checkbox-group">
+            <label class="checkbox-item">
+              <input type="checkbox" name="zone" value="A" checked>
+              <span class="cb-custom"></span>
+              <span>Zone A · Kho vật liệu</span>
+            </label>
+            <label class="checkbox-item">
+              <input type="checkbox" name="zone" value="B" checked>
+              <span class="cb-custom"></span>
+              <span>Zone B · Hố đào &amp; móng</span>
+            </label>
+            <label class="checkbox-item">
+              <input type="checkbox" name="zone" value="C" checked>
+              <span class="cb-custom"></span>
+              <span>Zone C · Gia công</span>
+            </label>
+            <label class="checkbox-item">
+              <input type="checkbox" name="zone" value="D" checked>
+              <span class="cb-custom"></span>
+              <span>Zone D · Văn phòng / HSE</span>
+            </label>
+          </div>
+        </div>
+
+        <!-- Khoảng thời gian -->
+        <div class="form-section">
+          <label class="form-label">Khoảng thời gian</label>
+          <div class="date-range-row">
+            <div class="date-field">
+              <label class="date-label">Từ ngày</label>
+              <input type="date" class="form-input" id="exportDateFrom" value="2026-10-03">
+            </div>
+            <span class="date-separator">—</span>
+            <div class="date-field">
+              <label class="date-label">Đến ngày</label>
+              <input type="date" class="form-input" id="exportDateTo" value="2026-10-03">
+            </div>
+          </div>
+          <div class="quick-date-chips">
+            <button class="date-chip active" data-range="today">Hôm nay</button>
+            <button class="date-chip" data-range="week">7 ngày qua</button>
+            <button class="date-chip" data-range="month">Tháng này</button>
+          </div>
+        </div>
+
+        <!-- Định dạng file -->
+        <div class="form-section">
+          <label class="form-label">Định dạng xuất</label>
+          <div class="format-radio-group">
+            <label class="format-radio selected" data-fmt="pdf">
+              <input type="radio" name="exportFmt" value="pdf" checked hidden>
+              <span class="fmt-icon fmt-pdf">PDF</span>
+              <span class="fmt-name">PDF</span>
+              <span class="fmt-desc">In ấn &amp; chia sẻ</span>
+            </label>
+            <label class="format-radio" data-fmt="excel">
+              <input type="radio" name="exportFmt" value="excel" hidden>
+              <span class="fmt-icon fmt-excel">XLS</span>
+              <span class="fmt-name">Excel</span>
+              <span class="fmt-desc">Phân tích dữ liệu</span>
+            </label>
+            <label class="format-radio" data-fmt="word">
+              <input type="radio" name="exportFmt" value="word" hidden>
+              <span class="fmt-icon fmt-word">DOC</span>
+              <span class="fmt-name">Word</span>
+              <span class="fmt-desc">Chỉnh sửa nội dung</span>
+            </label>
+          </div>
+        </div>
+
+        <!-- Nội dung bao gồm -->
+        <div class="form-section">
+          <label class="form-label">Nội dung bao gồm</label>
+          <div class="include-options-grid">
+            <label class="include-option">
+              <input type="checkbox" name="include" value="heatmap" checked>
+              <span class="cb-custom"></span>
+              <span>Bản đồ nhiệt rủi ro</span>
+            </label>
+            <label class="include-option">
+              <input type="checkbox" name="include" value="kpi" checked>
+              <span class="cb-custom"></span>
+              <span>Chỉ số KPI tổng hợp</span>
+            </label>
+            <label class="include-option">
+              <input type="checkbox" name="include" value="incidents" checked>
+              <span class="cb-custom"></span>
+              <span>Danh sách sự cố</span>
+            </label>
+            <label class="include-option">
+              <input type="checkbox" name="include" value="ai" checked>
+              <span class="cb-custom"></span>
+              <span>Khuyến nghị AI</span>
+            </label>
+            <label class="include-option">
+              <input type="checkbox" name="include" value="photos">
+              <span class="cb-custom"></span>
+              <span>Hình ảnh đính kèm</span>
+            </label>
+            <label class="include-option">
+              <input type="checkbox" name="include" value="signature">
+              <span class="cb-custom"></span>
+              <span>Ô ký tên xác nhận</span>
+            </label>
+          </div>
+        </div>
+
+        <!-- Preview badge -->
+        <div class="export-preview-bar">
+          <div class="epb-left">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#2563eb" stroke-width="2">
+              <circle cx="12" cy="12" r="10"></circle>
+              <line x1="12" y1="16" x2="12" y2="12"></line>
+              <line x1="12" y1="8" x2="12.01" y2="8"></line>
+            </svg>
+            <span id="exportPreviewText">Sẽ xuất: Báo cáo tổng hợp · PDF · 4 Zone · 03/10/2026</span>
+          </div>
+          <span id="exportFileSize">~1.2 MB</span>
+        </div>
+      </div>
+
+      <!-- Footer -->
+      <div class="modal-footer">
+        <button class="btn btn-secondary" id="cancelExportBtn">Hủy</button>
+        <button class="btn btn-export" id="doExportBtn">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+            <polyline points="7 10 12 15 17 10"></polyline>
+            <line x1="12" y1="15" x2="12" y2="3"></line>
+          </svg>
+          <span id="exportBtnText">Xuất báo cáo</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ================================================
+       MODAL: GHI NHẬN MỐI NGUY
+       ================================================ -->
+  <div class="modal-overlay" id="hazardModal" role="dialog" aria-modal="true" aria-labelledby="hazardModalTitle">
+    <div class="modal-panel modal-panel-wide" id="hazardModalPanel">
+      <!-- Header -->
+      <div class="modal-header modal-header-danger">
+        <div class="modal-header-left">
+          <div class="modal-icon-box modal-icon-orange">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+              <line x1="12" y1="5" x2="12" y2="19"></line>
+              <line x1="5" y1="12" x2="19" y2="12"></line>
+            </svg>
+          </div>
+          <div>
+            <h2 class="modal-title" id="hazardModalTitle">Ghi nhận mối nguy mới</h2>
+            <p class="modal-subtitle">Dự án Metro Tower · Zone B · Ca sáng 03/10/2026</p>
+          </div>
+        </div>
+        <button class="modal-close-btn" id="closeHazardModal" aria-label="Đóng">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <line x1="18" y1="6" x2="6" y2="18"></line>
+            <line x1="6" y1="6" x2="18" y2="18"></line>
+          </svg>
+        </button>
+      </div>
+
+      <!-- Stepper -->
+      <div class="modal-stepper">
+        <div class="stepper-item active" data-step="1">
+          <span class="step-num">1</span>
+          <span class="step-label">Thông tin cơ bản</span>
+        </div>
+        <div class="stepper-divider"></div>
+        <div class="stepper-item" data-step="2">
+          <span class="step-num">2</span>
+          <span class="step-label">Mức độ &amp; phân loại</span>
+        </div>
+        <div class="stepper-divider"></div>
+        <div class="stepper-item" data-step="3">
+          <span class="step-num">3</span>
+          <span class="step-label">Phân công &amp; xử lý</span>
+        </div>
+      </div>
+
+      <!-- Body -->
+      <div class="modal-body">
+
+        <!-- STEP 1: Thông tin cơ bản -->
+        <div class="form-step active" id="step1">
+          <div class="form-row-2">
+            <!-- Khu vực (Zone) -->
+            <div class="form-group">
+              <label class="form-label" for="hazardZone">
+                Khu vực <span class="required">*</span>
+              </label>
+              <div class="select-wrapper">
+                <select class="form-input form-select" id="hazardZone" required>
+                  <option value="">-- Chọn Zone --</option>
+                  <option value="A">Zone A · Kho vật liệu</option>
+                  <option value="B" selected>Zone B · Hố đào &amp; móng</option>
+                  <option value="C">Zone C · Gia công</option>
+                  <option value="D">Zone D · Văn phòng / HSE</option>
+                </select>
+                <svg class="select-arrow" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"></polyline></svg>
+              </div>
+            </div>
+
+            <!-- Vị trí cụ thể -->
+            <div class="form-group">
+              <label class="form-label" for="hazardLocation">Vị trí cụ thể</label>
+              <input type="text" class="form-input" id="hazardLocation" placeholder="VD: Cột K3, gần cổng chính...">
+            </div>
+          </div>
+
+          <!-- Mô tả mối nguy -->
+          <div class="form-group">
+            <label class="form-label" for="hazardDesc">
+              Mô tả mối nguy <span class="required">*</span>
+            </label>
+            <textarea class="form-input form-textarea" id="hazardDesc" rows="3"
+              placeholder="Mô tả rõ ràng tình trạng nguy hiểm quan sát được. VD: Dây điện 380V lộ thiên tại lối đi công nhân..." required></textarea>
+            <div class="char-counter"><span id="descCharCount">0</span>/500 ký tự</div>
+          </div>
+
+          <!-- Loại mối nguy -->
+          <div class="form-group">
+            <label class="form-label">Loại mối nguy <span class="required">*</span></label>
+            <div class="hazard-type-grid">
+              <label class="hazard-type-chip" data-htype="electrical">
+                <input type="radio" name="hazardType" value="electrical" hidden>
+                <span class="htype-icon">⚡</span>
+                <span>Điện</span>
+              </label>
+              <label class="hazard-type-chip" data-htype="fall">
+                <input type="radio" name="hazardType" value="fall" hidden>
+                <span class="htype-icon">🪜</span>
+                <span>Té ngã</span>
+              </label>
+              <label class="hazard-type-chip" data-htype="fire">
+                <input type="radio" name="hazardType" value="fire" hidden>
+                <span class="htype-icon">🔥</span>
+                <span>Cháy nổ</span>
+              </label>
+              <label class="hazard-type-chip" data-htype="chemical">
+                <input type="radio" name="hazardType" value="chemical" hidden>
+                <span class="htype-icon">🧪</span>
+                <span>Hoá chất</span>
+              </label>
+              <label class="hazard-type-chip" data-htype="machinery">
+                <input type="radio" name="hazardType" value="machinery" hidden>
+                <span class="htype-icon">⚙️</span>
+                <span>Máy móc</span>
+              </label>
+              <label class="hazard-type-chip" data-htype="other">
+                <input type="radio" name="hazardType" value="other" hidden>
+                <span class="htype-icon">📋</span>
+                <span>Khác</span>
+              </label>
+            </div>
+          </div>
+
+          <!-- Upload hình ảnh -->
+          <div class="form-group">
+            <label class="form-label">Hình ảnh / Video hiện trường</label>
+            <div class="upload-zone" id="uploadZone">
+              <div class="upload-placeholder" id="uploadPlaceholder">
+                <div class="upload-icon-wrap">
+                  <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#94a3b8" stroke-width="1.8">
+                    <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+                    <circle cx="8.5" cy="8.5" r="1.5"></circle>
+                    <polyline points="21 15 16 10 5 21"></polyline>
+                  </svg>
+                </div>
+                <p class="upload-main-text">Kéo thả ảnh hoặc <span class="upload-link">chọn từ máy tính</span></p>
+                <p class="upload-hint">JPG, PNG, HEIC, MP4 · Tối đa 10 MB mỗi file · Tối đa 5 file</p>
+              </div>
+              <input type="file" id="fileInput" accept="image/*,video/mp4" multiple hidden>
+              <div class="upload-preview-grid" id="uploadPreviewGrid"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- STEP 2: Mức độ & phân loại -->
+        <div class="form-step" id="step2">
+          <!-- Mức độ rủi ro -->
+          <div class="form-group">
+            <label class="form-label">Mức độ rủi ro <span class="required">*</span></label>
+            <div class="severity-scale">
+              <label class="severity-item" data-sev="low">
+                <input type="radio" name="severity" value="low" hidden>
+                <div class="sev-bar-wrap">
+                  <div class="sev-bar sev-low"></div>
+                  <span class="sev-label">Thấp</span>
+                  <span class="sev-score">1–25</span>
+                </div>
+              </label>
+              <label class="severity-item" data-sev="medium">
+                <input type="radio" name="severity" value="medium" hidden>
+                <div class="sev-bar-wrap">
+                  <div class="sev-bar sev-medium"></div>
+                  <span class="sev-label">Trung bình</span>
+                  <span class="sev-score">26–50</span>
+                </div>
+              </label>
+              <label class="severity-item" data-sev="high">
+                <input type="radio" name="severity" value="high" hidden>
+                <div class="sev-bar-wrap">
+                  <div class="sev-bar sev-high"></div>
+                  <span class="sev-label">Cao</span>
+                  <span class="sev-score">51–75</span>
+                </div>
+              </label>
+              <label class="severity-item selected" data-sev="critical">
+                <input type="radio" name="severity" value="critical" checked hidden>
+                <div class="sev-bar-wrap">
+                  <div class="sev-bar sev-critical"></div>
+                  <span class="sev-label">Nghiêm trọng</span>
+                  <span class="sev-score">76–100</span>
+                </div>
+              </label>
+            </div>
+            <!-- Mô tả tự động -->
+            <div class="severity-info-box" id="severityInfoBox">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#dc2626" stroke-width="2.2">
+                <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path>
+                <line x1="12" y1="9" x2="12" y2="13"></line><line x1="12" y1="17" x2="12.01" y2="17"></line>
+              </svg>
+              <span id="severityInfoText">Yêu cầu dừng thi công tức thì và xử lý ngay trong ca làm việc.</span>
+            </div>
+          </div>
+
+          <!-- Nguyên nhân sơ bộ -->
+          <div class="form-group">
+            <label class="form-label" for="rootCause">Nguyên nhân sơ bộ</label>
+            <div class="select-wrapper">
+              <select class="form-input form-select" id="rootCause">
+                <option value="">-- Chọn nguyên nhân --</option>
+                <option value="human">Lỗi con người / không tuân thủ quy trình</option>
+                <option value="equipment">Thiết bị / máy móc hỏng hóc</option>
+                <option value="design">Thiết kế / thiếu an toàn kết cấu</option>
+                <option value="environment">Môi trường làm việc (nắng, mưa, bụi...)</option>
+                <option value="management">Quản lý / thiếu giám sát</option>
+                <option value="unknown">Chưa xác định</option>
+              </select>
+              <svg class="select-arrow" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"></polyline></svg>
+            </div>
+          </div>
+
+          <!-- Tần suất xảy ra -->
+          <div class="form-group">
+            <label class="form-label">Tần suất ghi nhận trước đây</label>
+            <div class="freq-radio-row">
+              <label class="freq-radio">
+                <input type="radio" name="frequency" value="first" checked>
+                <span>Lần đầu ghi nhận</span>
+              </label>
+              <label class="freq-radio">
+                <input type="radio" name="frequency" value="repeat">
+                <span>Tái diễn (đã xảy ra trước đây)</span>
+              </label>
+              <label class="freq-radio">
+                <input type="radio" name="frequency" value="chronic">
+                <span>Mãn tính (thường xuyên)</span>
+              </label>
+            </div>
+          </div>
+
+          <!-- AI Score preview -->
+          <div class="ai-risk-preview">
+            <div class="arp-header">
+              <div class="arp-ai-badge">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#ea580c" stroke-width="2.2">
+                  <path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"></path>
+                </svg>
+                AI ước tính điểm rủi ro
+              </div>
+              <span class="arp-score" id="aiScoreDisplay">85/100</span>
+            </div>
+            <div class="arp-bar-bg">
+              <div class="arp-bar-fill" id="aiScoreBar" style="width:85%"></div>
+            </div>
+            <p class="arp-note">Dựa trên loại mối nguy, mức độ, tần suất và lịch sử Zone B.</p>
+          </div>
+        </div>
+
+        <!-- STEP 3: Phân công & xử lý -->
+        <div class="form-step" id="step3">
+          <!-- Người phụ trách xử lý -->
+          <div class="form-row-2">
+            <div class="form-group">
+              <label class="form-label" for="assignee">
+                Giao xử lý cho <span class="required">*</span>
+              </label>
+              <div class="select-wrapper">
+                <select class="form-input form-select" id="assignee" required>
+                  <option value="">-- Chọn người / đội --</option>
+                  <option value="hse1">Đội HSE · Lê Hoàng (Trưởng)</option>
+                  <option value="me1">Đội M&E · Phạm Tuấn</option>
+                  <option value="struct1">Đội kết cấu · Trần Hùng</option>
+                  <option value="pm">Quản lý dự án · Nguyễn Văn Minh</option>
+                </select>
+                <svg class="select-arrow" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"></polyline></svg>
+              </div>
+            </div>
+            <!-- Hạn xử lý -->
+            <div class="form-group">
+              <label class="form-label" for="deadline">Hạn xử lý <span class="required">*</span></label>
+              <div class="deadline-presets">
+                <button type="button" class="deadline-chip active" data-dl="immediate">Ngay lập tức</button>
+                <button type="button" class="deadline-chip" data-dl="2h">2 giờ</button>
+                <button type="button" class="deadline-chip" data-dl="today">Hôm nay</button>
+                <button type="button" class="deadline-chip" data-dl="tomorrow">Ngày mai</button>
+              </div>
+              <input type="datetime-local" class="form-input" id="deadline" style="margin-top:8px;">
+            </div>
+          </div>
+
+          <!-- Biện pháp khắc phục -->
+          <div class="form-group">
+            <label class="form-label" for="corrective">Biện pháp khắc phục đề xuất</label>
+            <textarea class="form-input form-textarea" id="corrective" rows="3"
+              placeholder="Mô tả hành động xử lý cụ thể. VD: Ngắt điện khu vực B3, kiểm tra toàn bộ đường dây, nối đất bổ sung trước khi cấp điện lại..."></textarea>
+          </div>
+
+          <!-- Thông báo & leo thang -->
+          <div class="form-group">
+            <label class="form-label">Thông báo &amp; leo thang</label>
+            <div class="notify-option-list">
+              <label class="notify-option">
+                <input type="checkbox" name="notify" value="hse" checked>
+                <span class="cb-custom"></span>
+                <div class="notify-option-text">
+                  <strong>Cán bộ HSE ca sáng</strong>
+                  <span>Lê Hoàng · 0912.345.678</span>
+                </div>
+              </label>
+              <label class="notify-option">
+                <input type="checkbox" name="notify" value="pm" checked>
+                <span class="cb-custom"></span>
+                <div class="notify-option-text">
+                  <strong>Quản lý công trường</strong>
+                  <span>Nguyễn Văn Minh · 0987.654.321</span>
+                </div>
+              </label>
+              <label class="notify-option">
+                <input type="checkbox" name="notify" value="director">
+                <span class="cb-custom"></span>
+                <div class="notify-option-text">
+                  <strong>Giám đốc dự án</strong>
+                  <span>Chỉ cho mối nguy nghiêm trọng</span>
+                </div>
+              </label>
+            </div>
+          </div>
+
+          <!-- Tóm tắt trước khi gửi -->
+          <div class="hazard-submit-summary">
+            <div class="hss-header">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#ea580c" stroke-width="2.2">
+                <polyline points="9 11 12 14 22 4"></polyline>
+                <path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"></path>
+              </svg>
+              <span>Tóm tắt trước khi gửi</span>
+            </div>
+            <div class="hss-rows">
+              <div class="hss-row"><span class="hss-key">Khu vực:</span><span class="hss-val" id="summaryZone">Zone B · Hố đào &amp; móng</span></div>
+              <div class="hss-row"><span class="hss-key">Loại nguy hiểm:</span><span class="hss-val" id="summaryType">—</span></div>
+              <div class="hss-row"><span class="hss-key">Mức độ:</span><span class="hss-val" id="summaryLevel"><span class="badge-pill badge-pill-danger">Nghiêm trọng</span></span></div>
+              <div class="hss-row"><span class="hss-key">Hạn xử lý:</span><span class="hss-val" id="summaryDeadline">Ngay lập tức</span></div>
+              <div class="hss-row"><span class="hss-key">Giao cho:</span><span class="hss-val" id="summaryAssignee">—</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Footer with stepper nav -->
+      <div class="modal-footer">
+        <button class="btn btn-secondary" id="hazardBackBtn" disabled>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+            <polyline points="15 18 9 12 15 6"></polyline>
+          </svg>
+          Quay lại
+        </button>
+        <div class="modal-footer-right">
+          <button class="btn btn-secondary" id="cancelHazardBtn">Hủy</button>
+          <button class="btn btn-primary" id="hazardNextBtn">
+            <span id="hazardNextText">Tiếp theo</span>
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+              <polyline points="9 18 15 12 9 6"></polyline>
+            </svg>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="sidebar-backdrop" id="sidebarBackdrop"></div>
+
+  <!-- Scripts -->
+  <script src="t2.js"></script>
+</body>
+</html>
+

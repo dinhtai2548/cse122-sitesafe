@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SiteSafe - Báo cáo phân tích an toàn</title>
+  <link rel="stylesheet" href="t4.css">
+</head>
+<body>
+<div class="app">
+  <aside class="sidebar" id="sidebar">
+    <a href="#" class="brand"><span class="brand-mark">▧</span><span>Site<span>Safe</span></span></a>
+    <div class="project-select"><small>CÔNG TRƯỜNG</small><b>Metro Tower - Khu B <span>⌄</span></b></div>
+    <div class="nav-title">QUẢN LÝ CÔNG TRƯỜNG</div>
+    <nav>
+      <button type="button" class="nav-item" onclick="location.href='t2.html'"><span>▦</span>Bản đồ rủi ro</button>
+      <button type="button" class="nav-item" onclick="location.href='t3.html'"><span>⚠</span>Hành động khắc phục</button>
+      <button type="button" class="nav-item active" onclick="location.href='t4.html'"><span>▤</span>Báo cáo an toàn</button>
+    </nav>
+    <div class="side-bottom">
+      <div class="profile"><span class="avatar">NM</span><div><b>Nguyễn Văn Minh</b><small>Quản lý công trường</small></div></div>
+      <button class="logout">Đăng xuất</button>
+    </div>
+  </aside>
+
+  <main class="main">
+    <header class="topbar">
+      <button class="menu-toggle" id="menuToggle" aria-label="Mở menu">☰</button>
+      <div class="project-heading"><span class="project-symbol">▣</span><div><small>CÔNG TRƯỜNG THÁP ĐÔI</small><b>Dự án Metro Tower - Zone B</b></div></div>
+      <div class="top-actions">
+        <label class="date-range">▦ <input id="dateRange" type="text" value="27/09 – 03/10/2026" aria-label="Khoảng thời gian"></label>
+        <button class="export-btn" id="exportBtn">⇩ Xuất PDF/Excel</button>
+      </div>
+    </header>
+
+    <div class="content">
+      <div class="breadcrumb">Báo cáo / Phân tích an toàn</div>
+      <div class="page-heading">
+        <div><h1>Báo cáo phân tích an toàn</h1><p id="reportSubtitle">Tuần 40 · 27/09–03/10/2026 · Thứ Bảy · Phân tích dữ liệu 03/10/2026 lúc 10:32</p></div>
+        <button class="small-outline" id="assignBtn">Dành cho ban quản lý</button>
+      </div>
+
+      <section class="ai-summary">
+        <div class="summary-heading"><b><span>✣</span> Tóm tắt điều hành từ AI</b><small>Phân tích tự động · Độ mới dữ liệu cao</small></div>
+        <div class="summary-grid">
+          <article><b>51,6% mối nguy ở 2 nhóm chính</b><p>Làm việc trên cao và giàn giáo chiếm 68/128 mối nguy. Đây là xu hướng cần rà soát hằng ngày.</p><small>Cần ưu tiên: lan can và lưới an toàn</small></article>
+          <article><b>Con 24 mối nguy chưa đóng</b><p>104/128 đã đóng (81,3%). Có 3 sự cố hạn trong 24 giờ tới, cần tăng cường theo dõi.</p><small>Cần theo dõi các nhóm xử lý</small></article>
+          <article><b>Có điểm An Khang cần ưu tiên</b><p>Tỷ lệ đóng thấp nhất: 66,7% (6/9), còn đang mở 1 quá hạn. Đội nhóm cần rà soát kế hoạch xử lý.</p><small>Cảnh báo: Hạn xử lý thấp nhất</small></article>
+        </div>
+      </section>
+
+      <section class="metric-grid">
+        <article class="metric-card"><div><span>Tổng mối nguy</span><b class="metric-icon">⚠</b></div><strong id="totalMetric">128</strong><small>mối nguy</small><p>50 rủi ro cao · 78 trung bình / thấp</p></article>
+        <article class="metric-card"><div><span>Đã đóng</span><b class="metric-icon green">⊙</b></div><strong class="green-text" id="closedMetric">104 <small>/ 128</small></strong><p>81,3% được HSE xác nhận</p></article>
+        <article class="metric-card"><div><span>Đang mở</span><b class="metric-icon orange">▣</b></div><strong class="orange-text" id="openMetric">24 <small>mối nguy</small></strong><p>21 trong hạn · 3 quá hạn</p></article>
+        <article class="metric-card"><div><span>Quá hạn</span><b class="metric-icon red">♧</b></div><strong class="red-text" id="overdueMetric">03 <small>cần xử lý</small></strong><p>Hoa Bình · Đại Việt · An Khang</p></article>
+      </section>
+
+      <section class="charts-grid">
+        <article class="panel bar-panel">
+          <div class="panel-heading"><div><h2>Mối nguy theo nhóm rủi ro</h2><p>128 mối nguy ghi nhận trong 7 ngày</p></div><button class="chart-menu" aria-label="Tùy chọn biểu đồ">···</button></div>
+          <div class="bar-chart" id="barChart" role="img" aria-label="Biểu đồ cột mối nguy theo nhóm rủi ro"></div>
+          <div class="chart-foot">Tần cao · giàn giáo: 68/128 (53,1%) · Rủi ro cao: 50/128 (39,1%)</div>
+        </article>
+        <article class="panel donut-panel">
+          <div class="panel-heading"><div><h2>Tiến độ khắc phục</h2><p>Trạng thái của 128 mối nguy</p></div><button class="chart-menu" aria-label="Tùy chọn biểu đồ">···</button></div>
+          <div class="donut-wrap"><div class="donut" id="donut"><div class="donut-label"><strong id="donutPercent">81,3%</strong><span>đã đóng / tổng</span></div></div></div>
+          <div class="donut-legend">
+            <div><i class="green-dot"></i><span>Đã đóng</span><b id="legendClosed">104</b><small>81,3%</small></div>
+            <div><i class="orange-dot"></i><span>Mở · trong hạn</span><b id="legendOpen">21</b><small>16,4%</small></div>
+            <div><i class="red-dot"></i><span>Mở · quá hạn</span><b id="legendOverdue">3</b><small>2,3%</small></div>
+          </div>
+          <p class="chart-foot">Quá hạn được tính trong tổng mối nguy chưa đóng.</p>
+        </article>
+      </section>
+
+      <section class="panel ranking-panel">
+        <div class="panel-heading ranking-heading"><div><h2>Xếp hạng thầu phụ</h2><p>Theo tỷ lệ đóng nguy, số lượng mối nguy · Mục tiêu hoàn thành ≥ 80%</p></div><span class="ranking-count">6 / 6 thầu phụ</span></div>
+        <div class="table-scroll">
+          <table>
+            <thead><tr><th>HẠNG</th><th>THẦU PHỤ / HẠNG MỤC</th><th>MỚI NGUY</th><th>ĐÃ ĐÓNG</th><th>ĐANG MỞ</th><th>QUÁ HẠN</th><th>TỈ LỆ ĐÓNG</th><th>ĐÁNH GIÁ</th></tr></thead>
+            <tbody id="rankingBody"></tbody>
+            <tfoot><tr><td>Σ</td><td><b>Tổng dự án · Zone B</b></td><td>128</td><td>104</td><td>24</td><td class="red-text">3</td><td><b>81,3%</b></td><td>Đạt mục tiêu</td></tr></tfoot>
+          </table>
+        </div>
+        <div class="ranking-note">Tỷ lệ đóng = số mối nguy đã đóng / tổng mối nguy. Quá hạn là các mối nguy đã quá hạn nhưng chưa được xác nhận đóng.<br>Người có tỷ lệ đóng ≥ 80%: Đạt mục tiêu; 70–79%: Gần đạt; dưới 70%: Cần cải thiện.</div>
+      </section>
+      <footer class="footer"><span>SiteSafe · An toàn xây dựng</span><span>● Đã đồng bộ lúc 10:32 · Độ mới dữ liệu cao</span></footer>
+    </div>
+  </main>
+</div>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+<script src="t4.js"></script>
+</body>
+</html>
