@@ -1,0 +1,776 @@
+/* ==========================================================================
+   SITESAFE - 404 ERROR PAGE STYLESHEET (Mã lỗi: SAFETY-404)
+   Tuân thủ 100% thiết kế giao diện Figma công trường SiteSafe
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   1. RESET & BASE VARIABLES
+   -------------------------------------------------------------------------- */
+:root {
+    --bg-page: #f8fafc;
+    --text-primary: #0f172a;
+    --text-secondary: #64748b;
+    --text-muted: #94a3b8;
+    --border-color: #e2e8f0;
+
+    --brand-orange: #ff6b00;
+    --brand-orange-hover: #fa5a00;
+    --brand-orange-tint: #ffedd5;
+    --brand-orange-text: #c2410c;
+
+    --status-bar-bg: #1e293b;
+    --status-green: #10b981;
+    --status-green-glow: rgba(16, 185, 129, 0.4);
+
+    --font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    --transition-fast: 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    --shadow-primary: 0 8px 24px rgba(255, 107, 0, 0.35);
+    --shadow-primary-hover: 0 12px 28px rgba(255, 107, 0, 0.45);
+}
+
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html,
+body {
+    min-height: 100vh;
+    font-family: var(--font-family);
+    background-color: var(--bg-page);
+    color: var(--text-primary);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    overflow-x: hidden;
+    width: 100%;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+}
+
+/* --------------------------------------------------------------------------
+   2. TOP STATUS UTILITY BAR (Header)
+   -------------------------------------------------------------------------- */
+.top-status-bar {
+    background-color: var(--status-bar-bg);
+    color: #e2e8f0;
+    height: 48px;
+    width: 100%;
+    position: relative;
+    z-index: 20;
+    display: flex;
+    align-items: center;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.top-bar-container {
+    width: 100%;
+    max-width: 1440px;
+    margin: 0 auto;
+    padding: 0 28px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.top-bar-left {
+    display: flex;
+    align-items: center;
+}
+
+.top-logo-link {
+    display: inline-flex;
+    align-items: center;
+    text-decoration: none;
+    transition: opacity var(--transition-fast);
+}
+
+.top-logo-link:hover {
+    opacity: 0.85;
+}
+
+.top-logo-img {
+    height: 28px;
+    width: auto;
+    display: block;
+    object-fit: contain;
+}
+
+.top-bar-right {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+}
+
+/* Live Operational Status Indicator */
+.status-indicator {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    cursor: default;
+    user-select: none;
+}
+
+.pulse-dot {
+    width: 8px;
+    height: 8px;
+    background-color: var(--status-green);
+    border-radius: 50%;
+    position: relative;
+    box-shadow: 0 0 0 0 var(--status-green-glow);
+    animation: statusPulse 2s infinite cubic-bezier(0.4, 0, 0.6, 1);
+}
+
+@keyframes statusPulse {
+    0% {
+        box-shadow: 0 0 0 0 var(--status-green-glow);
+    }
+    70% {
+        box-shadow: 0 0 0 8px rgba(16, 185, 129, 0);
+    }
+    100% {
+        box-shadow: 0 0 0 0 rgba(16, 185, 129, 0);
+    }
+}
+
+.status-text {
+    font-size: 13px;
+    font-weight: 500;
+    color: #cbd5e1;
+}
+
+/* Support Help Link */
+.btn-help-link {
+    background: transparent;
+    border: none;
+    color: #cbd5e1;
+    font-family: inherit;
+    font-size: 13px;
+    font-weight: 500;
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    cursor: pointer;
+    padding: 6px 10px;
+    border-radius: 6px;
+    text-decoration: none;
+    transition: var(--transition-fast);
+}
+
+.btn-help-link i {
+    font-size: 14px;
+}
+
+.btn-help-link:hover {
+    color: #ffffff;
+    background-color: rgba(255, 255, 255, 0.08);
+}
+
+/* --------------------------------------------------------------------------
+   3. MAIN CONTENT CONTAINER & BACKGROUND SHAPES
+   -------------------------------------------------------------------------- */
+.error-page-container {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    padding: 36px 20px;
+    overflow: hidden;
+    width: 100%;
+}
+
+/* Decorative Background Pastel Shapes */
+.bg-shape {
+    position: absolute;
+    pointer-events: none;
+    z-index: 1;
+    filter: blur(2px);
+}
+
+.bg-shape-left {
+    width: 320px;
+    height: 480px;
+    left: -100px;
+    top: 60px;
+    background: linear-gradient(135deg, #fef3e2 0%, #fff7ed 100%);
+    border-radius: 48px;
+    transform: rotate(-18deg);
+    opacity: 0.85;
+}
+
+.bg-shape-right {
+    width: 380px;
+    height: 520px;
+    right: -120px;
+    top: 140px;
+    background: linear-gradient(135deg, #eef3f8 0%, #e2e8f0 100%);
+    border-radius: 56px;
+    transform: rotate(-22deg);
+    opacity: 0.6;
+}
+
+/* Centered Content Card */
+.error-content-card {
+    position: relative;
+    z-index: 2;
+    max-width: 680px;
+    width: 100%;
+    min-width: 0;
+    margin: 0 auto;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    box-sizing: border-box;
+}
+
+/* Brand Title Header */
+.brand-title-area {
+    margin-top: 12px;
+    margin-bottom: 2px;
+    width: 100%;
+}
+
+.brand-name {
+    font-size: 21px;
+    font-weight: 800;
+    color: var(--text-primary);
+    letter-spacing: 2.5px;
+    text-transform: uppercase;
+    user-select: none;
+}
+
+/* --------------------------------------------------------------------------
+   4. CENTRAL ILLUSTRATION (Vector SVG & Glow)
+   -------------------------------------------------------------------------- */
+.illustration-wrapper {
+    position: relative;
+    width: 100%;
+    max-width: 440px;
+    min-width: 0;
+    margin: 0 auto 10px auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Soft warm yellow glow behind the monitor */
+.illustration-glow {
+    position: absolute;
+    width: 240px;
+    height: 240px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -52%);
+    background: radial-gradient(circle, #fef3c7 0%, rgba(254, 243, 199, 0.45) 55%, rgba(254, 243, 199, 0) 75%);
+    border-radius: 50%;
+    z-index: 1;
+    pointer-events: none;
+}
+
+.illustration-svg {
+    position: relative;
+    z-index: 2;
+    width: 100%;
+    max-width: 100%;
+    height: auto;
+    display: block;
+    filter: drop-shadow(0 6px 16px rgba(15, 23, 42, 0.05));
+    transition: transform 0.3s ease;
+}
+
+.illustration-svg:hover {
+    transform: translateY(-3px);
+}
+
+/* Warning Beacons Subtle Pulsing Animation */
+.warning-beacon {
+    animation: beaconBlink 2.2s infinite ease-in-out;
+    transform-origin: center;
+}
+
+.beacon-right {
+    animation-delay: 1.1s;
+}
+
+@keyframes beaconBlink {
+    0%, 100% {
+        opacity: 0.95;
+        filter: drop-shadow(0 0 2px #f59e0b);
+    }
+    50% {
+        opacity: 1;
+        filter: drop-shadow(0 0 8px #f59e0b);
+    }
+}
+
+/* Traffic cones subtle hover bounce */
+.traffic-cone {
+    transition: transform 0.25s ease;
+}
+
+.illustration-svg:hover .cone-left,
+.illustration-svg:hover .cone-right {
+    transform: translateY(-2px);
+}
+
+/* --------------------------------------------------------------------------
+   5. WARNING STATUS TAG PILL
+   -------------------------------------------------------------------------- */
+.warning-tag-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background-color: var(--brand-orange-tint);
+    border: 1px solid rgba(251, 146, 60, 0.35);
+    color: var(--brand-orange-text);
+    padding: 6px 16px;
+    border-radius: 9999px;
+    margin: 4px auto 14px auto;
+    box-shadow: 0 1px 3px rgba(234, 88, 12, 0.08);
+    user-select: none;
+    transition: var(--transition-fast);
+}
+
+.warning-tag-pill:hover {
+    background-color: #fed7aa;
+    transform: translateY(-1px);
+}
+
+.tag-cone-icon {
+    width: 15px;
+    height: 15px;
+    flex-shrink: 0;
+}
+
+.tag-text {
+    font-size: 11.5px;
+    font-weight: 700;
+    letter-spacing: 0.8px;
+    text-transform: uppercase;
+}
+
+/* --------------------------------------------------------------------------
+   6. ERROR HEADINGS & SUBTITLE
+   -------------------------------------------------------------------------- */
+.error-heading {
+    font-size: 32px;
+    font-weight: 800;
+    line-height: 1.25;
+    color: var(--text-primary);
+    margin-bottom: 10px;
+    letter-spacing: -0.5px;
+    word-break: break-word;
+}
+
+.error-description {
+    font-size: 15px;
+    font-weight: 400;
+    line-height: 1.5;
+    color: var(--text-secondary);
+    max-width: 540px;
+    margin: 0 auto 26px auto;
+}
+
+/* --------------------------------------------------------------------------
+   7. ACTION BUTTONS & LINKS
+   -------------------------------------------------------------------------- */
+.actions-group {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 14px;
+    width: 100%;
+}
+
+/* Primary Home Action Button */
+.btn-primary-home {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    background: linear-gradient(135deg, #ff7a1a 0%, #ff5e00 100%);
+    color: #ffffff;
+    text-decoration: none;
+    font-size: 15px;
+    font-weight: 600;
+    padding: 13px 26px;
+    border-radius: 12px;
+    box-shadow: var(--shadow-primary);
+    transition: var(--transition-fast);
+    cursor: pointer;
+    border: none;
+}
+
+.btn-primary-home .btn-icon-left {
+    font-size: 15px;
+}
+
+.btn-primary-home .btn-icon-right {
+    font-size: 14px;
+    transition: transform var(--transition-fast);
+}
+
+.btn-primary-home:hover {
+    background: linear-gradient(135deg, #ff8833 0%, #ff6b00 100%);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-primary-hover);
+    color: #ffffff;
+}
+
+.btn-primary-home:hover .btn-icon-right {
+    transform: translateX(4px);
+}
+
+.btn-primary-home:active {
+    transform: translateY(0);
+    box-shadow: var(--shadow-primary);
+}
+
+/* Secondary Back Action Link */
+.btn-secondary-back {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: transparent;
+    border: none;
+    color: var(--text-secondary);
+    font-family: inherit;
+    font-size: 13.5px;
+    font-weight: 500;
+    cursor: pointer;
+    padding: 6px 12px;
+    border-radius: 6px;
+    transition: var(--transition-fast);
+}
+
+.btn-secondary-back i {
+    font-size: 12px;
+    transition: transform var(--transition-fast);
+}
+
+.btn-secondary-back:hover {
+    color: var(--text-primary);
+    background-color: rgba(15, 23, 42, 0.04);
+}
+
+.btn-secondary-back:hover i {
+    transform: translateX(-3px);
+}
+
+/* --------------------------------------------------------------------------
+   8. BOTTOM FOOTER
+   -------------------------------------------------------------------------- */
+.bottom-footer {
+    background-color: #ffffff;
+    border-top: 1px solid var(--border-color);
+    width: 100%;
+    position: relative;
+    z-index: 10;
+}
+
+.footer-container {
+    max-width: 1440px;
+    margin: 0 auto;
+    padding: 18px 32px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 12px;
+}
+
+.footer-left {
+    display: flex;
+    align-items: center;
+}
+
+.footer-copyright {
+    font-size: 13px;
+    color: var(--text-muted);
+}
+
+.footer-right {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 13px;
+}
+
+.footer-link {
+    color: var(--text-secondary);
+    text-decoration: none;
+    transition: var(--transition-fast);
+}
+
+.footer-link:hover {
+    color: var(--text-primary);
+    text-decoration: underline;
+}
+
+.footer-separator {
+    color: #cbd5e1;
+    font-weight: bold;
+}
+
+.footer-code-badge {
+    color: var(--text-muted);
+    font-size: 13px;
+    background: transparent;
+    padding: 0;
+    border: none;
+}
+
+/* --------------------------------------------------------------------------
+   9. RESPONSIVE DESIGN (Tablets & Mobile Screens)
+   -------------------------------------------------------------------------- */
+@media (max-width: 768px) {
+    .top-status-bar {
+        height: 46px;
+    }
+
+    .top-bar-container {
+        padding: 0 16px;
+        justify-content: space-between;
+    }
+
+    .top-bar-left {
+        display: flex;
+    }
+
+    .top-logo-img {
+        height: 24px;
+    }
+
+    .top-bar-right {
+        gap: 16px;
+    }
+
+    .status-text {
+        font-size: 12px;
+    }
+
+    .error-heading {
+        font-size: 24px;
+        line-height: 1.3;
+    }
+
+    .error-description {
+        font-size: 14px;
+        padding: 0 12px;
+        margin-bottom: 22px;
+    }
+
+    .illustration-wrapper {
+        max-width: 360px;
+    }
+
+    .illustration-glow {
+        width: 180px;
+        height: 180px;
+    }
+
+    .footer-container {
+        padding: 16px 20px;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        gap: 10px;
+    }
+
+    .footer-left {
+        justify-content: center;
+        text-align: center;
+        width: 100%;
+    }
+
+    .footer-copyright {
+        text-align: center;
+        font-size: 12px;
+    }
+
+    .footer-right {
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: 8px;
+        width: 100%;
+    }
+
+    .bg-shape-left {
+        width: 200px;
+        height: 320px;
+        left: -80px;
+        opacity: 0.5;
+    }
+
+    .bg-shape-right {
+        width: 240px;
+        height: 340px;
+        right: -90px;
+        opacity: 0.4;
+    }
+}
+
+@media (max-width: 480px) {
+    .top-status-bar {
+        height: 44px;
+        width: 100%;
+    }
+
+    .top-bar-container {
+        padding: 0 12px;
+        justify-content: space-between;
+        width: 100%;
+        max-width: 100%;
+        box-sizing: border-box;
+    }
+
+    .top-bar-left {
+        display: flex;
+    }
+
+    .top-logo-img {
+        height: 22px;
+    }
+
+    .top-bar-right {
+        gap: 10px;
+        justify-content: flex-end;
+    }
+
+    .status-indicator {
+        gap: 6px;
+    }
+
+    .status-text {
+        font-size: 11px;
+    }
+
+    .btn-help-link {
+        padding: 3px 6px;
+        font-size: 11px;
+        gap: 5px;
+    }
+
+    .btn-help-link span {
+        display: inline;
+    }
+
+    .error-page-container {
+        padding: 20px 10px;
+        width: 100%;
+        max-width: 100%;
+        box-sizing: border-box;
+    }
+
+    .error-content-card {
+        padding: 0;
+        width: 100%;
+        max-width: 100%;
+        box-sizing: border-box;
+    }
+
+    .brand-name {
+        font-size: 16px;
+        letter-spacing: 2px;
+    }
+
+    .error-heading {
+        font-size: 17.5px;
+        line-height: 1.35;
+        padding: 0 4px;
+        word-break: break-word;
+    }
+
+    .error-description {
+        font-size: 12.5px;
+        line-height: 1.45;
+        padding: 0 6px;
+        margin-bottom: 18px;
+    }
+
+    .illustration-wrapper {
+        max-width: 280px;
+        margin-bottom: 6px;
+    }
+
+    .illustration-glow {
+        width: 130px;
+        height: 130px;
+    }
+
+    .warning-tag-pill {
+        padding: 4px 12px;
+        margin-bottom: 10px;
+        gap: 6px;
+    }
+
+    .tag-text {
+        font-size: 9.5px;
+        letter-spacing: 0.5px;
+    }
+
+    .btn-primary-home {
+        width: 100%;
+        max-width: 300px;
+        padding: 11px 14px;
+        font-size: 13px;
+        gap: 8px;
+        box-sizing: border-box;
+    }
+
+    .btn-secondary-back {
+        font-size: 12.5px;
+        padding: 4px 8px;
+    }
+
+    .bottom-footer {
+        width: 100%;
+    }
+
+    .footer-container {
+        padding: 12px 10px;
+        gap: 6px;
+        width: 100%;
+        box-sizing: border-box;
+    }
+
+    .footer-left {
+        justify-content: center;
+        text-align: center;
+        width: 100%;
+    }
+
+    .footer-copyright {
+        font-size: 10.5px;
+        text-align: center;
+        line-height: 1.4;
+    }
+
+    .footer-right {
+        font-size: 10.5px;
+        gap: 4px 8px;
+        justify-content: center;
+        flex-wrap: wrap;
+        width: 100%;
+    }
+
+    .footer-code-badge {
+        font-size: 10.5px;
+    }
+
+    .footer-separator {
+        display: inline;
+    }
+
+    .bg-shape-left,
+    .bg-shape-right {
+        display: none;
+    }
+}
