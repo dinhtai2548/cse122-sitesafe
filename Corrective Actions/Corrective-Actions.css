@@ -738,10 +738,10 @@ button {
 
 .bang-kanban-chinh {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(4,1fr);
     gap: 16px;
     align-items: start;
-    margin-bottom: 24px;
+    margin-bottom: 23px;
 }
 
 .cot-kanban {
@@ -1631,11 +1631,22 @@ button, input, select, textarea { max-width: 100%; }
 }
 
 @media (max-width: 480px) {
-  .vung-noi-dung { padding: 12px 9px !important; }
-  .luoi-khu-vuc-cong-truong, .luoi-tang-duoi { grid-template-columns: minmax(0, 1fr) !important; }
-  .phan-tieu-de-trang h1, h1 { font-size: clamp(21px, 6vw, 28px); overflow-wrap: anywhere; }
-  .the-thong-ke, .the-bieu-do, .khung-bieu-do { padding: 12px !important; }
-  .nut, button { overflow-wrap: anywhere; }
+  .vung-noi-dung { 
+    padding: 12px 9px !important; 
+    }
+  .luoi-khu-vuc-cong-truong, .luoi-tang-duoi {
+     grid-template-columns: minmax(0, 1fr) !important;
+    }
+  .phan-tieu-de-trang h1, h1 { 
+    font-size: clamp(21px, 6vw, 28px);
+    overflow-wrap: anywhere;
+    }
+  .the-thong-ke, .the-bieu-do, .khung-bieu-do { 
+    padding: 12px !important;
+    }
+  .nut, button { 
+    overflow-wrap: anywhere;
+    }
 }
 
 .lop-phu-mobile {
