@@ -1,0 +1,605 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SiteSafe - Bản đồ nhiệt rủi ro</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="Zone-Risk-Map.css">
+</head>
+<body>
+    <div class="lop-phu-mobile" id="lopPhuMobile"></div>
+
+    <div class="khung-ung-dung">
+        <aside class="thanh-ben" id="thanhBen">
+            <div class="dau-thanh-ben">
+                <div class="hang-dau-logo">
+                    <a class="logo-thuong-hieu">
+                        <img src="logo_SiteSafe.png" alt="SiteSafe Logo" class="anh-logo-sitesafe">
+                    </a>
+                    <button type="button" class="nut-dong-menu-mobile" id="nutDongMenuMobile" aria-label="Đóng menu">
+                        <i class="fa-solid fa-xmark"></i>
+                    </button>
+                </div>
+
+                <div class="hop-chon-cong-truong" id="hopChonCongTruong">
+                    <span class="nhan-cong-truong">CÔNG TRƯỜNG</span>
+                    <div class="gia-tri-cong-truong">
+                        <span id="tenCongTruongHienTai">Metro Tower - Khu B</span>
+                        <i class="fa-solid fa-chevron-down bieu-tuong-mui-ten"></i>
+                    </div>
+                    <div class="menu-chon-khu-vuc" aria-label="Chọn công trường">
+                        <button type="button" class="lua-chon-khu-vuc" data-project="Metro Tower - Khu B">Metro Tower - Khu B</button>
+                        <button type="button" class="lua-chon-khu-vuc" data-project="Landmark Riverside - Zone A">Landmark Riverside - Zone A</button>
+                        <button type="button" class="lua-chon-khu-vuc" data-project="Hầm chui Hoàng Cầu - Gói 3">Hầm chui Hoàng Cầu - Gói 3</button>
+                        <button type="button" class="lua-chon-khu-vuc" data-project="Grand Marina - Tháp C">Grand Marina - Tháp C</button>
+                    </div>
+                </div>
+
+                <div class="nhan-phan-muc">QUẢN LÝ CÔNG TRƯỜNG</div>
+                <nav class="thanh-dieu-huong">
+                    <a href="Zone-Risk-Map.html" class="muc-dieu-huong kich-hoat">
+                        <i class="fa-solid fa-table-cells-large bieu-tuong-nav"></i>
+                        <span>Bản đồ rủi ro</span>
+                    </a>
+                    <a href="../Corrective Actions/Corrective-Actions.html" class="muc-dieu-huong">
+                        <i class="fa-solid fa-triangle-exclamation bieu-tuong-nav"></i>
+                        <span>Hành động khắc phục</span>
+                    </a>
+                    <a href="../Safety Report/Safety-Report.html" class="muc-dieu-huong">
+                        <i class="fa-regular fa-file-lines bieu-tuong-nav"></i>
+                        <span>Báo cáo an toàn</span>
+                    </a>
+                </nav>
+            </div>
+
+            <div class="chan-thanh-ben">
+                <a href="../Profile/profile.html" class="khung-nguoi-dung" title="Hồ sơ người dùng" style="text-decoration: none; cursor: pointer; display: flex; align-items: center; gap: 10px;">
+                    <div class="anh-dai-dien">NM</div>
+                    <div class="thong-tin-nguoi-dung">
+                        <span class="ten-nguoi-dung">Nguyễn Văn Minh</span>
+                        <span class="chuc-danh-badge">Quản lý công trường</span>
+                    </div>
+                    <i class="fa-solid fa-chevron-right" style="margin-left: auto; color: #94a3b8; font-size: 11px;"></i>
+                </a>
+                <a href="../share/login/login.html" class="nut-dang-xuat" style="text-decoration: none; display: flex; align-items: center; justify-content: center; gap: 8px;">
+                    <i class="fa-solid fa-arrow-right-from-bracket"></i> Đăng xuất
+                </a>
+            </div>
+            
+        </aside>
+        <div class="noi-dung-chinh">
+            <header class="thanh-tren" id="thanhTren">
+                <div class="thanh-tren-hang-dau">
+                    <div class="thanh-tren-trai">
+
+                        <div class="cum-menu-logo-mobile">
+                            <button type="button" class="nut-mo-menu-mobile" id="nutMenuMobile" aria-label="Mở menu">
+                                <i class="fa-solid fa-bars"></i>
+                            </button>
+                            <a href="Zone-Risk-Map.html" class="anh-logo-mobile-link">
+                                <img src="logo_SiteSafe.png" alt="SiteSafe" class="anh-logo-mobile">
+                            </a>
+                        </div>
+
+                        <div class="thong-tin-du-an-tren">
+                            <div class="bieu-tuong-du-an">
+                                <i class="fa-solid fa-helmet-safety"></i>
+                            </div>
+                            <div class="chi-tiet-du-an">
+                                <span class="nhan-theo-doi">CÔNG TRƯỜNG ĐANG THEO DÕI</span>
+                                <div class="ten-du-an-dropdown" id="topbarProjectSelect">
+                                    <span id="topbarProjectTitle">Metro Tower - Khu B</span>
+                                    <i class="fa-solid fa-chevron-down"></i>
+                                </div>
+                                <div class="menu-chon-khu-vuc menu-khu-vuc-tren" id="topbarProjectMenu" aria-label="Chọn công trường">
+                                    <button type="button" class="lua-chon-khu-vuc" data-project="Metro Tower - Khu B">Metro Tower - Khu B</button>
+                                    <button type="button" class="lua-chon-khu-vuc" data-project="Landmark Riverside - Zone A">Landmark Riverside - Zone A</button>
+                                    <button type="button" class="lua-chon-khu-vuc" data-project="Hầm chui Hoàng Cầu - Gói 3">Hầm chui Hoàng Cầu - Gói 3</button>
+                                    <button type="button" class="lua-chon-khu-vuc" data-project="Grand Marina - Tháp C">Grand Marina - Tháp C</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="khu-vuc-hanh-dong-tren">
+                        <a href="../share/notifications/notifications.html" class="nut-bieu-tuong-tren" title="Thông báo" id="nutThongBao">
+                            <i class="fa-regular fa-bell"></i>
+                        </a>
+                        <a href="../Profile/profile.html" class="nut-bieu-tuong-tren" title="Hồ sơ cá nhân">
+                            <i class="fa-regular fa-user"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="mobile-project-info" id="mobileProjectSection">
+                    <span class="sub-label">CÔNG TRƯỜNG ĐANG THEO DÕI</span>
+                    <div class="custom-dropdown mobile-project-dropdown" id="mobileProjectSelect">
+                        <div class="dropdown-trigger" id="mobileProjectTrigger">
+                            <span class="selected-text" id="mobileProjectTitle">Metro Tower - Khu B</span>
+                            <i class="fa-solid fa-chevron-down arrow-icon"></i>
+                        </div>
+                        <div class="dropdown-menu" id="mobileProjectOptions">
+                            <div class="dropdown-item" data-project="Metro Tower - Khu B">Metro Tower - Khu B</div>
+                            <div class="dropdown-item" data-project="Landmark Riverside - Zone A">Landmark Riverside - Zone A</div>
+                            <div class="dropdown-item" data-project="Hầm chui Hoàng Cầu - Gói 3">Hầm chui Hoàng Cầu - Gói 3</div>
+                            <div class="dropdown-item" data-project="Grand Marina - Tháp C">Grand Marina - Tháp C</div>
+                        </div>
+                    </div>
+                </div>
+            </header>
+
+            <main class="vung-noi-dung">
+                <div class="phan-tieu-de-trang">
+                    <div class="thong-tin-tieu-de">
+                        <h1 class="tieu-de-trang">Bản đồ nhiệt rủi ro</h1>
+                        <p class="thoi-gian-cap-nhat">Thứ Bảy, 03/10/2026 · Ca sáng · Cập nhật lúc <span id="nhanGioCapNhat">10:32</span></p>
+                    </div>
+                    <div class="cum-nut-thao-tac">
+                        <button type="button" class="nut nut-phu" id="nutXuatBaoCao">
+                            <i class="fa-solid fa-file-arrow-down"></i>
+                            <span>Xuất báo cáo</span>
+                        </button>
+                        <button type="button" class="nut nut-chinh" id="nutGhiNhanMoiNguy">
+                            <i class="fa-solid fa-plus"></i>
+                            <span>Ghi nhận mối nguy</span>
+                        </button>
+                    </div>
+                </div>
+
+                <section class="luoi-the-thong-ke">
+                    <div class="the-thong-ke">
+                        <span class="tieu-de-the">Khu vực theo dõi</span>
+                        <div class="noi-dung-the">
+                            <span class="so-luong-lon" id="soKhuVuc">04</span>
+                            <span class="ghi-chu-the">Toàn bộ mặt bằng công trường</span>
+                        </div>
+                    </div>
+                    <div class="the-thong-ke the-canh-bao-cao">
+                        <span class="tieu-de-the">Điểm nóng rủi ro cao</span>
+                        <div class="noi-dung-the">
+                            <span class="so-luong-lon mau-do" id="soDiemNong">01</span>
+                            <span class="ghi-chu-the" id="chuThichDiemNong">Zone B · 3 mối nguy</span>
+                        </div>
+                    </div>
+                    <div class="the-thong-ke">
+                        <span class="tieu-de-the">Sự cố đang mở</span>
+                        <div class="noi-dung-the">
+                            <span class="so-luong-lon mau-cam" id="soSuCoMo">04</span>
+                            <span class="ghi-chu-the" id="chuThichSuCoMo">3 cao · 1 trung bình</span>
+                        </div>
+                    </div>
+                    <div class="the-thong-ke">
+                        <span class="tieu-de-the">Khu vực an toàn</span>
+                        <div class="noi-dung-the">
+                            <span class="so-luong-lon mau-xanh" id="soKhuVucAnToan">02</span>
+                            <span class="ghi-chu-the" id="chuThichAnToan">Zone C, Zone D · Không có mối nguy</span>
+                        </div>
+                    </div>
+                </section>
+
+                <div class="bo-cuc-chinh">
+                    <section class="the-ban-do-cong-truong">
+                        <div class="dau-the-ban-do">
+                            <div>
+                                <h2 class="tieu-de-khu-vuc">Mặt bằng công trường</h2>
+                                <p class="mo-ta-khu-vuc">Mặt bằng công trường · 4 Zone giám sát</p>
+                            </div>
+                            <div class="nhan-truc-tiep">
+                                <span class="cham-xanh-nhap-nhay"></span>
+                                <span>Cập nhật trực tiếp</span>
+                            </div>
+                        </div>
+
+                        <div class="thanh-dieu-khien-ban-do">
+                            <div class="nhom-tab-ban-do">
+                                <button type="button" class="tab-ban-do active" id="tabBanDoNhiet">Bản đồ nhiệt</button>
+                                <button type="button" class="tab-ban-do" id="tabMatBang2D">Mặt bằng 2D</button>
+                            </div>
+                            <div class="bo-loc-su-co" id="boLocSuCo">
+                                <i class="fa-solid fa-sliders"></i>
+                                <span>Sự cố đang mở</span>
+                                <i class="fa-solid fa-chevron-down"></i>
+                            </div>
+                        </div>
+
+                        <div class="khung-so-do-mat-bang" id="khungSoDoMatBang">
+                            <div class="thuoc-ti-le">
+                                <span class="so-ti-le">0</span>
+                                <span class="so-ti-le">10</span>
+                                <span class="so-ti-le">20 m</span>
+                                <div class="thanh-ti-le-vach"></div>
+                            </div>
+
+                            <div class="la-ban-huong-bac">
+                                <div class="mui-ten-bac"><i class="fa-solid fa-location-arrow"></i></div>
+                                <span class="chu-bac">BẮC</span>
+                            </div>
+
+                            <div class="nhan-duong-pho nhan-duong-tren">ĐƯỜNG NGUYỄN VĂN LINH</div>
+
+                            <div class="luoi-khu-vuc-cong-truong">
+
+                                <div class="khu-vuc-zone zone-a" data-zone="A" id="zoneA" tabindex="0" role="button">
+                                    <div class="dau-khu-vuc">
+                                        <div class="nhan-ma-zone nhan-cam">A</div>
+                                        <div class="ten-zone-chinh">Kho vật liệu</div>
+                                    </div>
+                                    <div class="trang-thai-zone mau-cam" id="trangThaiZoneA">Trung bình · 1 sự cố</div>
+                                    
+                                    <div class="khu-vuc-sap-xep-kho">
+                                        <div class="o-vat-lieu"></div>
+                                        <div class="o-vat-lieu"></div>
+                                        <div class="o-vat-lieu"></div>
+                                        <div class="o-vat-lieu"></div>
+                                        <div class="o-vat-lieu vi-tri-nong">
+                                            <div class="diem-nhiet diem-nhiet-cam" id="diemNhietA" title="1 sự cố mức trung bình">
+                                                <span class="vong-song-nhiet cam"></span>
+                                                <span class="con-so-su-co">1</span>
+                                            </div>
+                                        </div>
+                                        <div class="o-vat-lieu"></div>
+                                    </div>
+                                </div>
+
+                                <div class="khu-vuc-zone zone-b" data-zone="B" id="zoneB" tabindex="0" role="button" aria-label="Xem Zone B Hố đào và móng">
+                                    <div class="dau-khu-vuc">
+                                        <div class="nhan-ma-zone nhan-do">B</div>
+                                        <div class="ten-zone-chinh">Hố đào & móng</div>
+                                    </div>
+                                    <div class="trang-thai-zone mau-do" id="trangThaiZoneB">Rủi ro cao · 3 sự cố</div>
+
+                                    <div class="khu-vuc-ho-mong">
+                                        <div class="o-ho-mong"></div>
+                                        <div class="o-ho-mong"></div>
+                                        <div class="o-ho-mong"></div>
+                                        <div class="o-ho-mong"></div>
+                                        <div class="o-ho-mong vi-tri-nong">
+                                        
+                                            <div class="diem-nhiet diem-nhiet-do" id="diemNhietB" title="3 sự cố rủi ro cao">
+                                                <span class="vong-song-nhiet do"></span>
+                                                <span class="con-so-su-co">3</span>
+                                            </div>
+                                        </div>
+                                        <div class="o-ho-mong"></div>
+                                    </div>
+                                </div>
+
+                                <div class="khu-vuc-zone zone-c" data-zone="C" id="zoneC" tabindex="0" role="button" aria-label="Xem Zone C Gia công">
+                                    <div class="dau-khu-vuc">
+                                        <div class="nhan-ma-zone nhan-xanh">C</div>
+                                        <div class="ten-zone-chinh">Gia công</div>
+                                    </div>
+                                    <div class="trang-thai-zone mau-xanh" id="trangThaiZoneC">An toàn · 0 sự cố</div>
+
+                                    <div class="khu-vuc-xuong-thep">
+                                        <div class="hop-xuong-thep">
+                                            <span>XƯỞNG THÉP</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="tuyen-duong-thi-cong">
+                                <span class="nhan-loi-xe">LỐI XE THI CÔNG →</span>
+                                <div class="tram-kiem-soat">
+                                    <i class="fa-solid fa-arrow-right-to-bracket"></i>
+                                    <span>CỔNG B · KIỂM SOÁT RA VÀO</span>
+                                </div>
+                            </div>
+
+                            <div class="luoi-tang-duoi">
+                               
+                                <div class="khu-vuc-zone zone-d" data-zone="D" id="zoneD" tabindex="0" role="button" aria-label="Xem Zone D Văn phòng và HSE">
+                                    <div class="dau-khu-vuc">
+                                        <div class="nhan-ma-zone nhan-xanh">D</div>
+                                        <div class="ten-zone-chinh">Văn phòng / HSE</div>
+                                    </div>
+                                    <div class="trang-thai-zone mau-xanh" id="trangThaiZoneD">An toàn · 0 sự cố</div>
+                                    <div class="so-do-phong-lam-viec">
+                                        <div class="phong-con"></div>
+                                        <div class="phong-con"></div>
+                                    </div>
+                                </div>
+
+                               
+                                <div class="khu-vuc-giao-nhan">
+                                    <div class="day-o-tap-ket">
+                                        <div class="o-tap-ket"></div>
+                                        <div class="o-tap-ket"></div>
+                                        <div class="o-tap-ket"></div>
+                                    </div>
+                                    <div class="tuyen-duong-phu">
+                                        <span class="nhan-loi-xe">LỐI XE THI CÔNG →</span>
+                                        <div class="tram-kiem-soat">
+                                            <i class="fa-solid fa-arrow-right-to-bracket"></i>
+                                            <span>CỔNG B · KIỂM SOÁT RA VÀO</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                           
+                            <div class="nhan-duong-pho nhan-duong-duoi">SÂN GIAO NHẬN VẬT TƯ</div>
+
+                            <div class="hop-thoai-chi-tiet-khu-vuc" id="hopThoaiChiTietZone">
+                                <div class="dau-hop-thoai">
+                                    <div class="tieu-de-hop-thoai-nhom">
+                                        <i class="fa-solid fa-triangle-exclamation bieu-tuong-canh-bao-pop"></i>
+                                        <div>
+                                            <h3 class="tieu-de-hop-thoai" id="tieuDePopupZone">Zone B · Mối nguy đang tồn tại</h3>
+                                            <div class="nhan-chi-so-hop-thoai">
+                                                <span class="huy-hieu-rui-ro mau-do" id="huyHieuRuiRoZone">Rủi ro cao - 82/100</span>
+                                                <span class="chu-thich-phu" id="chuThichPhuZone">3 sự cố đang mở · 3 mức cao</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <button type="button" class="nut-dong-hop-thoai" id="nutDongPopupZone" aria-label="Đóng chi tiết">
+                                        <i class="fa-solid fa-xmark"></i>
+                                    </button>
+                                </div>
+
+                                <div class="danh-sach-su-co" id="danhSachSuCoPopup">
+                                    <!-- js -->
+                                </div>
+
+                                <div class="chan-hop-thoai">
+                                    <a href="#" class="lien-ket-ho-so" id="nutXemHoSoKhuVuc">Xem hồ sơ khu vực →</a>
+                                    <button type="button" class="nut nut-cam-nho" id="nutGiaoXuLySuCo">Giao xử lý 3 sự cố</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="chu-thich-ban-do">
+                            <div class="nhom-chu-thich">
+                                <span class="muc-chu-thich"><span class="o-mau o-do"></span> Cao / Điểm nóng</span>
+                                <span class="muc-chu-thich"><span class="o-mau o-cam"></span> Trung bình</span>
+                                <span class="muc-chu-thich"><span class="o-mau o-xanh"></span> An toàn</span>
+                            </div>
+                            <div class="trang-thai-chon-zone" id="nhanTrangThaiChonZone">Chọn một Zone để xem sự cố</div>
+                        </div>
+
+                        <div class="dai-thong-tin-ca">
+                            <div class="khoi-thong-tin-ca">
+                                <span class="nhan-ca">ƯU TIÊN TRONG CA</span>
+                                <strong class="gia-tri-ca mau-do" id="caUuTien">Zone B · 3 sự cố cần xử lý</strong>
+                                <p class="mo-ta-ca" id="caMoTaUuTien">Hệ thống dây điện chưa nối đất là nguyên nhân chính.</p>
+                            </div>
+                            <div class="khoi-thong-tin-ca">
+                                <span class="nhan-ca">PHỤ TRÁCH HIỆN TRƯỜNG</span>
+                                <strong class="gia-tri-ca" id="caPhuTrach">Lê Hoàng · Đội kết cấu</strong>
+                                <p class="mo-ta-ca">Phối hợp cán bộ an toàn HSE</p>
+                            </div>
+                            <div class="khoi-thong-tin-ca">
+                                <span class="nhan-ca">KIỂM TRA LẠI</span>
+                                <strong class="gia-tri-ca" id="caKiemTra">11:00 · Trong ca sáng</strong>
+                                <p class="mo-ta-ca">Xác minh rào chắn và lối đi</p>
+                            </div>
+                        </div>
+                    </section>
+
+                    <aside class="khung-phan-tich-ai" id="khungPhanTichAI">
+                        <div class="dau-the-ai">
+                            <div class="tieu-de-the-ai">
+                                <i class="fa-solid fa-wand-magic-sparkles bieu-tuong-ai"></i>
+                                <h3>AI Risk Hotspot Insight</h3>
+                            </div>
+                            <span class="gio-cap-nhat-ai">Phân tích ca sáng · Cập nhật <span class="gio-ai">10:32</span></span>
+                        </div>
+
+                        <div class="hop-canh-bao-ai" id="hopCanhBaoAI">
+                            <div class="noi-dung-canh-bao-ai">
+                                <i class="fa-solid fa-triangle-exclamation bieu-tuong-tam-giac-ai"></i>
+                                <div class="van-ban-canh-bao-ai">
+                                    <strong class="tieu-de-canh-bao" id="aiTieuDeCanhBao">
+                                        Zone B có tỷ lệ tái diễn mối nguy cao hơn 35% do hệ thống dây điện chưa nối đất
+                                    </strong>
+                                    <p class="mo-ta-canh-bao" id="aiMoTaCanhBao">
+                                        3 sự cố đang mở tại Zone B cần được xử lý ngay trong ca sáng để giảm nguy cơ tai nạn điện và va chạm.
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="dong-diem-rui-ro">
+                                <span class="nhan-diem-so">Điểm rủi ro hiện tại</span>
+                                <div class="chi-so-diem-so">
+                                    <span class="so-diem-lon mau-do" id="aiDiemRuiRoSo">82</span>
+                                    <span class="so-diem-thang">/100</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="khung-bieu-do-xu-huong">
+                            <div class="dau-bieu-do">
+                                <strong class="tieu-de-bieu-do" id="aiTieuDeBieuDo">Xu hướng rủi ro · Zone B</strong>
+                                <span class="huy-hieu-tang-truong" id="aiBienDongDiem">
+                                    <i class="fa-solid fa-arrow-trend-up"></i> ↑ 21 điểm
+                                </span>
+                            </div>
+                            <div class="chu-thich-bieu-do">
+                                <span class="muc-chu-thich-chart"><span class="duong-cam"></span> Điểm rủi ro / 100</span>
+                                <span class="muc-chu-thich-chart"><span class="duong-dut-do"></span> Ngưỡng cao: 70</span>
+                            </div>
+
+                            <div class="vung-ve-do-thi">
+                                <svg viewBox="0 0 320 110" class="do-thi-svg" id="doThiRuiRoSVG" preserveAspectRatio="none">
+                                    <!-- trục Y -->
+                                    <line x1="30" y1="15" x2="310" y2="15" class="duong-luoi"></line>
+                                    <line x1="30" y1="45" x2="310" y2="45" class="duong-nguong-do"></line>
+                                    <line x1="30" y1="75" x2="310" y2="75" class="duong-luoi"></line>
+                                    <line x1="30" y1="100" x2="310" y2="100" class="duong-luoi-day"></line>
+
+                                    <!-- Nhãn trục Y -->
+                                    <text x="5" y="18" class="nhan-truc-y">100</text>
+                                    <text x="12" y="48" class="nhan-truc-y nhan-do">70</text>
+                                    <text x="12" y="78" class="nhan-truc-y">40</text>
+                                    <text x="18" y="103" class="nhan-truc-y">0</text>
+
+                                    <!-- Đường đồ thị -->
+                                    <path id="duongDoThiCam" d="M 35 75 Q 85 73, 135 75 T 185 58 T 235 44 T 285 33" class="duong-chinh-chart"></path>
+
+                                    <!-- điểm nút -->
+                                    <circle cx="35" cy="75" r="2.5" class="diem-nut"></circle>
+                                    <circle cx="85" cy="73" r="2.5" class="diem-nut"></circle>
+                                    <circle cx="135" cy="75" r="2.5" class="diem-nut"></circle>
+                                    <circle cx="185" cy="58" r="2.5" class="diem-nut"></circle>
+                                    <circle cx="235" cy="44" r="2.5" class="diem-nut"></circle>
+                                    <circle id="diemNutCuoi" cx="285" cy="33" r="4.5" class="diem-nut-cuoi"></circle>
+
+                                    <text id="chuSoNutCuoi" x="285" y="24" class="chu-diem-cuoi">82</text>
+                                </svg>
+                                <div class="nhan-truc-thoi-gian">
+                                    <span>06:00</span>
+                                    <span>07:00</span>
+                                    <span>08:00</span>
+                                    <span>09:00</span>
+                                    <span>10:00</span>
+                                    <span>10:30</span>
+                                </div>
+                            </div>
+                            <p class="chu-thich-duoi-bieu-do" id="aiMoTaXuHuong">
+                                Tăng từ 61 lên 82 trong 90 phút, sau 2 sự cố mới tại Zone B.
+                            </p>
+                        </div>
+
+                        <div class="khung-khuyen-nghi-ai">
+                            <div class="dau-khuyen-nghi">
+                                <h4 class="tieu-de-khuyen-nghi">Khuyến nghị AI</h4>
+                                <span class="huy-hieu-de-xuat">Đề xuất</span>
+                            </div>
+                            <div class="the-khuyen-nghi-chi-tiet">
+                                <div class="bieu-tuong-khuyen-nghi">
+                                    <i class="fa-solid fa-shield-halved"></i>
+                                </div>
+                                <div class="noi-dung-khuyen-nghi-ct">
+                                    <strong class="ten-hanh-dong-ai" id="aiHanhDongDeXuat">
+                                        Tăng cường 1 cán bộ HSE giám sát Zone B
+                                    </strong>
+                                    <p class="mo-ta-hanh-dong-ai" id="aiMoTaHanhDong">
+                                        Tập trung kiểm tra hệ thống dây điện, lối đi và tủ điện trước khi cho phép thi công.
+                                    </p>
+                                    <div class="nhan-doi-phu-trach" id="aiDoiPhuTrach">
+                                        Đội HSE · Ngay trong ca
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="hop-luu-y-ai">
+                            <i class="fa-solid fa-circle-info bieu-tuong-thong-tin-ai"></i>
+                            <div class="van-ban-luu-y">
+                                <strong>AI hỗ trợ, không thay thế đánh giá hiện trường</strong>
+                                <p>Chỉ huy trưởng / HSE cần xác minh trước khi giao hành động hoặc cho phép thi công lại.</p>
+                            </div>
+                        </div>
+                    </aside>
+                </div>
+
+                <footer class="chan-trang-phu">
+                    <span>SiteSafe · An toàn để xây dựng.</span>
+                    <span class="dong-bo-luc"><span class="cham-dong-bo"></span> Đã đồng bộ lúc 10:32 · Dữ liệu minh họa</span>
+                </footer>
+            </main>
+        </div>
+    </div>
+
+    <div class="lop-phu-modal" id="modalGhiNhanMoiNguy" hidden>
+        <div class="khung-modal" role="dialog" aria-modal="true" aria-labelledby="tieuDeModalGhiNhan">
+            <div class="dau-modal">
+                <div>
+                    <span class="nhan-modal-nho">SITESAFE · GHI NHẬN TẠI HIỆN TRƯỜNG</span>
+                    <h2 class="tieu-de-modal" id="tieuDeModalGhiNhan">Ghi nhận mối nguy mới</h2>
+                </div>
+                <button type="button" class="nut-dong-modal" id="nutDongModalGhiNhan" aria-label="Đóng">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+            <form id="formGhiNhanMoiNguy">
+                <div class="hang-nhap-lieu">
+                    <label for="chonKhuVucMoiNguy">Khu vực phát sinh mối nguy <span class="bat-buoc">*</span></label>
+                    <select id="chonKhuVucMoiNguy" required>
+                        <option value="B" selected>Zone B - Hố đào & móng</option>
+                        <option value="A">Zone A - Kho vật liệu</option>
+                        <option value="C">Zone C - Gia công</option>
+                        <option value="D">Zone D - Văn phòng / HSE</option>
+                    </select>
+                </div>
+                <div class="hang-nhap-lieu">
+                    <label for="tenMoiNguyMoi">Tên mối nguy / Hiện tượng <span class="bat-buoc">*</span></label>
+                    <input type="text" id="tenMoiNguyMoi" required maxlength="120" placeholder="Ví dụ: Rò rỉ điện gần hố móng, lối đi trơn trượt...">
+                </div>
+                <div class="luoi-hai-cot-nhap">
+                    <div class="hang-nhap-lieu">
+                        <label for="mucDoRuiRoMoi">Mức độ rủi ro <span class="bat-buoc">*</span></label>
+                        <select id="mucDoRuiRoMoi" required>
+                            <option value="Cao" selected>Cao</option>
+                            <option value="Trung bình">Trung bình</option>
+                            <option value="Thấp">Thấp</option>
+                        </select>
+                    </div>
+                    <div class="hang-nhap-lieu">
+                        <label for="nguoiGhiNhanMoi">Người phát hiện / Đội thi công</label>
+                        <input type="text" id="nguoiGhiNhanMoi" placeholder="Ví dụ: Nguyễn Văn Hùng · Đội M&E">
+                    </div>
+                </div>
+                <div class="hang-nhap-lieu">
+                    <label for="moTaMoiNguyMoi">Mô tả chi tiết & biện pháp xử lý tạm thời</label>
+                    <textarea id="moTaMoiNguyMoi" rows="3" placeholder="Ghi chú vị trí cụ thể, nguy cơ tiềm ẩn và khuyến nghị cần hành động khẩn cấp..."></textarea>
+                </div>
+                <div class="chan-modal">
+                    <button type="button" class="nut nut-phu" id="nutHuyModalGhiNhan">Hủy</button>
+                    <button type="submit" class="nut nut-chinh">
+                        <i class="fa-solid fa-floppy-disk"></i> Lưu mối nguy
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div class="lop-phu-modal" id="modalXuatBaoCao" hidden>
+        <div class="khung-modal" role="dialog" aria-modal="true" aria-labelledby="tieuDeModalXuat">
+            <div class="dau-modal">
+                <div>
+                    <span class="nhan-modal-nho">SITESAFE · TRÍCH XUẤT DỮ LIỆU HIỆN TRƯỜNG</span>
+                    <h2 class="tieu-de-modal" id="tieuDeModalXuat">Xuất báo cáo an toàn</h2>
+                </div>
+                <button type="button" class="nut-dong-modal" id="nutDongModalXuat" aria-label="Đóng">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+            <div class="noi-dung-modal-xuat">
+                <p class="mo-ta-modal-xuat">Báo cáo sẽ được xuất mặc định dưới dạng bảng tính Excel (.csv), có thể mở bằng Microsoft Excel.</p>
+                
+                <div class="danh-sach-lua-chon-xuat">
+                    <label class="muc-lua-chon-xuat kich-hoat">
+                        <input type="radio" name="dinhDangXuat" value="csv" checked>
+                        <div class="bieu-tuong-dinh-dang mau-xanh"><i class="fa-solid fa-file-excel"></i></div>
+                        <div class="chi-tiet-dinh-dang">
+                            <strong>Tệp bảng tính Excel (.csv)</strong>
+                            <span>Đầy đủ danh sách các mối nguy hiện tại, thông số điểm AI và lịch sử cập nhật.</span>
+                        </div>
+                    </label>
+                </div>
+
+                <div class="hop-thong-tin-truoc-xuat" id="thongKeTruocXuat">
+                    <span><i class="fa-solid fa-circle-check"></i> Đang có <b id="soLuongMoiNguyXuat">4</b> mối nguy sẵn sàng trích xuất.</span>
+                </div>
+            </div>
+            <div class="chan-modal">
+                <button type="button" class="nut nut-phu" id="nutHuyModalXuat">Đóng</button>
+                <button type="button" class="nut nut-chinh" id="nutXacNhanXuatBaoCao">
+                    <i class="fa-solid fa-file-excel"></i> Tải Excel ngay
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div class="thong-bao-toast" id="thongBaoToast" role="status" aria-live="polite">
+        <i class="fa-solid fa-circle-check bieu-tuong-toast"></i>
+        <span class="noi-dung-toast" id="noiDungToast">Đã thao tác thành công.</span>
+    </div>
+
+    <script src="Zone-Risk-Map.js"></script></body>
+</html>
