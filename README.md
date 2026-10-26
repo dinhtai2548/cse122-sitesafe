@@ -88,6 +88,8 @@ Công trường xây dựng là môi trường lao động có độ rủi ro ca
 SITE_SAFE/
 ├── README.md  
 │
+├── docs/
+|
 ├── index.html
 |
 ├── assets/
