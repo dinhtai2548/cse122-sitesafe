@@ -23,6 +23,29 @@ function khoiTaoBoDuLieuKhung() {
   } else {
     napDuLieuMacDinh();
   }
+
+  // Kết hợp thêm các bài nộp từ Worker
+  if (window.SiteSafeStore) {
+    const workerInsps = window.SiteSafeStore.getInspections();
+    workerInsps.forEach(wi => {
+      const exists = danhSachKiemTra.some(d => d.id === wi.id);
+      if (!exists) {
+        danhSachKiemTra.unshift({
+          id: wi.id,
+          ten: wi.title || 'Kiểm tra an toàn tổng hợp',
+          khuVuc: wi.projectName || 'Tầng 12 · Khu B1',
+          khuVucCode: 'Khu B1',
+          nguoiPhuTrach: wi.inspector || 'Lê Văn Hùng',
+          avatar: (wi.inspector || 'VH').slice(0, 2).toUpperCase(),
+          ngay: wi.dateText || new Date().toLocaleDateString('vi-VN'),
+          gio: '08:00 – 11:30',
+          hangMuc: `${wi.passedItems || 0}/${wi.totalItems || 6}`,
+          trangThai: 'Hoàn thành'
+        });
+      }
+    });
+  }
+
   hienThiDanhSachBang();
 }
 

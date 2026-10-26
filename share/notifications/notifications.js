@@ -34,10 +34,10 @@ document.addEventListener('DOMContentLoaded', () => {
                     unread: true,
                     isHigh: true,
                     isAi: false,
-                    desc: 'Nguyễn Văn Minh vừa báo cáo thiếu lan can tại mép sàn tầng 12. Mức độ rủi ro: Cao.',
+                    desc: 'Lê Văn Hùng vừa báo cáo thiếu lan can tại mép sàn tầng 12. Mức độ rủi ro: Cao.',
                     location: 'Zone B · Tầng 12',
                     time: '5 phút trước',
-                    targetLink: '../../worker/my_hazard/worker-my-hazard.html'
+                    targetLink: '../../safety/hazard_detail/safety-hazard-detail.html?id=HAZ-2026-001'
                 },
                 {
                     id: 'sup-2',
@@ -585,6 +585,30 @@ document.addEventListener('DOMContentLoaded', () => {
     function renderNotifications() {
         const currentRole = rolesData[currentRoleKey];
         const allNotifications = currentRole.notifications;
+
+        // Tích hợp thông báo mới từ SiteSafeStore
+        if (window.SiteSafeStore) {
+            const roleFilter = currentRoleKey === 'supervisor' ? 'safety' : currentRoleKey;
+            const storeNotifs = window.SiteSafeStore.getNotifications(roleFilter);
+            storeNotifs.forEach(sn => {
+                if (!allNotifications.some(n => n.id === sn.id)) {
+                    allNotifications.unshift({
+                        id: sn.id,
+                        type: 'hazard',
+                        iconClass: 'icon-box-hazard',
+                        icon: 'fa-solid fa-triangle-exclamation',
+                        title: sn.title,
+                        unread: sn.unread !== false,
+                        isHigh: true,
+                        isAi: false,
+                        desc: sn.desc,
+                        location: 'Metro Tower - Khu B',
+                        time: sn.time || 'Vừa xong',
+                        targetLink: sn.targetLink || '../../safety/safety_dashboard/safety_dashboard.html'
+                    });
+                }
+            });
+        }
 
         // Tính toán các số liệu thống kê
         const totalCount = allNotifications.length;

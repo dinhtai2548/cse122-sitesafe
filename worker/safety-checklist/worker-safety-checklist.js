@@ -586,10 +586,20 @@ function renderChecklistCards() {
     // Cảnh báo khi Không đạt
     let failWarningHTML = "";
     if (isFail) {
+      const proj = siteSafeDatabase.find((p) => p.id === currentProjectId);
+      const zoneName = proj ? proj.shortTitle : 'Zone B · Tầng 12';
+      const failQuery = `title=${encodeURIComponent(item.title)}&zone=${encodeURIComponent(zoneName)}&desc=${encodeURIComponent(item.note || item.desc || '')}`;
       failWarningHTML = `
                 <div class="fail-warning-card">
-                    <i class="fa-solid fa-triangle-exclamation"></i>
-                    <span>${item.failAlert || "Cô lập thiết bị; chỉ sử dụng lại sau khắc phục."}</span>
+                    <div style="display:flex;align-items:center;gap:8px;">
+                      <i class="fa-solid fa-triangle-exclamation"></i>
+                      <span>${item.failAlert || "Cô lập thiết bị; chỉ sử dụng lại sau khắc phục."}</span>
+                    </div>
+                    <div style="margin-top:8px;">
+                      <a href="../hazard_create/worker-hazard-create.html?${failQuery}" class="btn-fail-hazard" style="display:inline-flex;align-items:center;gap:6px;background:#ef4444;color:#fff;padding:6px 12px;border-radius:6px;font-size:12px;font-weight:600;text-decoration:none;">
+                        <i class="fa-solid fa-arrow-up-right-from-square"></i> Báo cáo mối nguy từ lỗi này &rarr;
+                      </a>
+                    </div>
                 </div>
             `;
     }
@@ -1239,6 +1249,26 @@ function setSubmissionState(isSubmitted) {
 
 /** Đẩy bản ghi vào bảng lịch sử tổng hợp `sitesafe_all_inspections` */
 function saveToGlobalInspectionHistory(record) {
+  if (window.SiteSafeStore) {
+    const passedCount = (record.items || []).filter(i => i.status === 'pass').length;
+    const failedCount = (record.items || []).filter(i => i.status === 'fail').length;
+    window.SiteSafeStore.saveInspection({
+      id: `INSP-${Date.now()}`,
+      title: 'Kiểm tra an toàn ca sáng',
+      projectId: record.projectId,
+      projectName: localStorage.getItem('sitesafe_current_project') || 'Metro Tower - Khu B',
+      scheduleTitle: 'Ca kiểm tra',
+      dateText: new Date().toLocaleDateString('vi-VN'),
+      inspector: record.inspector || 'Lê Văn Hùng',
+      totalItems: (record.items || []).length,
+      passedItems: passedCount,
+      failedItems: failedCount,
+      uninspectedItems: (record.items || []).length - passedCount - failedCount,
+      status: 'completed',
+      submittedAt: new Date().toISOString()
+    });
+  }
+
   const globalKey = "sitesafe_all_inspections";
   let history = [];
   try {

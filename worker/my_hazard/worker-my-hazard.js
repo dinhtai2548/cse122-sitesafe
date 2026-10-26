@@ -402,46 +402,54 @@ function selectProject(projId) {
 // 5. TẢI DỮ LIỆU & LOCALSTORAGE
 // ----------------------------------------------------------------------------
 function loadHazardsData() {
-  // Đọc từ LocalStorage (bao gồm các báo cáo vừa tạo từ trang hazard_create)
-  const stored = localStorage.getItem("sitesafe_my_hazards");
-  let localItems = [];
-  if (stored) {
-    try {
-      localItems = JSON.parse(stored);
-    } catch (e) {
-      localItems = [];
-    }
+  let hazards = [];
+  if (window.SiteSafeStore) {
+    hazards = window.SiteSafeStore.getHazards();
+  } else {
+    const stored = localStorage.getItem("sitesafe_my_hazards");
+    hazards = stored ? JSON.parse(stored) : defaultSampleHazards;
   }
 
-  // Kết hợp dữ liệu mẫu và dữ liệu người dùng tạo mới
-  const combined = [...localItems, ...defaultSampleHazards];
-
-  // Lọc theo công trường đang chọn (hoặc tất cả nếu phù hợp)
-  allHazardsList = combined.filter(
-    (item) => !item.projectId || item.projectId === currentProjectId,
-  );
-
-  // Chuẩn hóa trạng thái nếu người dùng tạo từ form
-  allHazardsList.forEach((item) => {
-    if (!item.status) item.status = "pending";
-    if (item.status === "Chờ duyệt") item.status = "pending";
-    if (item.status === "Đang xử lý") item.status = "processing";
-    if (item.status === "Đã đóng" || item.status === "Đã khắc phục")
-      item.status = "resolved";
-
-    if (!item.statusText) {
-      if (item.status === "pending") item.statusText = "Chờ duyệt";
-      else if (item.status === "processing") item.statusText = "Đang xử lý";
-      else item.statusText = "Đã đóng";
+  allHazardsList = hazards.map(item => {
+    let status = 'pending';
+    let statusText = 'Chờ duyệt';
+    if (item.status === 'Đang khắc phục' || item.status === 'processing' || item.status === 'can-lam' || item.status === 'dang-xu-ly') {
+      status = 'processing';
+      statusText = item.assignee ? `Đang khắc phục (${item.assignee.split('(')[0].trim()})` : 'Đang khắc phục';
+    } else if (item.status === 'Chờ nghiệm thu' || item.status === 'nghiem-thu') {
+      status = 'processing';
+      statusText = 'Chờ nghiệm thu';
+    } else if (item.status === 'Đã đóng' || item.status === 'resolved' || item.status === 'da-dong') {
+      status = 'resolved';
+      statusText = 'Đã nghiệm thu & đóng';
     }
 
-    // Đảm bảo có ảnh hiển thị
-    if (!item.imageUrl && item.photos && item.photos.length > 0) {
-      item.imageUrl = item.photos[0].url;
-    } else if (!item.imageUrl) {
-      item.imageUrl =
-        "https://images.unsplash.com/photo-1541888946425-d0fbb1861593?w=600&auto=format&fit=crop&q=80";
+    let img = 'https://images.unsplash.com/photo-1541888946425-d0fbb1861593?w=600&auto=format&fit=crop&q=80';
+    if (item.photos && item.photos.length > 0) {
+      const p = item.photos[0];
+      if (typeof p === 'string') {
+        img = p.startsWith('http') ? p : `../../safety/hazard_detail/${p}`;
+      } else if (p.url) {
+        img = p.url;
+      }
+    } else if (item.imageUrl) {
+      img = item.imageUrl;
     }
+
+    return {
+      id: item.id || item.ma,
+      projectId: item.projectId || 'proj-metro',
+      title: item.title,
+      location: item.zone || item.location || 'Metro Tower',
+      status: status,
+      statusText: statusText,
+      time: item.time ? (item.time.includes('T') ? item.time.replace('T', ' ').slice(0, 16) : item.time) : '03/10/2026',
+      riskLevel: item.riskText || (item.riskLevel === 'high' ? 'Rủi ro cao' : 'Rủi ro trung bình'),
+      receiver: item.receiver || 'Đinh Trọng Tài - Cán bộ an toàn',
+      description: item.description,
+      actionTaken: item.actionTaken || '',
+      imageUrl: img
+    };
   });
 
   renderHazards();

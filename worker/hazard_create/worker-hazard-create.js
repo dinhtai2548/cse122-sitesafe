@@ -145,19 +145,22 @@ function parseUrlParameters() {
     const urlParams = new URLSearchParams(window.location.search);
     const fromChecklist = urlParams.get('from_checklist') || urlParams.get('ref');
     const titleParam = urlParams.get('title');
-    const noteParam = urlParams.get('note');
+    const noteParam = urlParams.get('note') || urlParams.get('desc');
     const zoneParam = urlParams.get('zone');
 
-    if (fromChecklist) {
+    if (fromChecklist || titleParam || noteParam || zoneParam) {
         showToast('Đã nhận thông tin sự cố từ Danh mục kiểm tra an toàn!');
         if (titleParam) {
-            document.getElementById('hazardTitle').value = titleParam;
+            const el = document.getElementById('hazardTitle');
+            if (el) el.value = titleParam;
         }
         if (noteParam) {
-            document.getElementById('hazardDesc').value = noteParam;
+            const el = document.getElementById('hazardDesc');
+            if (el) el.value = noteParam;
         }
         if (zoneParam) {
-            document.getElementById('selectedZoneText').innerText = zoneParam;
+            const el = document.getElementById('selectedZoneText');
+            if (el) el.innerText = zoneParam;
         }
 
         // Tự động điều chỉnh kết quả AI phù hợp với dữ liệu truyền sang
@@ -1044,10 +1047,15 @@ function handleSubmitHazardReport() {
             riskText: aiResult.riskText || 'Trung bình',
             recommendation: aiResult.recommendation || 'Kiểm tra hiện trường'
         },
-        photos: uploadedPhotos.length > 0 ? uploadedPhotos : ['image_e4fc7a30.jpg'],
+        photos: uploadedPhotos.length > 0 ? uploadedPhotos.map(p => p.url || p.name || p) : ['image_e4fc7a30.jpg'],
         status: 'Chờ duyệt', // Trạng thái chuyển sang cho Cán bộ an toàn
         createdAt: new Date().toISOString()
     };
+
+    // Lưu vào SiteSafeStore dùng chung cho tất cả các role
+    if (window.SiteSafeStore) {
+        window.SiteSafeStore.createHazard(hazardRecord);
+    }
 
     // 1. Lưu vào danh sách mối nguy của tôi
     saveToMyHazardsStorage(hazardRecord);

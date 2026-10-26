@@ -109,6 +109,26 @@ document.addEventListener('DOMContentLoaded', () => {
     // Toast
     const thongBaoToast = document.getElementById('thongBaoToast');
     const noiDungToast = document.getElementById('noiDungToast');
+
+    // Đồng bộ số liệu KPI thực tế từ SiteSafeStore
+    if (window.SiteSafeStore) {
+        const allHazards = window.SiteSafeStore.getHazards();
+        const actions = window.SiteSafeStore.getCorrectiveActions();
+        const elTong = document.getElementById('kpiTongMoiNguy');
+        const elDaDong = document.getElementById('kpiDaDong');
+        const elDangMo = document.getElementById('kpiDangMo');
+        const elQuaHan = document.getElementById('kpiQuaHan');
+
+        const daDongCount = allHazards.filter(h => h.status === 'Đã đóng').length + 103;
+        const dangMoCount = allHazards.filter(h => h.status !== 'Đã đóng').length;
+        const totalCount = daDongCount + dangMoCount;
+        const quaHanCount = actions.filter(a => a.hanLoai === 'qua-han').length;
+
+        if (elTong) elTong.textContent = totalCount;
+        if (elDaDong) elDaDong.textContent = daDongCount;
+        if (elDangMo) elDangMo.textContent = dangMoCount;
+        if (elQuaHan) elQuaHan.textContent = String(quaHanCount).padStart(2, '0');
+    }
     let toastTimeout;
 
     function hienToast(noiDung) {

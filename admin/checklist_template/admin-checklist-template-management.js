@@ -74,13 +74,14 @@ $('#nutHuy').addEventListener('click',()=>{
 });
 
 $('#nutLuu').addEventListener('click',()=>{
-  const selected=$$('.muc-kiem-tra input[type="checkbox"]:checked').length;
-  if(!$('#tenMau').value.trim()){
+  const selectedBoxes=$$('.muc-kiem-tra input[type="checkbox"]:checked');
+  const templateName = $('#tenMau').value.trim();
+  if(!templateName){
     $('#tenMau').focus();
     thongBao('Vui lòng nhập tên mẫu kiểm tra.');
     return;
   }
-  if(selected===0){
+  if(selectedBoxes.length===0){
     thongBao('Hãy chọn ít nhất một mục kiểm tra.');
     return;
   }
@@ -88,7 +89,34 @@ $('#nutLuu').addEventListener('click',()=>{
     thongBao('Vui lòng xác nhận đã rà soát nội dung trước khi lưu.');
     return;
   }
-  thongBao(`Đã lưu bản nháp “${$('#tenMau').value.trim()}” trong phiên demo.`);
+
+  const items = selectedBoxes.map((box, idx) => {
+    const itemEl = box.closest('.muc-kiem-tra');
+    return {
+      id: idx + 1,
+      code: `MỤC ${String(idx + 1).padStart(2, '0')}`,
+      title: itemEl.querySelector('.noi-dung-muc b')?.textContent?.trim() || `Mục ${idx + 1}`,
+      desc: itemEl.querySelector('.noi-dung-muc p')?.textContent?.trim() || '',
+      standard: itemEl.querySelector('.tham-chieu span')?.textContent?.trim() || 'TCVN',
+      defaultStatus: null
+    };
+  });
+
+  const templateData = {
+    id: `TPL-${Date.now()}`,
+    name: templateName,
+    category: $('#loaiCongViec')?.value || 'Tổng hợp',
+    description: $('#moTaCongViec')?.value || '',
+    status: 'active',
+    createdAt: new Date().toISOString().slice(0, 10),
+    items: items
+  };
+
+  if (window.SiteSafeStore) {
+    window.SiteSafeStore.saveTemplate(templateData);
+  }
+
+  thongBao(`Đã lưu mẫu chuẩn “${templateName}” (${items.length} mục) cho toàn công trường!`);
 });
 
 // Xử lý Đóng / Mở Sidebar & Backdrop trên Mobile

@@ -8,7 +8,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // ==========================================================================
     // 1. DỮ LIỆU 12 SỰ CỐ CHI TIẾT (CHUẨN XÁC THEO ẢNH 1 VÀ ẢNH 2)
     // ==========================================================================
-    const danhSachSuCo = [
+    let danhSachSuCo = (window.SiteSafeStore && window.SiteSafeStore.getCorrectiveActions()) || [
         // --- CỘT 1: CẦN LÀM ---
         {
             id: 'B-128',
@@ -236,6 +236,10 @@ document.addEventListener('DOMContentLoaded', () => {
             moTa: 'Đã cắm biển báo vùng nguy hiểm bán kính quay xe cẩu, rào chắn dây xích nhựa phản quang và bố trí người xi-nhan chỉ dẫn giao thông.'
         }
     ];
+
+    if (window.SiteSafeStore) {
+        danhSachSuCo = window.SiteSafeStore.getCorrectiveActions();
+    }
 
     // Ánh xạ tên gọi trạng thái
     const tenTrangThai = {
@@ -530,15 +534,58 @@ document.addEventListener('DOMContentLoaded', () => {
                 const ngay = now.toLocaleDateString('vi-VN', { day: '2-digit', month: '2-digit' });
                 suCoDangChon.hanXuLy = `Đã đóng · ${ngay} · ${gio}`;
                 suCoDangChon.ghiChuDong = `Hạn xử lý: ${ngay}/2026 - Đã nghiệm thu`;
+
+                if (window.SiteSafeStore) {
+                    window.SiteSafeStore.closeCorrectiveAction(suCoDangChon.id, suCoDangChon.ghiChuDong);
+                }
             } else if (trangThaiCu === 'da-dong' && trangThaiMoi !== 'da-dong') {
                 suCoDangChon.hanLoai = 'den-han';
                 suCoDangChon.ghiChuDong = '';
+                if (window.SiteSafeStore) {
+                    window.SiteSafeStore.updateActionStatus(suCoDangChon.id, trangThaiMoi);
+                }
+            } else {
+                if (window.SiteSafeStore) {
+                    window.SiteSafeStore.updateActionStatus(suCoDangChon.id, trangThaiMoi);
+                }
             }
 
             renderGiaoDien();
             dongModalChiTietSuCo();
             hienToast(`Đã chuyển sự cố ${suCoDangChon.ma} sang trạng thái "${tenTrangThai[trangThaiMoi]}" thành công!`);
         });
+    }
+
+    // Nút Nghiệm thu & Đóng sự cố (BƯỚC 4 TRONG LUỒNG QUẢN LÝ)
+    const nutNghiemThuDongSuCo = document.getElementById('nutNghiemThuDongSuCo');
+    if (nutNghiemThuDongSuCo) {
+        nutNghiemThuDongSuCo.addEventListener('click', () => {
+            if (!suCoDangChon) return;
+            const now = new Date();
+            const gio = now.toLocaleTimeString('vi-VN', { hour: '2-digit', minute: '2-digit' });
+            const ngay = now.toLocaleDateString('vi-VN', { day: '2-digit', month: '2-digit' });
+
+            suCoDangChon.trangThai = 'da-dong';
+            suCoDangChon.hanLoai = 'da-dong';
+            suCoDangChon.hanXuLy = `Đã đóng · ${ngay} · ${gio}`;
+            suCoDangChon.ghiChuDong = `Quản lý công trường đã kiểm tra hiện trường đạt chuẩn và đóng sự cố.`;
+
+            if (window.SiteSafeStore) {
+                window.SiteSafeStore.closeCorrectiveAction(suCoDangChon.id, suCoDangChon.ghiChuDong);
+            }
+
+            renderGiaoDien();
+            dongModalChiTietSuCo();
+            hienToast(`Đã nghiệm thu và ĐÓNG sự cố ${suCoDangChon.ma} thành công! Dữ liệu đã đồng bộ về phía Cán bộ an toàn và Hiện trường.`);
+        });
+    }
+
+    // Đọc tham số URL ?zone=... từ Bản đồ rủi ro chuyển sang
+    const urlParams = new URLSearchParams(window.location.search);
+    const zoneFilterParam = urlParams.get('zone');
+    if (zoneFilterParam && oTimKiem) {
+        oTimKiem.value = zoneFilterParam;
+        hienToast(`Đang lọc danh sách sự cố theo khu vực: "${zoneFilterParam}"`);
     }
 
     // ==========================================================================

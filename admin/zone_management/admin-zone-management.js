@@ -114,7 +114,50 @@ document.querySelector("#nutLuuHopThoai")?.addEventListener("click", event => {
   event.preventDefault();
   const name = dialogInput.value.trim();
   dialog.close();
-  hienThongBao(`Đã ghi nhận ${currentDialogType.toLocaleLowerCase("vi")}: ${name}`);
+
+  if (currentDialogType === "Zone") {
+    const code = `MT-Z-${Math.floor(10 + Math.random() * 90)}`;
+    const newZone = {
+      siteId: 'proj-metro',
+      siteName: localStorage.getItem('sitesafe_current_project') || 'Metro Tower - Khu B',
+      block: 'Block B',
+      code: code,
+      name: name,
+      status: 'on',
+      staff: 'Lê Văn Hùng',
+      riskLevel: 'Trung bình'
+    };
+    if (window.SiteSafeStore) {
+      window.SiteSafeStore.addZone(newZone);
+    }
+    // Chèn thẻ Zone mới vào block đầu tiên
+    const targetList = document.querySelector(".danh-sach-zone");
+    if (targetList) {
+      const art = document.createElement("article");
+      art.className = "the-zone";
+      art.dataset.code = code;
+      art.dataset.staff = "Lê Văn Hùng";
+      art.dataset.status = "on";
+      art.innerHTML = `<div class="dau-zone"><span class="ma-zone">${code}</span><div class="thao-tac-zone"><span class="nhan-trang-thai">Bật</span><button class="nut-gat dang-bat" aria-label="Tắt zone ${code}" type="button"></button><button class="nut-sua" aria-label="Sửa zone ${code}" type="button"><i class="fa-solid fa-pen"></i></button></div></div><h4>${name}</h4><p>Khu vực mới thiết lập · 500 m²</p><div class="chan-zone"><span class="nhan-nhan-vien"><i class="fa-solid fa-user-check"></i> Cán bộ phụ trách · Lê Văn Hùng</span></div>`;
+      targetList.prepend(art);
+      
+      const toggle = art.querySelector(".nut-gat");
+      toggle?.addEventListener("click", () => {
+        const isOn = !toggle.classList.contains("dang-bat");
+        toggle.classList.toggle("dang-bat", isOn);
+        art.dataset.status = isOn ? "on" : "off";
+        const label = toggle.parentElement.querySelector(".nhan-trang-thai");
+        if (label) label.textContent = isOn ? "Bật" : "Tắt";
+        capNhatThongKe();
+        apDungBoLoc();
+      });
+      capNhatThongKe();
+      apDungBoLoc();
+    }
+    hienThongBao(`Đã tạo và đồng bộ Zone mới: ${code} - ${name}`);
+  } else {
+    hienThongBao(`Đã ghi nhận ${currentDialogType.toLocaleLowerCase("vi")}: ${name}`);
+  }
 });
 
 const thanhDieuHuong = document.querySelector("#thanhDieuHuong");

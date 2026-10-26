@@ -1,4 +1,4 @@
-﻿/* ==========================================================================
+/* ==========================================================================
    SITESAFE - TIẾN ĐỘ XỬ LÝ SỰ CỐ (T3.CSS)
    Bảng Kanban chuyên nghiệp, đồng bộ chuẩn giao diện Ảnh 1 và Ảnh 2
    ========================================================================== */
@@ -472,13 +472,13 @@ button {
    ========================================================================== */
 .vung-noi-dung {
     margin-top: var(--chieu-cao-thanh-tren);
-    padding: 18px 24px 40px;
+    padding: 24px 30px 48px;
     flex: 1;
 }
 
 /* Breadcrumb */
 .duong-dan-breadcrumb {
-    font-size: 11px;
+    font-size: 12.5px;
     color: var(--mau-chu-mo);
     margin-bottom: 6px;
     font-weight: 500;
@@ -489,21 +489,21 @@ button {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    margin-bottom: 16px;
+    margin-bottom: 18px;
     flex-wrap: wrap;
     gap: 14px;
 }
 
 .tieu-de-trang {
-    font-size: 22px;
+    font-size: 24px;
     font-weight: 800;
     color: var(--mau-chu-chinh);
     letter-spacing: -0.4px;
-    margin-bottom: 2px;
+    margin-bottom: 3px;
 }
 
 .thoi-gian-cap-nhat {
-    font-size: 11px;
+    font-size: 12.5px;
     color: var(--mau-chu-phu);
 }
 
@@ -551,7 +551,7 @@ button {
     background-color: #ffffff;
     border: 1px solid var(--duong-vien);
     border-radius: 8px;
-    padding: 12px 18px;
+    padding: 14px 20px;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -567,7 +567,7 @@ button {
 
 .bieu-tuong-co-cam {
     color: var(--mau-chinh-cam);
-    font-size: 15px;
+    font-size: 16px;
 }
 
 .van-ban-uu-tien {
@@ -577,13 +577,13 @@ button {
 }
 
 .so-luong-uu-tien {
-    font-size: 13px;
+    font-size: 14.5px;
     font-weight: 700;
     color: var(--mau-chu-chinh);
 }
 
 .chu-thich-mo-rong {
-    font-size: 11px;
+    font-size: 12.5px;
     color: var(--mau-chu-phu);
 }
 
@@ -594,7 +594,7 @@ button {
 }
 
 .chi-so-nhan {
-    font-size: 12px;
+    font-size: 13px;
     font-weight: 500;
 }
 
@@ -614,7 +614,7 @@ button {
     display: flex;
     align-items: center;
     gap: 10px;
-    margin-bottom: 12px;
+    margin-bottom: 14px;
     flex-wrap: wrap;
 }
 
@@ -625,8 +625,8 @@ button {
     background-color: #ffffff;
     border: 1px solid var(--duong-vien);
     border-radius: 6px;
-    padding: 7px 12px;
-    width: 250px;
+    padding: 8px 14px;
+    width: 270px;
     transition: all 0.2s;
 }
 
@@ -637,7 +637,7 @@ button {
 
 .hop-tim-kiem-su-co i {
     color: var(--mau-chu-mo);
-    font-size: 12px;
+    font-size: 13px;
 }
 
 .hop-tim-kiem-su-co input {
@@ -645,7 +645,7 @@ button {
     outline: none;
     width: 100%;
     color: var(--mau-chu-chinh);
-    font-size: 11px;
+    font-size: 13px;
     background: transparent;
 }
 
@@ -654,7 +654,7 @@ button {
     background-color: #ffffff;
     border: 1px solid var(--duong-vien);
     border-radius: 6px;
-    padding: 7px 28px 7px 12px;
+    padding: 8px 30px 8px 14px;
     display: flex;
     align-items: center;
 }
@@ -664,7 +664,7 @@ button {
     background: transparent;
     outline: none;
     color: #334155;
-    font-size: 11px;
+    font-size: 12.5px;
     font-weight: 600;
     cursor: pointer;
     appearance: none;
@@ -675,7 +675,7 @@ button {
     position: absolute;
     right: 10px;
     pointer-events: none;
-    font-size: 9px;
+    font-size: 10px;
     color: var(--mau-chu-mo);
 }
 
@@ -686,8 +686,8 @@ button {
     background-color: #ffffff;
     border: 1px solid var(--duong-vien);
     border-radius: 6px;
-    padding: 7px 14px;
-    font-size: 11px;
+    padding: 8px 16px;
+    font-size: 12.5px;
     font-weight: 600;
     color: #475569;
 }
@@ -712,9 +712,9 @@ button {
     display: inline-flex;
     align-items: center;
     gap: 6px;
-    padding: 5px 12px;
+    padding: 6px 14px;
     border-radius: 4px;
-    font-size: 11px;
+    font-size: 12.5px;
     font-weight: 600;
     color: #475569;
     transition: all 0.2s;
@@ -735,8 +735,8 @@ button {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    margin-bottom: 14px;
-    font-size: 11px;
+    margin-bottom: 16px;
+    font-size: 12.5px;
     color: var(--mau-chu-phu);
 }
 
@@ -815,7 +815,7 @@ button {
 .cham-xanh { background-color: #10b981; }
 
 .ten-cot {
-    font-size: 13px;
+    font-size: 15px;
     font-weight: 700;
     color: var(--mau-chu-chinh);
 }
@@ -823,14 +823,14 @@ button {
 .so-luong-the-cot {
     background-color: #e2e8f0;
     color: #475569;
-    font-size: 10px;
+    font-size: 11.5px;
     font-weight: 700;
-    padding: 1px 7px;
+    padding: 2px 8px;
     border-radius: 12px;
 }
 
 .mo-ta-cot {
-    font-size: 10px;
+    font-size: 11.5px;
     color: var(--mau-chu-mo);
     padding-left: 16px;
 }
@@ -859,7 +859,7 @@ button {
     background-color: #ffffff;
     border: 1px solid var(--duong-vien);
     border-radius: 8px;
-    padding: 12px;
+    padding: 14px;
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
     cursor: pointer;
     transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
@@ -881,7 +881,7 @@ button {
 }
 
 .ma-the-su-co {
-    font-size: 11px;
+    font-size: 12px;
     font-weight: 700;
     color: var(--mau-chu-phu);
 }
@@ -891,7 +891,7 @@ button {
     align-items: center;
     gap: 4px;
     color: #d97706;
-    font-size: 10px;
+    font-size: 11px;
     font-weight: 600;
 }
 
@@ -908,7 +908,7 @@ button {
 /* Ảnh minh họa hiện trường */
 .anh-minh-hoa-the {
     width: 100%;
-    height: 125px;
+    height: 145px;
     border-radius: 6px;
     overflow: hidden;
     margin-bottom: 10px;
@@ -928,15 +928,15 @@ button {
 }
 
 .tieu-de-the-su-co {
-    font-size: 12px;
+    font-size: 14px;
     font-weight: 700;
     color: var(--mau-chu-chinh);
-    line-height: 1.35;
-    margin-bottom: 4px;
+    line-height: 1.4;
+    margin-bottom: 5px;
 }
 
 .vi-tri-the-su-co {
-    font-size: 10px;
+    font-size: 12px;
     color: var(--mau-chu-phu);
     margin-bottom: 6px;
 }
@@ -945,7 +945,7 @@ button {
     display: flex;
     align-items: center;
     gap: 6px;
-    font-size: 10px;
+    font-size: 12px;
     color: #334155;
     font-weight: 600;
     margin-bottom: 8px;
@@ -953,12 +953,12 @@ button {
 
 .doi-thi-cong-the i {
     color: var(--mau-chu-mo);
-    font-size: 10px;
+    font-size: 11px;
 }
 
 /* Hạn xử lý */
 .dong-han-chot {
-    font-size: 10px;
+    font-size: 12px;
     font-weight: 700;
     margin-bottom: 10px;
     display: flex;
@@ -980,7 +980,7 @@ button {
 
 .chu-thich-nghiem-thu {
     display: block;
-    font-size: 9px;
+    font-size: 11px;
     font-weight: 500;
     color: var(--mau-chu-mo);
     margin-top: 1px;
@@ -992,25 +992,25 @@ button {
     align-items: center;
     justify-content: space-between;
     border-top: 1px solid #f1f5f9;
-    padding-top: 8px;
+    padding-top: 10px;
 }
 
 .nguoi-phu-trach-the {
     display: flex;
     align-items: center;
     gap: 6px;
-    font-size: 10px;
+    font-size: 12px;
     color: #475569;
     font-weight: 600;
 }
 
 .anh-dai-dien-nho {
-    width: 20px;
-    height: 20px;
+    width: 24px;
+    height: 24px;
     border-radius: 50%;
     background-color: #e2e8f0;
     color: #475569;
-    font-size: 8px;
+    font-size: 10px;
     font-weight: 800;
     display: flex;
     align-items: center;
@@ -1021,7 +1021,7 @@ button {
     display: flex;
     align-items: center;
     gap: 8px;
-    font-size: 10px;
+    font-size: 11.5px;
     color: #94a3b8;
 }
 
@@ -1050,22 +1050,22 @@ button {
 .bang-du-lieu {
     width: 100%;
     border-collapse: collapse;
-    font-size: 12px;
+    font-size: 13px;
 }
 
 .bang-du-lieu th {
     background-color: #f8fafc;
     color: #64748b;
     font-weight: 700;
-    font-size: 10px;
+    font-size: 11.5px;
     text-align: left;
-    padding: 11px 14px;
+    padding: 12px 14px;
     border-bottom: 1px solid var(--duong-vien);
     white-space: nowrap;
 }
 
 .bang-du-lieu td {
-    padding: 10px 14px;
+    padding: 12px 14px;
     border-bottom: 1px solid #f1f5f9;
     color: var(--mau-chu-chinh);
     vertical-align: middle;
@@ -1077,8 +1077,8 @@ button {
 }
 
 .anh-thumbnail-bang {
-    width: 44px;
-    height: 32px;
+    width: 52px;
+    height: 38px;
     object-fit: cover;
     border-radius: 4px;
     border: 1px solid var(--duong-vien);
@@ -1087,13 +1087,13 @@ button {
 
 .ten-su-co-bang {
     display: block;
-    font-size: 12px;
+    font-size: 13.5px;
     font-weight: 700;
     color: var(--mau-chu-chinh);
 }
 
 .mo-ta-nho-bang {
-    font-size: 10px;
+    font-size: 11.5px;
     color: var(--mau-chu-mo);
     margin-top: 2px;
 }

@@ -160,10 +160,10 @@ document.addEventListener('DOMContentLoaded', () => {
     const btnMobileNotification = document.getElementById('btnMobileNotification');
     [btnDesktopNotification, btnMobileNotification].forEach(btn => {
         if (btn) {
-            btn.onclick = (e) => {
+            btn.addEventListener('click', (e) => {
                 e.preventDefault();
                 window.location.href = `../notifications/notifications.html?role=${activeRoleKey}`;
-            };
+            });
         }
     });
 
@@ -298,11 +298,19 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     if (btnMobileNavToggle) {
-        btnMobileNavToggle.addEventListener('click', openMobileDrawer);
+        btnMobileNavToggle.addEventListener('click', (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            openMobileDrawer();
+        });
     }
 
     if (btnCloseNavDrawer) {
-        btnCloseNavDrawer.addEventListener('click', closeMobileDrawer);
+        btnCloseNavDrawer.addEventListener('click', (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            closeMobileDrawer();
+        });
     }
 
     if (mobileNavBackdrop) {
@@ -317,11 +325,6 @@ document.addEventListener('DOMContentLoaded', () => {
     // 4. Profile Form Saving & Canceling
     // -------------------------------------------------------------------------
     const profileForm = document.getElementById('profileForm');
-    const inputFullName = document.getElementById('inputFullName');
-    const inputPhone = document.getElementById('inputPhone');
-    const inputEmail = document.getElementById('inputEmail');
-    const summaryUserName = document.getElementById('summaryUserName');
-    const userNameDisplay = document.getElementById('userNameDisplay');
     const btnCancelChanges = document.getElementById('btnCancelChanges');
 
     // Initial snapshot values
@@ -395,7 +398,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const sigFileInput = document.getElementById('sigFileInput');
     const signatureCanvas = document.getElementById('signatureCanvas');
     const signatureImagePreview = document.getElementById('signatureImagePreview');
-    const sigFilename = document.getElementById('sigFilename');
 
     let isDrawing = false;
     let canvasCtx = null;
@@ -556,16 +558,6 @@ document.addEventListener('DOMContentLoaded', () => {
             showToast('Tính năng đổi mật khẩu đang mở.');
         });
     }
-
-    const btnDesktopNotification = document.getElementById('btnDesktopNotification');
-    const btnMobileNotification = document.getElementById('btnMobileNotification');
-    [btnDesktopNotification, btnMobileNotification].forEach(btn => {
-        if (btn) {
-            btn.addEventListener('click', () => {
-                window.location.href = '../notifications/notifications.html';
-            });
-        }
-    });
 
     const btnDesktopHelp = document.getElementById('btnDesktopHelp');
     if (btnDesktopHelp) {

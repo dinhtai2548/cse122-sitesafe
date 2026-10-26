@@ -540,27 +540,22 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // Nút giao xử lý sự cố trong Popup
+    // Nút xem hồ sơ khu vực & giao xử lý sự cố trong Popup
+    const nutXemHoSoKhuVuc = document.getElementById('nutXemHoSoKhuVuc');
+    if (nutXemHoSoKhuVuc) {
+        nutXemHoSoKhuVuc.addEventListener('click', (e) => {
+            e.preventDefault();
+            const zone = duLieuKhuVuc[zoneHienTai];
+            const zoneName = zone ? zone.ten : 'Zone B';
+            window.location.href = `../corrective-actions/manager-corrective-actions.html?zone=${encodeURIComponent(zoneName)}`;
+        });
+    }
+
     if (nutGiaoXuLy) {
         nutGiaoXuLy.addEventListener('click', () => {
             const zone = duLieuKhuVuc[zoneHienTai];
             if (!zone) return;
-
-            let daCapNhat = false;
-            zone.danhSachSuCo.forEach(sc => {
-                if (sc.trangThai === 'Chưa xử lý') {
-                    sc.trangThai = 'Đang xử lý';
-                    sc.loaiMau = 'cam';
-                    daCapNhat = true;
-                }
-            });
-
-            if (daCapNhat) {
-                hienToast(`Đã điều động Đội HSE xử lý các sự cố tại ${zone.ten}!`);
-                moChiTietZone(zoneHienTai, true);
-            } else {
-                hienToast(`Các sự cố tại ${zone.ten} hiện đang trong tiến trình xử lý.`);
-            }
+            window.location.href = `../corrective-actions/manager-corrective-actions.html?zone=${encodeURIComponent(zone.ten)}`;
         });
     }
 
