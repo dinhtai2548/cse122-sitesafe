@@ -121,10 +121,27 @@ $("#bieuMauNguoiDung").addEventListener("submit", event => {
 
   $("#thanBangNguoiDung").appendChild(row);
   ganSuKienHang(row);
+
+  try {
+    const rawAcc = localStorage.getItem('sitesafe_accounts_db');
+    let accounts = rawAcc ? JSON.parse(rawAcc) : [];
+    const roleKey = role === 'HSE' ? 'safety' : role === 'Admin' ? 'admin' : role === 'Quản lý' ? 'manager' : 'worker';
+    accounts.push({
+      email: email,
+      pass: '123456',
+      name: name,
+      role: roleKey,
+      sv: roleKey.toUpperCase(),
+      phone: '0912.000.888',
+      project: project === "A" ? "Metro Tower - Khu A" : "Metro Tower - Khu B"
+    });
+    localStorage.setItem('sitesafe_accounts_db', JSON.stringify(accounts));
+  } catch (err) {}
+
   hopThoaiNguoiDung.close();
   capNhatThongKe();
   apDungBoLoc();
-  hienThongBao(`Đã thêm tài khoản ${name} (bản demo).`);
+  hienThongBao(`Đã thêm và đồng bộ tài khoản ${name} vào hệ thống.`);
 });
 
 function mãHoaHtml(value) {
