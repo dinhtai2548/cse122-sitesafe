@@ -1,0 +1,145 @@
+﻿<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Đăng Ký Tài Khoản - SiteSafe</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="../DungChungMucLogin/csscungchunglogin.css">
+</head>
+<body class="bg-mesh-pattern min-h-screen flex flex-col justify-between selection:bg-[#ff6b00] selection:text-white">
+
+  <header class="w-full bg-slate-900/80 backdrop-blur-md border-b border-slate-800 px-4 py-3 sticky top-0 z-40">
+    <div class="max-w-7xl mx-auto flex items-center justify-between">
+      <div class="flex items-center gap-3">
+        <a href="../login/login.html" class="flex items-center gap-2">
+          <img src="../../assets/logo_SiteSafe.png" alt="SiteSafe Logo" class="h-9 max-w-[140px] object-contain">
+        </a>
+        <div class="hidden sm:block border-l border-slate-700 pl-3">
+          <div class="flex items-center gap-2">
+            <span class="font-black text-white text-base tracking-tight">SiteSafe</span>
+            <span class="px-2 py-0.5 rounded text-[10px] font-extrabold bg-amber-500/20 text-[#ff6b00] border border-amber-500/30">Hệ Thống An Toàn</span>
+          </div>
+          <p class="text-[11px] text-slate-400 font-medium">Hệ thống Theo dõi An toàn Công trường</p>
+        </div>
+      </div>
+      <a href="../login/login.html" class="text-xs text-slate-400 hover:text-white transition flex items-center gap-1">
+        <i class="fa-solid fa-arrow-left"></i> Đăng nhập
+      </a>
+    </div>
+  </header>
+
+  <main class="flex-1 flex items-center justify-center p-4 my-6">
+    <div class="w-full max-w-5xl grid grid-cols-1 lg:grid-cols-12 bg-slate-900/90 border border-slate-800 rounded-3xl shadow-2xl overflow-hidden backdrop-blur-xl">
+      
+      <!-- Khung giới thiệu bên trái -->
+      <div class="lg:col-span-5 bg-gradient-to-br from-[#ff6b00] via-[#ea580c] to-slate-900 p-8 flex flex-col justify-between relative overflow-hidden text-white">
+        <div class="absolute -right-10 -bottom-10 text-slate-950/15 text-9xl font-black select-none pointer-events-none">
+          <i class="fa-solid fa-shield-halved"></i>
+        </div>
+        <div>
+          <div class="inline-flex items-center gap-2 bg-slate-950/20 backdrop-blur-sm px-3 py-1 rounded-full text-white font-extrabold text-xs mb-6 border border-white/20">
+            <i class="fa-solid fa-building-shield"></i> ConstructionTech Safety
+          </div>
+          <h1 class="text-3xl font-black text-white tracking-tight leading-tight mb-4">
+            Quản Lý An Toàn Công Trường Thông Minh
+          </h1>
+          <p class="text-xs font-medium text-slate-100/90 leading-relaxed">
+            Nền tảng kết nối Nhân sự hiện trường, Cán bộ an toàn, Quản lý công trường và Admin theo dõi vi phạm & xử lý rủi ro theo thời gian thực.
+          </p>
+        </div>
+        <div class="mt-8 pt-6 border-t border-white/20 space-y-3 text-xs">
+          <div class="flex items-center gap-2.5 font-bold text-white">
+            <i class="fa-solid fa-circle-check text-white"></i> Phân quyền 4 Role chuyên sâu
+          </div>
+          <div class="flex items-center gap-2.5 font-bold text-white">
+            <i class="fa-solid fa-circle-check text-white"></i> Tích hợp AI Classifier & Hotspot Map
+          </div>
+          <div class="flex items-center gap-2.5 font-bold text-white">
+            <i class="fa-solid fa-circle-check text-white"></i> Đồng bộ LocalStorage tự động
+          </div>
+        </div>
+      </div>
+
+      <!-- Khung Form Đăng Ký bên phải -->
+      <div class="lg:col-span-7 p-6 sm:p-10 flex flex-col justify-between">
+        <div id="alert-banner" class="hidden mb-4 p-3.5 rounded-xl text-xs font-bold flex items-center justify-between transition-all">
+          <div class="flex items-center gap-2.5">
+            <i id="alert-icon" class="fa-solid text-base"></i>
+            <span id="alert-message"></span>
+          </div>
+          <button onclick="hideAlert()" class="opacity-70 hover:opacity-100 text-sm"><i class="fa-solid fa-xmark"></i></button>
+        </div>
+
+        <div id="form-register-screen" class="space-y-5">
+          <div>
+            <h2 class="text-2xl font-black text-white flex items-center gap-2">
+              Đăng Ký Tài Khoản <i class="fa-solid fa-user-plus text-[#ff6b00] text-xl"></i>
+            </h2>
+            <p class="text-xs text-slate-400 mt-1">Khởi tạo tài khoản nhân sự công trường để tham gia hệ thống</p>
+          </div>
+
+          <form id="register-form" onsubmit="handleRegisterSubmit(event)" class="space-y-3.5">
+            <div>
+              <label class="block text-xs font-bold text-slate-300 mb-1">Vai Trò Đảm Nhiệm <span class="text-rose-500">*</span></label>
+              <select id="reg-role" required class="w-full bg-slate-950 border border-slate-700 rounded-xl px-3 py-2 text-xs text-white focus:border-[#ff6b00] focus:outline-none transition">
+                <option value="worker">SV1: Worker (Nhân sự hiện trường)</option>
+                <option value="safety">SV2: Safety (Cán bộ an toàn)</option>
+                <option value="manager">SV3: Manager (Quản lý công trường)</option>
+                <option value="admin">SV4: Admin (Quản trị viên)</option>
+              </select>
+            </div>
+
+            <div>
+              <label class="block text-xs font-bold text-slate-300 mb-1">Họ và Tên <span class="text-rose-500">*</span></label>
+              <input type="text" id="reg-name" required placeholder="Nguyễn Văn An" class="w-full bg-slate-950 border border-slate-700 rounded-xl px-3.5 py-2 text-xs text-white focus:border-[#ff6b00] focus:outline-none transition">
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+              <div>
+                <label class="block text-xs font-bold text-slate-300 mb-1">Email <span class="text-rose-500">*</span></label>
+                <input type="email" id="reg-email" required placeholder="an.nv@sitesafe.vn" class="w-full bg-slate-950 border border-slate-700 rounded-xl px-3.5 py-2 text-xs text-white focus:border-[#ff6b00] focus:outline-none transition">
+              </div>
+              <div>
+                <label class="block text-xs font-bold text-slate-300 mb-1">Số Điện Thoại</label>
+                <input type="tel" id="reg-phone" placeholder="0912.345.678" class="w-full bg-slate-950 border border-slate-700 rounded-xl px-3.5 py-2 text-xs text-white focus:border-[#ff6b00] focus:outline-none transition">
+              </div>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+              <div>
+                <label class="block text-xs font-bold text-slate-300 mb-1">Mật Khẩu <span class="text-rose-500">*</span></label>
+                <input type="password" id="reg-password" minlength="6" required placeholder="••••••••" class="w-full bg-slate-950 border border-slate-700 rounded-xl px-3.5 py-2 text-xs text-white focus:border-[#ff6b00] focus:outline-none transition">
+              </div>
+              <div>
+                <label class="block text-xs font-bold text-slate-300 mb-1">Xác Nhận Mật Khẩu <span class="text-rose-500">*</span></label>
+                <input type="password" id="reg-confirm-password" minlength="6" required placeholder="••••••••" class="w-full bg-slate-950 border border-slate-700 rounded-xl px-3.5 py-2 text-xs text-white focus:border-[#ff6b00] focus:outline-none transition">
+              </div>
+            </div>
+
+            <button type="submit" class="w-full mt-2 bg-[#ff6b00] hover:bg-[#e56000] text-white font-extrabold py-3 rounded-xl text-xs flex items-center justify-center gap-2 shadow-lg shadow-orange-500/20 transition">
+              <i class="fa-solid fa-user-plus"></i> Hoàn Tất Đăng Ký Tài Khoản
+            </button>
+          </form>
+
+          <div class="pt-3 border-t border-slate-800 text-center text-xs text-slate-400">
+            Đã có tài khoản? 
+            <a href="../login/login.html" class="text-[#ff6b00] font-extrabold hover:underline">Quay lại đăng nhập</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <footer class="w-full bg-slate-900/80 border-t border-slate-800 px-4 py-3 text-center text-xs text-slate-500">
+    <div class="max-w-7xl mx-auto flex flex-col sm:flex-row justify-between items-center gap-2">
+      <span>© 2026 SiteSafe System • Hệ thống Quản trị An toàn</span>
+      <span class="text-[#ff6b00] font-semibold"><i class="fa-solid fa-shield-halved"></i> 100% Client-Side LocalStorage Engine</span>
+    </div>
+  </footer>
+
+  <script src="../DungChungMucLogin/jsdungcunglogin.js"></script>
+  <script src="create_account.js"></script>
+</body>
+</html>

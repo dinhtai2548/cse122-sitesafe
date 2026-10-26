@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trung tâm thông báo - SiteSafe</title>
+    <!-- Google Fonts: Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- Font Awesome 6 Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- CSS File -->
+    <link rel="stylesheet" href="notifications.css">
+</head>
+
+<body>
+    <div class="app-layout">
+
+        <!-- ========================================================= -->
+        <!-- 1. SIDEBAR NAVIGATION (DESKTOP)                           -->
+        <!-- ========================================================= -->
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-top">
+                <!-- Brand Logo Area -->
+                <div class="brand-logo-area">
+                    <a href="../../worker/safety-checklist/worker-safety-checklist.html" title="Trang chủ SiteSafe">
+                        <img src="../../assets/logo_SiteSafe.png" alt="SiteSafe Logo" class="brand-logo" id="siteLogo">
+                    </a>
+                </div>
+
+                <!-- Custom Select Dropdown: Chọn Công Trường -->
+                <div class="sidebar-project-selector">
+                    <label class="select-label">CÔNG TRƯỜNG</label>
+                    <div class="custom-dropdown" id="sidebarProjectSelect">
+                        <div class="dropdown-trigger">
+                            <span class="selected-text" id="sidebarProjectTitle">Metro Tower - Khu B</span>
+                            <i class="fa-solid fa-chevron-down arrow-icon"></i>
+                        </div>
+                        <div class="dropdown-menu" id="sidebarProjectOptions">
+                            <div class="dropdown-item active" data-value="Metro Tower - Khu B">Metro Tower - Khu B</div>
+                            <div class="dropdown-item" data-value="Landmark Riverside - Zone A">Landmark Riverside - Zone A</div>
+                            <div class="dropdown-item" data-value="Hầm chui Hoàng Cầu - Gói 3">Hầm chui Hoàng Cầu - Gói 3</div>
+                            <div class="dropdown-item" data-value="Grand Marina - Tháp C">Grand Marina - Tháp C</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Navigation Menu (Được render động theo từng Role) -->
+                <nav class="sidebar-menu" id="sidebarNavMenu">
+                    <!-- Sẽ được fill bằng JavaScript dựa theo Role hiện tại -->
+                </nav>
+            </div>
+
+            <!-- Profile & Logout ở chân Sidebar -->
+            <div class="sidebar-bottom">
+                <a href="../profile/profile.html" class="user-profile-brief" id="userProfileBrief" title="Xem hồ sơ người dùng" role="button" tabindex="0">
+                    <div class="avatar-circle" id="sidebarAvatar">ĐT</div>
+                    <div class="user-info">
+                        <div class="user-name" id="sidebarUserName">Đinh Trọng Tài</div>
+                        <span class="user-role-badge" id="sidebarUserRole">Cán bộ An toàn</span>
+                    </div>
+                    <i class="fa-solid fa-chevron-right profile-chevron"></i>
+                </a>
+                <a href="../login/login.html" class="btn-logout" id="btnLogout" title="Đăng xuất khỏi hệ thống">
+                    <i class="fa-solid fa-arrow-right-from-bracket"></i> Đăng xuất
+                </a>
+            </div>
+        </aside>
+
+        <!-- ========================================================= -->
+        <!-- 2. MAIN CONTENT AREA                                      -->
+        <!-- ========================================================= -->
+        <main class="main-content">
+
+            <!-- Mobile Header Bar -->
+            <header class="mobile-header">
+                <div class="mobile-header-top">
+                    <!-- Bên trái: Nút 3 gạch + Logo SiteSafe -->
+                    <div class="mobile-header-left">
+                        <button type="button" class="mobile-menu-btn" id="btnMobileNavToggle" aria-label="Menu tác vụ" title="Menu tác vụ">
+                            <i class="fa-solid fa-bars"></i>
+                        </button>
+                        <a href="../../worker/safety-checklist/worker-safety-checklist.html" class="mobile-logo-link">
+                            <img src="../../assets/logo_SiteSafe.png" alt="SiteSafe" class="brand-logo-sm">
+                        </a>
+                    </div>
+
+                    <!-- Bên phải: Nút chuông thông báo (active) + Nút người dùng -->
+                    <div class="mobile-header-actions">
+                        <a href="notifications.html" class="mobile-bell-btn is-active" id="btnMobileNotification" title="Trung tâm thông báo" aria-label="Thông báo">
+                            <i class="fa-solid fa-bell"></i>
+                            <span class="bell-badge-count" id="mobileBellBadge">4</span>
+                        </a>
+                        <a href="../profile/profile.html" class="mobile-user-btn" id="btnMobileUserProfile" title="Hồ sơ cá nhân" aria-label="Hồ sơ cá nhân">
+                            <i class="fa-solid fa-user"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Dòng chọn công trường trên Mobile -->
+                <div class="mobile-project-info">
+                    <span class="sub-label">CÔNG TRƯỜNG ĐANG THEO DÕI</span>
+                    <div class="custom-dropdown mobile-project-dropdown" id="mobileProjectSelect">
+                        <div class="dropdown-trigger" id="mobileProjectTrigger">
+                            <span class="selected-text" id="mobileProjectTitle">Metro Tower - Khu B</span>
+                            <i class="fa-solid fa-chevron-down arrow-icon"></i>
+                        </div>
+                        <div class="dropdown-menu" id="mobileProjectOptions">
+                            <div class="dropdown-item active" data-value="Metro Tower - Khu B">Metro Tower - Khu B</div>
+                            <div class="dropdown-item" data-value="Landmark Riverside - Zone A">Landmark Riverside - Zone A</div>
+                            <div class="dropdown-item" data-value="Hầm chui Hoàng Cầu - Gói 3">Hầm chui Hoàng Cầu - Gói 3</div>
+                            <div class="dropdown-item" data-value="Grand Marina - Tháp C">Grand Marina - Tháp C</div>
+                        </div>
+                    </div>
+                </div>
+            </header>
+
+            <!-- Desktop Header Topbar -->
+            <header class="desktop-topbar">
+                <div class="topbar-left">
+                    <i class="fa-solid fa-building-shield icon-building"></i>
+                    <div class="project-breadcrumb">
+                        <span class="breadcrumb-label">CÔNG TRƯỜNG ĐANG THEO DÕI</span>
+                        <div class="custom-dropdown inline-topbar" id="desktopProjectSelect">
+                            <div class="dropdown-trigger inline">
+                                <span class="selected-text" id="desktopProjectTitle">Metro Tower - Khu B</span>
+                                <i class="fa-solid fa-chevron-down arrow-icon"></i>
+                            </div>
+                            <div class="dropdown-menu" id="desktopProjectOptions">
+                                <div class="dropdown-item active" data-value="Metro Tower - Khu B">Metro Tower - Khu B</div>
+                                <div class="dropdown-item" data-value="Landmark Riverside - Zone A">Landmark Riverside - Zone A</div>
+                                <div class="dropdown-item" data-value="Hầm chui Hoàng Cầu - Gói 3">Hầm chui Hoàng Cầu - Gói 3</div>
+                                <div class="dropdown-item" data-value="Grand Marina - Tháp C">Grand Marina - Tháp C</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="topbar-right">
+
+
+                    <!-- Interactive Role Switcher Selector -->
+                    <div class="role-switcher-dropdown" id="roleSwitcherDropdown" title="Chuyển đổi Role để xem nội dung theo vai trò">
+                        <button type="button" class="role-switcher-btn" id="roleSwitcherBtn">
+                            <i class="fa-solid fa-id-badge role-switcher-icon"></i>
+                            <span class="role-switcher-label" id="roleSwitcherLabel">Cán bộ An toàn</span>
+                            <i class="fa-solid fa-chevron-down role-arrow"></i>
+                        </button>
+                        <div class="role-switcher-menu" id="roleSwitcherMenu">
+                            <div class="role-option" data-role="supervisor">
+                                <div class="role-opt-avatar">ĐT</div>
+                                <div class="role-opt-info">
+                                    <span class="role-opt-title">Cán bộ An toàn</span>
+                                    <span class="role-opt-desc">Đinh Trọng Tài · Giám sát HSE</span>
+                                </div>
+                                <i class="fa-solid fa-check check-indicator"></i>
+                            </div>
+                            <div class="role-option" data-role="manager">
+                                <div class="role-opt-avatar">NM</div>
+                                <div class="role-opt-info">
+                                    <span class="role-opt-title">Quản lý công trường</span>
+                                    <span class="role-opt-desc">Nguyễn Văn Minh · Site Manager</span>
+                                </div>
+                                <i class="fa-solid fa-check check-indicator"></i>
+                            </div>
+                            <div class="role-option" data-role="worker">
+                                <div class="role-opt-avatar">LH</div>
+                                <div class="role-opt-info">
+                                    <span class="role-opt-title">Nhân sự hiện trường</span>
+                                    <span class="role-opt-desc">Lê Văn Hùng · Đội thi công</span>
+                                </div>
+                                <i class="fa-solid fa-check check-indicator"></i>
+                            </div>
+                            <div class="role-option" data-role="admin">
+                                <div class="role-opt-avatar">TT</div>
+                                <div class="role-opt-info">
+                                    <span class="role-opt-title">Quản trị viên</span>
+                                    <span class="role-opt-desc">Trần Đình Thắng · Quản trị hệ thống</span>
+                                </div>
+                                <i class="fa-solid fa-check check-indicator"></i>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Notification Button (Active Orange Circle Button) -->
+                    <a href="notifications.html" class="icon-action-btn notification-bell-active" id="btnDesktopNotification" title="Trung tâm thông báo">
+                        <i class="fa-solid fa-bell"></i>
+                    </a>
+
+                    <!-- Help Support Button -->
+                    <button type="button" class="icon-action-btn" id="btnDesktopHelp" title="Trợ giúp & Hỗ trợ">
+                        <i class="fa-regular fa-circle-question"></i>
+                    </button>
+                </div>
+            </header>
+
+            <!-- Page Body Container -->
+            <div class="page-body-container">
+
+                <!-- Page Header: Title & Empty State Switch -->
+                <section class="notification-header-section">
+                    <div class="header-titles">
+                        <div class="header-pretitle">CẢNH BÁO & HOẠT ĐỘNG</div>
+                        <h1 class="header-main-title">Trung tâm thông báo</h1>
+                        <p class="header-desc">Theo dõi mối nguy, hành động khắc phục và cảnh báo AI tại dự án Metro Tower.</p>
+                    </div>
+
+                    <!-- Right Switch: Trạng thái Rỗng -->
+                    <div class="empty-state-switch-wrapper">
+                        <label class="switch-control-label" for="emptyStateToggle">
+                            <span class="switch-text">Trạng thái Rỗng</span>
+                            <div class="custom-switch">
+                                <input type="checkbox" id="emptyStateToggle" aria-label="Bật/tắt trạng thái rỗng">
+                                <span class="switch-slider"></span>
+                            </div>
+                        </label>
+                    </div>
+                </section>
+
+                <!-- Filter Bar -->
+                <section class="notification-filter-bar">
+                    <div class="filter-tabs-group" id="filterTabsGroup">
+                        <button type="button" class="filter-tab active" data-filter="all">
+                            <span>Tất cả</span>
+                            <span class="filter-badge" id="badgeAll">12</span>
+                        </button>
+                        <button type="button" class="filter-tab" data-filter="unread">
+                            <span>Chưa đọc</span>
+                            <span class="filter-badge" id="badgeUnread">4</span>
+                        </button>
+                        <button type="button" class="filter-tab" data-filter="high">
+                            <span>Ưu tiên cao</span>
+                            <span class="filter-badge" id="badgeHigh">2</span>
+                        </button>
+                        <button type="button" class="filter-tab" data-filter="ai">
+                            <span>Cảnh báo AI</span>
+                            <span class="filter-badge" id="badgeAi">3</span>
+                        </button>
+                    </div>
+
+                    <div class="filter-bar-actions">
+                        <span class="last-updated-text" id="lastUpdatedText">Cập nhật 2 phút trước</span>
+                        <button type="button" class="btn-mark-all-read" id="btnMarkAllRead">
+                            <i class="fa-solid fa-check-double"></i> Đánh dấu tất cả đã đọc
+                        </button>
+                    </div>
+                </section>
+
+                <!-- Main Content 2-Column Grid -->
+                <div class="notification-grid-layout">
+
+                    <!-- LEFT COLUMN: Notification Cards List -->
+                    <div class="notification-left-column">
+                        <!-- Subheader Counter & Unread Badge -->
+                        <div class="list-summary-row">
+                            <div class="summary-total" id="listSummaryTotal">12 thông báo</div>
+                            <div class="summary-unread-pill" id="listSummaryUnread">4 chưa đọc</div>
+                        </div>
+
+                        <!-- Card Items List Container -->
+                        <div class="notification-cards-list" id="notificationCardsList">
+                            <!-- Được render động bởi JavaScript -->
+                        </div>
+
+                        <!-- Empty State in Left Column (Ẩn mặc định, hiển thị khi bật công tắc hoặc không có thông báo) -->
+                        <div class="left-empty-state-container" id="leftEmptyStateContainer" style="display: none;">
+                            <div class="empty-state-box">
+                                <div class="empty-illustration-circle">
+                                    <svg class="mailbox-svg" viewBox="0 0 72 72" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <rect x="12" y="20" width="48" height="34" rx="8" stroke="#16a34a" stroke-width="3" fill="#ffffff" />
+                                        <path d="M14 24L36 40L58 24" stroke="#16a34a" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" />
+                                        <circle cx="54" cy="18" r="10" fill="#16a34a" />
+                                        <path d="M50 18L53 21L58 15" stroke="#ffffff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" />
+                                    </svg>
+                                </div>
+                                <h3 class="empty-title">Bạn đã xem hết thông báo!</h3>
+                                <p class="empty-subtitle">Không còn cập nhật nào cần xử lý. Các cảnh báo mới sẽ xuất hiện tại đây.</p>
+                                <button type="button" class="btn-refresh-notifications" id="btnRefreshFromLeft">
+                                    <i class="fa-solid fa-arrows-rotate"></i> Làm mới thông báo
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Bottom Link: Xem các thông báo trước đó -->
+                        <div class="list-footer-link" id="listFooterLinkArea">
+                            <button type="button" class="btn-view-previous-notifications" id="btnViewPrevious">
+                                Xem các thông báo trước đó &rarr;
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- RIGHT COLUMN: Empty State Preview Card Widget -->
+                    <div class="notification-right-column">
+                        <div class="empty-state-preview-card">
+                            <div class="preview-card-header">
+                                <div class="preview-header-text">
+                                    <h4 class="preview-title">Trạng thái Rỗng</h4>
+                                    <span class="preview-subtitle">Xem trước khi bật công tắc</span>
+                                </div>
+                                <span class="preview-tag-badge">Xem trước</span>
+                            </div>
+
+                            <div class="preview-card-inner">
+                                <div class="empty-illustration-circle">
+                                    <svg class="mailbox-svg" viewBox="0 0 72 72" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <rect x="12" y="20" width="48" height="34" rx="8" stroke="#16a34a" stroke-width="3" fill="#ffffff" />
+                                        <path d="M14 24L36 40L58 24" stroke="#16a34a" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" />
+                                        <circle cx="54" cy="18" r="10" fill="#16a34a" />
+                                        <path d="M50 18L53 21L58 15" stroke="#ffffff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" />
+                                    </svg>
+                                </div>
+                                <h3 class="empty-title">Bạn đã xem hết thông báo!</h3>
+                                <p class="empty-subtitle">Không còn cập nhật nào cần xử lý. Các cảnh báo mới sẽ xuất hiện tại đây.</p>
+                                <button type="button" class="btn-refresh-notifications" id="btnRefreshNotifications">
+                                    <i class="fa-solid fa-arrows-rotate"></i> Làm mới thông báo
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+
+            <!-- Page Footer -->
+            <footer class="page-footer">
+                <div class="footer-left">SiteSafe · An toàn để xây dựng.</div>
+                <div class="footer-right" id="footerRoleSignature">Đinh Trọng Tài · Cán bộ An toàn</div>
+            </footer>
+
+        </main>
+
+    </div>
+
+    <!-- ============================================================= -->
+    <!-- 3. MOBILE NAVIGATION DRAWER (SIDEBAR BÊN TRÁI TRƯỢT MƯỢT MÀ)  -->
+    <!-- ============================================================= -->
+    <div class="mobile-nav-backdrop" id="mobileNavBackdrop">
+        <aside class="mobile-nav-drawer" id="mobileNavDrawer" role="dialog" aria-modal="true" aria-label="Menu tác vụ">
+            <div class="drawer-top-section">
+                <!-- Brand Logo & Nút đóng menu -->
+                <div class="drawer-brand-row">
+                    <a href="../../worker/safety-checklist/worker-safety-checklist.html" class="drawer-logo-link" title="Trang chủ SiteSafe">
+                        <img src="../../assets/logo_SiteSafe.png" alt="SiteSafe" class="drawer-logo-img">
+                    </a>
+                    <button type="button" class="drawer-close-btn" id="btnCloseNavDrawer" aria-label="Đóng menu" title="Đóng menu">
+                        <i class="fa-solid fa-xmark"></i>
+                    </button>
+                </div>
+
+                <!-- Chọn công trường trong Sidebar Mobile -->
+                <div class="drawer-project-selector">
+                    <label class="select-label">CÔNG TRƯỜNG</label>
+                    <div class="custom-dropdown" id="drawerProjectSelect">
+                        <div class="dropdown-trigger">
+                            <span class="selected-text" id="drawerProjectTitle">Metro Tower - Khu B</span>
+                            <i class="fa-solid fa-chevron-down arrow-icon"></i>
+                        </div>
+                        <div class="dropdown-menu" id="drawerProjectOptions">
+                            <div class="dropdown-item active" data-value="Metro Tower - Khu B">Metro Tower - Khu B</div>
+                            <div class="dropdown-item" data-value="Landmark Riverside - Zone A">Landmark Riverside - Zone A</div>
+                            <div class="dropdown-item" data-value="Hầm chui Hoàng Cầu - Gói 3">Hầm chui Hoàng Cầu - Gói 3</div>
+                            <div class="dropdown-item" data-value="Grand Marina - Tháp C">Grand Marina - Tháp C</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Phân mục Role -->
+                <div class="drawer-section-heading" id="drawerRoleHeading">CÁN BỘ AN TOÀN</div>
+
+                <!-- Navigation Menu (Render động theo Role) -->
+                <nav class="drawer-menu-list" id="drawerNavMenuList">
+                    <!-- Sẽ được fill bằng JavaScript dựa theo Role hiện tại -->
+                </nav>
+            </div>
+
+            <!-- Profile & Logout ở chân Sidebar Mobile -->
+            <div class="drawer-bottom-section">
+                <a href="../profile/profile.html" class="drawer-user-brief" id="drawerUserProfileBrief" title="Xem hồ sơ người dùng">
+                    <div class="avatar-circle" id="drawerAvatar">ĐT</div>
+                    <div class="user-info">
+                        <div class="user-name" id="drawerUserName">Đinh Trọng Tài</div>
+                        <span class="user-role-badge" id="drawerUserRole">Cán bộ An toàn</span>
+                    </div>
+                    <i class="fa-solid fa-chevron-right arrow-profile"></i>
+                </a>
+                <a href="../login/login.html" class="btn-logout" id="btnDrawerLogout" title="Đăng xuất khỏi hệ thống">
+                    <i class="fa-solid fa-arrow-right-from-bracket"></i> Đăng xuất
+                </a>
+            </div>
+        </aside>
+    </div>
+
+    <!-- ============================================================= -->
+    <!-- 4. TOAST NOTIFICATION CONTAINER                               -->
+    <!-- ============================================================= -->
+    <div class="toast-popup" id="toastPopup" role="status" aria-live="polite">
+        <i class="fa-solid fa-circle-check toast-icon" id="toastIcon"></i>
+        <span class="toast-text" id="toastText">Đã cập nhật trạng thái thông báo</span>
+    </div>
+
+    <!-- JavaScript File -->    <script src="notifications.js"></script>
+</body>
+
+</html>
+

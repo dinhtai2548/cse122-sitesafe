@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hồ Sơ Người Dùng - SiteSafe</title>
+    <!-- Google Fonts: Inter & Cursive Signature Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Great+Vibes&family=Alex+Brush&display=swap" rel="stylesheet">
+    <!-- Font Awesome 6 Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- CSS File -->
+    <link rel="stylesheet" href="profile.css">
+</head>
+
+<body>
+    <div class="app-layout">
+
+        <!-- ========================================================= -->
+        <!-- 1. SIDEBAR NAVIGATION (DESKTOP)                           -->
+        <!-- ========================================================= -->
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-top">
+                <!-- Brand Logo -->
+                <div class="brand-logo-area">
+                    <a href="../../worker/safety-checklist/worker-safety-checklist.html" title="Trang chủ SiteSafe">
+                        <img src="../../assets/logo_SiteSafe.png" alt="SiteSafe Logo" class="brand-logo" id="siteLogo">
+                    </a>
+                </div>
+
+                <!-- Custom Select Dropdown: Chọn Công Trường -->
+                <div class="sidebar-project-selector">
+                    <label class="select-label">CÔNG TRƯỜNG</label>
+                    <div class="custom-dropdown" id="sidebarProjectSelect">
+                        <div class="dropdown-trigger">
+                            <span class="selected-text" id="sidebarProjectTitle">Metro Tower - Khu B</span>
+                            <i class="fa-solid fa-chevron-down arrow-icon"></i>
+                        </div>
+                        <div class="dropdown-menu" id="sidebarProjectOptions">
+                            <div class="dropdown-item active" data-value="Metro Tower - Khu B">Metro Tower - Khu B</div>
+                            <div class="dropdown-item" data-value="Landmark Riverside - Zone A">Landmark Riverside - Zone A</div>
+                            <div class="dropdown-item" data-value="Hầm chui Hoàng Cầu - Gói 3">Hầm chui Hoàng Cầu - Gói 3</div>
+                            <div class="dropdown-item" data-value="Grand Marina - Tháp C">Grand Marina - Tháp C</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Navigation Menu (Đồng bộ với các trang khác) -->
+                <nav class="sidebar-menu" id="sidebarNavMenu">
+                    <a href="../../worker/safety-checklist/worker-safety-checklist.html" class="menu-item" title="Kiểm tra an toàn">
+                        <i class="fa-solid fa-clipboard-check nav-icon"></i>
+                        <span>Kiểm tra an toàn</span>
+                    </a>
+                    <a href="../../worker/hazard_create/worker-hazard-create.html" class="menu-item" title="Báo cáo mối nguy">
+                        <i class="fa-solid fa-triangle-exclamation nav-icon"></i>
+                        <span>Báo cáo mối nguy</span>
+                    </a>
+                    <a href="../../worker/my_hazard/worker-my-hazard.html" class="menu-item" title="Mối nguy của tôi">
+                        <i class="fa-solid fa-folder-open nav-icon"></i>
+                        <span>Mối nguy của tôi</span>
+                    </a>
+                </nav>
+            </div>
+
+            <!-- Profile & Logout ở chân Sidebar -->
+            <div class="sidebar-bottom">
+                <a href="profile.html" class="user-profile-brief is-active-page" id="userProfileBrief" title="Bạn đang ở trang Hồ sơ người dùng" role="button" tabindex="0">
+                    <div class="avatar-circle">ĐT</div>
+                    <div class="user-info">
+                        <div class="user-name" id="userNameDisplay">Đinh Trọng Tài</div>
+                        <span class="user-role-badge">Cán bộ An toàn</span>
+                    </div>
+                </a>
+                <a href="../login/login.html" class="btn-logout" id="btnLogout" title="Đăng xuất khỏi hệ thống">
+                    <i class="fa-solid fa-arrow-right-from-bracket"></i> Đăng xuất
+                </a>
+            </div>
+        </aside>
+
+        <!-- ========================================================= -->
+        <!-- 2. MAIN CONTENT AREA                                      -->
+        <!-- ========================================================= -->
+        <main class="main-content">
+
+            <!-- Mobile Header Bar -->
+            <header class="mobile-header">
+                <div class="mobile-header-top">
+                    <!-- Bên trái: Nút 3 gạch + Logo SiteSafe kế bên -->
+                    <div class="mobile-header-left">
+                        <button type="button" class="mobile-menu-btn" id="btnMobileNavToggle" aria-label="Menu tác vụ" title="Menu tác vụ">
+                            <i class="fa-solid fa-bars"></i>
+                        </button>
+                        <a href="../../worker/safety-checklist/worker-safety-checklist.html" class="mobile-logo-link">
+                            <img src="../../assets/logo_SiteSafe.png" alt="SiteSafe" class="brand-logo-sm">
+                        </a>
+                    </div>
+
+                    <!-- Bên phải: Nút chuông thông báo + Nút hình người dùng -->
+                    <div class="mobile-header-actions">
+                        <button type="button" class="mobile-bell-btn" id="btnMobileNotification" title="Thông báo" aria-label="Thông báo">
+                            <i class="fa-regular fa-bell"></i>
+                            <span class="bell-badge-dot"></span>
+                        </button>
+                        <a href="profile.html" class="mobile-user-btn is-active" id="btnMobileUserProfile" title="Hồ sơ cá nhân" aria-label="Hồ sơ cá nhân">
+                            <i class="fa-solid fa-user"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="mobile-project-info">
+                    <span class="sub-label">CÔNG TRƯỜNG ĐANG THEO DÕI</span>
+                    <div class="custom-dropdown mobile-project-dropdown" id="mobileProjectSelect">
+                        <div class="dropdown-trigger" id="mobileProjectTrigger">
+                            <span class="selected-text" id="mobileProjectTitle">Metro Tower - Khu B</span>
+                            <i class="fa-solid fa-chevron-down arrow-icon"></i>
+                        </div>
+                        <div class="dropdown-menu" id="mobileProjectOptions">
+                            <div class="dropdown-item active" data-value="Metro Tower - Khu B">Metro Tower - Khu B</div>
+                            <div class="dropdown-item" data-value="Landmark Riverside - Zone A">Landmark Riverside - Zone A</div>
+                            <div class="dropdown-item" data-value="Hầm chui Hoàng Cầu - Gói 3">Hầm chui Hoàng Cầu - Gói 3</div>
+                            <div class="dropdown-item" data-value="Grand Marina - Tháp C">Grand Marina - Tháp C</div>
+                        </div>
+                    </div>
+                </div>
+            </header>
+
+            <!-- Desktop Header Topbar -->
+            <header class="desktop-topbar">
+                <div class="topbar-left">
+                    <i class="fa-solid fa-building-shield icon-building"></i>
+                    <div class="project-breadcrumb">
+                        <span class="breadcrumb-label">CÔNG TRƯỜNG ĐANG THEO DÕI</span>
+                        <div class="custom-dropdown inline-topbar" id="desktopProjectSelect">
+                            <div class="dropdown-trigger inline">
+                                <span class="selected-text" id="desktopProjectTitle">Metro Tower - Khu B</span>
+                                <i class="fa-solid fa-chevron-down arrow-icon"></i>
+                            </div>
+                            <div class="dropdown-menu" id="desktopProjectOptions">
+                                <div class="dropdown-item active" data-value="Metro Tower - Khu B">Metro Tower - Khu B</div>
+                                <div class="dropdown-item" data-value="Landmark Riverside - Zone A">Landmark Riverside - Zone A</div>
+                                <div class="dropdown-item" data-value="Hầm chui Hoàng Cầu - Gói 3">Hầm chui Hoàng Cầu - Gói 3</div>
+                                <div class="dropdown-item" data-value="Grand Marina - Tháp C">Grand Marina - Tháp C</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="topbar-right">
+
+
+                    <!-- Notification Button -->
+                    <button type="button" class="icon-action-btn" id="btnDesktopNotification" title="Thông báo">
+                        <i class="fa-regular fa-bell"></i>
+                        <span class="badge-dot"></span>
+                    </button>
+
+                    <!-- Help Support Button -->
+                    <button type="button" class="icon-action-btn" id="btnDesktopHelp" title="Trợ giúp">
+                        <i class="fa-regular fa-circle-question"></i>
+                    </button>
+                </div>
+            </header>
+
+            <!-- Page Body Container -->
+            <div class="page-body-container">
+                
+                <!-- Category Tag & Page Title Row -->
+                <div class="profile-header-section">
+                    <span class="category-tag">TÀI KHOẢN CÁ NHÂN</span>
+                    <div class="title-with-badge-row">
+                        <h1 class="page-title">Hồ sơ người dùng</h1>
+                        <span class="verified-pill">
+                            <i class="fa-solid fa-circle-check"></i>
+                            <span>Hồ sơ đã xác minh</span>
+                        </span>
+                    </div>
+                    <p class="page-subtitle">Quản lý thông tin cá nhân, chứng chỉ chuyên môn và chữ ký phê duyệt báo cáo.</p>
+                </div>
+
+                <!-- 1. Profile Summary Card -->
+                <section class="profile-summary-card">
+                    <div class="summary-left">
+                        <div class="avatar-photo-wrapper">
+                            <img src="avatar_dinh_trong_tai.png" alt="Đinh Trọng Tài" class="avatar-photo-img" id="avatarImagePreview">
+                        </div>
+                        <div class="summary-user-details">
+                            <div class="name-badge-row">
+                                <h2 class="user-fullname" id="summaryUserName">Đinh Trọng Tài</h2>
+                                <span class="role-pill">Cán bộ An toàn</span>
+                            </div>
+                            <div class="project-responsible-row">
+                                <i class="fa-solid fa-building"></i>
+                                <span>Dự án phụ trách: <strong>Metro Tower</strong></span>
+                            </div>
+                            <div class="last-update-row">
+                                <span>Cập nhật gần nhất lúc 09:24 · 03/10/2026</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="summary-right">
+                        <div class="progress-info-row">
+                            <span class="progress-label">Hoàn thiện hồ sơ</span>
+                            <span class="progress-percent">100%</span>
+                        </div>
+                        <div class="progress-bar-track">
+                            <div class="progress-bar-fill" style="width: 100%;"></div>
+                        </div>
+                        <span class="progress-status-note">Đủ điều kiện ký duyệt báo cáo an toàn.</span>
+                    </div>
+                </section>
+
+                <!-- 2. Profile Content Grid (2 Columns) -->
+                <div class="profile-main-grid">
+
+                    <!-- Left Column: Form Thông tin cá nhân -->
+                    <div class="grid-left-col">
+                        <div class="content-card personal-info-card">
+                            <div class="card-header-row">
+                                <div class="card-header-text">
+                                    <h3 class="card-title">Thông tin cá nhân</h3>
+                                    <p class="card-desc">Thông tin dùng trong hồ sơ nghiệp vụ và biên bản kiểm tra công trường.</p>
+                                </div>
+                                <span class="required-indicator">* Bắt buộc</span>
+                            </div>
+
+                            <form id="profileForm" class="profile-form">
+                                <!-- Row 1: Họ tên + Số điện thoại -->
+                                <div class="form-row-two-cols">
+                                    <div class="form-field-group">
+                                        <label for="inputFullName" class="field-label">Họ tên *</label>
+                                        <div class="input-with-icon">
+                                            <i class="fa-regular fa-user field-icon"></i>
+                                            <input type="text" id="inputFullName" class="form-control" value="Đinh Trọng Tài" required>
+                                        </div>
+                                    </div>
+                                    <div class="form-field-group">
+                                        <label for="inputPhone" class="field-label">Số điện thoại *</label>
+                                        <div class="input-with-icon">
+                                            <i class="fa-solid fa-phone field-icon"></i>
+                                            <input type="tel" id="inputPhone" class="form-control" value="0912 486 208" required>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Row 2: Email -->
+                                <div class="form-field-group full-width">
+                                    <label for="inputEmail" class="field-label">Email *</label>
+                                    <div class="input-with-icon">
+                                        <i class="fa-regular fa-envelope field-icon"></i>
+                                        <input type="email" id="inputEmail" class="form-control" value="tai.dinh@sitesafe.vn" required>
+                                    </div>
+                                    <span class="field-helper-note">Email này được dùng để nhận cảnh báo an toàn ưu tiên cao.</span>
+                                </div>
+
+                                <!-- Chứng chỉ an toàn -->
+                                <div class="safety-certificate-section">
+                                    <h4 class="section-subtitle">Chứng chỉ an toàn</h4>
+                                    <div class="certificate-box">
+                                        <div class="cert-left">
+                                            <div class="cert-check-circle">
+                                                <i class="fa-solid fa-check"></i>
+                                            </div>
+                                            <div class="cert-info">
+                                                <span class="cert-title">Chứng chỉ HSE Cấp 2</span>
+                                                <span class="cert-details">Mã HSE-2-02864 · Hiệu lực đến 18/08/2027</span>
+                                            </div>
+                                        </div>
+                                        <span class="cert-badge">Đã xác thực</span>
+                                    </div>
+                                </div>
+
+                                <!-- Form Actions Buttons -->
+                                <div class="form-actions-footer">
+                                    <div class="actions-left">
+                                        <input type="file" id="avatarFileInput" accept="image/*" class="hidden-file-input">
+                                        <button type="button" class="btn-avatar-change" id="btnChangeAvatar">
+                                            <i class="fa-solid fa-camera"></i>
+                                            <span>Đổi ảnh đại diện</span>
+                                        </button>
+                                    </div>
+                                    <div class="actions-right">
+                                        <button type="button" class="btn-cancel" id="btnCancelChanges">Hủy thay đổi</button>
+                                        <button type="submit" class="btn-save-profile" id="btnSaveProfile">
+                                            <i class="fa-solid fa-floppy-disk"></i>
+                                            <span>Lưu thay đổi</span>
+                                        </button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+
+                    <!-- Right Column: Chữ ký điện tử & Bảo mật tài khoản -->
+                    <div class="grid-right-col">
+
+                        <!-- Card 1: Chữ ký điện tử -->
+                        <div class="content-card digital-signature-card">
+                            <div class="card-header-row">
+                                <h3 class="card-title">Chữ ký điện tử</h3>
+                                <span class="signature-saved-badge">Đã lưu</span>
+                            </div>
+                            <p class="card-desc">Dùng để ký duyệt báo cáo và biên bản an toàn.</p>
+
+                            <!-- Signature Preview Box with Dashed Border -->
+                            <div class="signature-preview-box" id="signatureBoxArea">
+                                <img src="chu_ky_dinh_trong_tai.png" alt="Chữ ký Đinh Trọng Tài" class="signature-img" id="signatureImagePreview">
+                            </div>
+
+                            <div class="signature-meta-row">
+                                <span class="signature-filename" id="sigFilename">chu-ky-dinh-trong-tai.svg</span>
+                                <span class="signature-date">18/08/2026</span>
+                            </div>
+
+                            <button type="button" class="btn-outline-block" id="btnUpdateSignature">
+                                <i class="fa-solid fa-pen-nib"></i>
+                                <span>Cập nhật chữ ký</span>
+                            </button>
+                        </div>
+
+                        <!-- Card 2: Bảo mật tài khoản -->
+                        <div class="content-card account-security-card" id="accountSecurityCard">
+                            <div class="security-header-row">
+                                <div class="security-icon-circle">
+                                    <i class="fa-solid fa-shield-halved"></i>
+                                </div>
+                                <div class="security-header-info">
+                                    <h3 class="card-title">Bảo mật tài khoản</h3>
+                                    <span class="security-status-active">Xác thực 2 bước đang bật</span>
+                                </div>
+                            </div>
+                            <p class="security-last-changed">Lần đổi mật khẩu gần nhất: 22 ngày trước.</p>
+
+                            <button type="button" class="btn-outline-block" id="btnGoToSecurity">
+                                <span>Cài đặt mật khẩu &amp; bảo mật</span>
+                                <i class="fa-solid fa-arrow-right"></i>
+                            </button>
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <!-- Page Footer -->
+            <footer class="profile-page-footer">
+                <div class="footer-left-text">SiteSafe · An toàn để xây dựng.</div>
+                <div class="footer-right-text">Đinh Trọng Tài · Cán bộ An toàn</div>
+            </footer>
+
+        </main>
+
+    </div>
+
+    <!-- ============================================================= -->
+    <!-- 3. MOBILE NAVIGATION DRAWER (SIDEBAR BÊN TRÁI ĐỒNG BỘ MÁY TÍNH)-->
+    <!-- ============================================================= -->
+    <div class="mobile-nav-backdrop" id="mobileNavBackdrop">
+        <aside class="mobile-nav-drawer" id="mobileNavDrawer" role="dialog" aria-modal="true" aria-label="Menu tác vụ">
+            <div class="drawer-top-section">
+                <!-- Brand Logo & Nút đóng menu -->
+                <div class="drawer-brand-row">
+                    <a href="../../worker/safety-checklist/worker-safety-checklist.html" class="drawer-logo-link" title="Trang chủ SiteSafe">
+                        <img src="../../assets/logo_SiteSafe.png" alt="SiteSafe" class="drawer-logo-img">
+                    </a>
+                    <button type="button" class="drawer-close-btn" id="btnCloseNavDrawer" aria-label="Đóng menu" title="Đóng menu">
+                        <i class="fa-solid fa-xmark"></i>
+                    </button>
+                </div>
+
+                <!-- Chọn công trường trong Sidebar Mobile -->
+                <div class="drawer-project-selector">
+                    <label class="select-label">CÔNG TRƯỜNG</label>
+                    <div class="custom-dropdown" id="drawerProjectSelect">
+                        <div class="dropdown-trigger">
+                            <span class="selected-text" id="drawerProjectTitle">Metro Tower - Khu B</span>
+                            <i class="fa-solid fa-chevron-down arrow-icon"></i>
+                        </div>
+                        <div class="dropdown-menu" id="drawerProjectOptions">
+                            <div class="dropdown-item active" data-value="Metro Tower - Khu B">Metro Tower - Khu B</div>
+                            <div class="dropdown-item" data-value="Landmark Riverside - Zone A">Landmark Riverside - Zone A</div>
+                            <div class="dropdown-item" data-value="Hầm chui Hoàng Cầu - Gói 3">Hầm chui Hoàng Cầu - Gói 3</div>
+                            <div class="dropdown-item" data-value="Grand Marina - Tháp C">Grand Marina - Tháp C</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Phân mục Role -->
+                <div class="drawer-section-heading">CÁN BỘ AN TOÀN</div>
+
+                <!-- Navigation Menu (Giống 100% Sidebar máy tính) -->
+                <nav class="drawer-menu-list" id="drawerNavMenuList">
+                    <a href="../../worker/safety-checklist/worker-safety-checklist.html" class="drawer-menu-item">
+                        <i class="fa-solid fa-clipboard-check"></i>
+                        <span>Kiểm tra an toàn</span>
+                    </a>
+                    <a href="../../worker/hazard_create/worker-hazard-create.html" class="drawer-menu-item">
+                        <i class="fa-solid fa-triangle-exclamation"></i>
+                        <span>Báo cáo mối nguy</span>
+                    </a>
+                    <a href="../../worker/my_hazard/worker-my-hazard.html" class="drawer-menu-item">
+                        <i class="fa-solid fa-folder-open"></i>
+                        <span>Mối nguy của tôi</span>
+                    </a>
+                </nav>
+            </div>
+
+            <!-- Profile & Logout ở chân Sidebar Mobile (Giống 100% Sidebar máy tính) -->
+            <div class="drawer-bottom-section">
+                <a href="profile.html" class="drawer-user-brief active" id="drawerUserProfileBrief" title="Xem hồ sơ người dùng" style="text-decoration: none;">
+                    <div class="avatar-circle">ĐT</div>
+                    <div class="user-info">
+                        <div class="user-name">Đinh Trọng Tài</div>
+                        <span class="user-role-badge">Cán bộ An toàn</span>
+                    </div>
+                    <i class="fa-solid fa-chevron-right arrow-profile"></i>
+                </a>
+                <a href="../login/login.html" class="btn-logout" id="btnDrawerLogout" title="Đăng xuất khỏi hệ thống">
+                    <i class="fa-solid fa-arrow-right-from-bracket"></i> Đăng xuất
+                </a>
+            </div>
+        </aside>
+    </div>
+
+    <!-- Signature Pad Modal -->
+    <div class="modal-backdrop" id="signatureModal" aria-hidden="true">
+        <div class="modal-card">
+            <div class="modal-header">
+                <h3>Cập nhật chữ ký điện tử</h3>
+                <button type="button" class="btn-modal-close" id="btnCloseSigModal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <p class="modal-hint">Vẽ chữ ký của bạn vào khung bên dưới hoặc tải lên tệp ảnh chữ ký:</p>
+                <div class="canvas-wrapper">
+                    <canvas id="signatureCanvas" width="400" height="150"></canvas>
+                </div>
+                <div class="canvas-tools">
+                    <button type="button" class="btn-canvas-clear" id="btnClearCanvas">
+                        <i class="fa-solid fa-rotate-left"></i> Xóa vẽ lại
+                    </button>
+                    <label class="btn-canvas-upload">
+                        <i class="fa-solid fa-upload"></i> Tải ảnh lên
+                        <input type="file" id="sigFileInput" accept="image/*" class="hidden-file-input">
+                    </label>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn-cancel" id="btnCancelSigModal">Hủy bỏ</button>
+                <button type="button" class="btn-save-profile" id="btnSaveSigModal">
+                    <i class="fa-solid fa-check"></i> Xác nhận chữ ký
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Notification -->
+    <div class="toast-popup" id="toastPopup" role="alert" aria-live="polite">
+        <i class="toast-icon fa-solid fa-circle-check"></i>
+        <span class="toast-text" id="toastText">Đã lưu thông tin hồ sơ!</span>
+    </div>
+
+    <!-- JavaScript File -->    <script src="profile.js"></script>
+</body>
+
+</html>

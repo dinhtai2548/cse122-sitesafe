@@ -1,0 +1,640 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mối Nguy Đã Báo Cáo</title>
+    <!-- Google Fonts: Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Font Awesome 6 Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="worker-my-hazard.css"></head>
+
+<body>
+
+    <div class="app-layout">
+
+        <!-- ========================================================= -->
+        <!-- 1. SIDEBAR NAVIGATION (DESKTOP)                           -->
+        <!-- ========================================================= -->
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-top">
+                <div class="brand-logo-area">
+                    <img src="../../assets/logo_SiteSafe.png" alt="SiteSafe Logo" class="brand-logo" id="siteLogo"
+                        onerror="this.style.display='none'; document.getElementById('brandLogoFallback').style.display='flex';">
+                    <div class="brand-logo-fallback" id="brandLogoFallback" style="display: none;">
+                        <span class="logo-badge">SS</span>
+                        <span class="logo-text">SiteSafe</span>
+                    </div>
+                </div>
+
+                <!-- Custom Select Dropdown: Chọn Công Trường trên Sidebar -->
+                <div class="sidebar-project-selector">
+                    <label class="select-label">CÔNG TRƯỜNG</label>
+                    <div class="custom-dropdown" id="sidebarProjectSelect">
+                        <div class="dropdown-trigger">
+                            <span class="selected-text" id="sidebarProjectTitle">Metro Tower - Khu B</span>
+                            <i class="fa-solid fa-chevron-up-chevron-down arrow-icon"></i>
+                        </div>
+                        <div class="dropdown-menu" id="sidebarProjectOptions">
+                            <!-- Render bằng JavaScript -->
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Navigation Menu -->
+                <nav class="sidebar-menu">
+                    <a href="../safety-checklist/worker-safety-checklist.html" class="menu-item">
+                        <i class="fa-solid fa-clipboard-check"></i>
+                        <span>Kiểm tra an toàn</span>
+                    </a>
+                    <a href="../hazard_create/worker-hazard-create.html" class="menu-item">
+                        <i class="fa-solid fa-triangle-exclamation"></i>
+                        <span>Báo cáo mối nguy</span>
+                    </a>
+                    <a href="worker-my-hazard.html" class="menu-item active">
+                        <i class="fa-solid fa-folder-open"></i>
+                        <span>Mối nguy của tôi</span>
+                    </a>
+                </nav>
+            </div>
+
+            <!-- Profile & Logout ở chân Sidebar -->
+            <div class="sidebar-bottom">
+                <a href="../../share/profile/profile.html?role=worker" class="user-profile-brief" id="userProfileBrief" title="Xem hồ sơ người dùng" role="button" tabindex="0" style="text-decoration: none;">
+                    <div class="avatar-circle">ĐT</div>
+                    <div class="user-info">
+                        <div class="user-name" id="userNameDisplay">Đinh Trọng Tài</div>
+                        <span class="user-role-badge">Cán bộ An toàn</span>
+                    </div>
+                </a>
+                <a href="../../share/login/login.html" class="btn-logout" id="btnLogout">
+                    <i class="fa-solid fa-arrow-right-from-bracket"></i> Đăng xuất
+                </a>
+            </div>
+        </aside>
+
+        <!-- ========================================================= -->
+        <!-- 2. MAIN CONTENT AREA                                      -->
+        <!-- ========================================================= -->
+        <main class="main-content">
+
+            <!-- Mobile Header Bar -->
+            <header class="mobile-header">
+                <div class="mobile-header-top">
+                    <!-- Bên trái: Nút 3 gạch + Logo SiteSafe kế bên -->
+                    <div class="mobile-header-left">
+                        <button type="button" class="mobile-menu-btn" id="btnMobileNavToggle" aria-label="Menu tác vụ" title="Menu tác vụ">
+                            <i class="fa-solid fa-bars"></i>
+                        </button>
+                        <a href="../safety-checklist/worker-safety-checklist.html" class="mobile-logo-link">
+                            <img src="../../assets/logo_SiteSafe.png" alt="SiteSafe" class="brand-logo-sm">
+                        </a>
+                    </div>
+
+                    <!-- Bên phải: Nút Demo + Nút chuông thông báo + Nút người dùng -->
+                    <div class="mobile-header-actions">
+                        <button class="mobile-demo-btn" id="btnMobileDemoToggle" title="Chuyển chế độ mẫu">
+                            <i class="fa-solid fa-shuffle"></i>
+                        </button>
+                        <a href="../../share/notifications/notifications.html?role=worker" class="mobile-bell-btn" id="btnMobileNotification" title="Thông báo" aria-label="Thông báo">
+                            <i class="fa-regular fa-bell"></i>
+                            <span class="bell-badge-dot"></span>
+                        </a>
+                        <a href="../../share/profile/profile.html?role=worker" class="mobile-user-btn" id="btnMobileUserProfile" title="Hồ sơ cá nhân" aria-label="Hồ sơ cá nhân">
+                            <i class="fa-regular fa-user"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="mobile-heading-wrap">
+                    <h2 class="mobile-heading-title">Mối nguy đã báo cáo</h2>
+                    <p class="mobile-heading-subtitle" id="mobileSubTitle">
+                        Theo dõi các sự cố đã báo cáo tại công trường và trạng thái xử lý của từng sự cố.
+                    </p>
+                </div>
+
+                <!-- Chọn công trường trên mobile -->
+                <div class="mobile-project-info">
+                    <span class="sub-label">CÔNG TRƯỜNG ĐANG THEO DÕI</span>
+                    <div class="custom-dropdown mobile-project-dropdown" id="mobileProjectSelect">
+                        <div class="dropdown-trigger" id="mobileProjectTrigger">
+                            <span class="selected-text" id="mobileProjectTitle">Metro Tower - Khu B</span>
+                            <i class="fa-solid fa-chevron-down arrow-icon"></i>
+                        </div>
+                        <div class="dropdown-menu" id="mobileProjectOptions">
+                            <!-- Render bằng JavaScript -->
+                        </div>
+                    </div>
+                </div>
+            </header>
+
+            <!-- Desktop Header Topbar -->
+            <header class="desktop-topbar">
+                <div class="topbar-left">
+                    <i class="fa-solid fa-building-shield icon-building"></i>
+                    <div class="project-breadcrumb">
+                        <span class="breadcrumb-label">CÔNG TRƯỜNG ĐANG THEO DÕI</span>
+                        <div class="custom-dropdown inline-topbar" id="desktopProjectSelect">
+                            <div class="dropdown-trigger inline">
+                                <span class="selected-text" id="desktopProjectTitle">Dự án Metro Tower - Zone B</span>
+                                <i class="fa-solid fa-chevron-down arrow-icon"></i>
+                            </div>
+                            <div class="dropdown-menu" id="desktopProjectOptions">
+                                <!-- Render bằng JavaScript -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="topbar-right">
+                    
+                    <a href="../../share/notifications/notifications.html?role=worker" class="icon-btn-top" title="Thông báo">
+                        <i class="fa-regular fa-bell"></i>
+                    </a>
+                    <button class="icon-btn-top" id="btnDesktopHelp" title="Trợ giúp">
+                        <i class="fa-regular fa-circle-question"></i>
+                    </button>
+                </div>
+            </header>
+
+            <!-- Scrollable Content Body -->
+            <div class="content-body">
+
+                <!-- Desktop Page Header Row -->
+                <div class="desktop-page-title-row">
+                    <div>
+                        <h1 class="page-title">Mối nguy đã báo cáo</h1>
+                        <p class="page-subtitle" id="desktopSubTitle">
+                            Theo dõi các sự cố đã báo cáo tại công trường và trạng thái xử lý của từng sự cố.
+                        </p>
+                    </div>
+
+                    <!-- Nút Tạo báo cáo trên Desktop -->
+                    <div class="header-action-btns">
+                        <!-- Nút chuyển đổi nhanh Demo giữa chế độ có dữ liệu và chế độ trống -->
+                        <button class="btn-demo-toggle" id="btnToggleDemoMode"
+                            title="Chuyển đổi minh họa giữa Có dữ liệu và Chưa có báo cáo nào">
+                            <i class="fa-solid fa-shuffle"></i> Minh họa: <span id="demoModeText">Có dữ liệu (6)</span>
+                        </button>
+                        <a href="../hazard_create/worker-hazard-create.html" class="btn-create-hazard-main" title="Tạo báo cáo mối nguy mới">
+                            <span class="btn-icon-circle"><i class="fa-solid fa-plus"></i></span>
+                            <span class="btn-text">Tạo báo cáo</span>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- 1. Search Bar chuẩn & Hỗ trợ chuyển sang tác vụ khác khi chọn kết quả -->
+                <div class="search-filter-card">
+                    <div class="search-input-wrapper" id="searchInputWrapper">
+                        <i class="fa-solid fa-magnifying-glass search-icon"></i>
+                        <input type="text" id="hazardSearchInput" class="search-input"
+                            placeholder="Tìm kiếm sự cố, vị trí, hoặc nhập tác vụ (checklist, báo cáo)..."
+                            autocomplete="off">
+                        <div class="search-shortcut-badge desktop-only">Ctrl K</div>
+                        <button class="btn-clear-search" id="btnClearSearch" style="display: none;" title="Xóa tìm kiếm">
+                            <i class="fa-solid fa-xmark"></i>
+                        </button>
+
+                        <!-- Sổ kết quả tìm kiếm thông minh & Chuyển sang tác vụ khác -->
+                        <div class="search-autocomplete-dropdown" id="searchDropdownMenu" style="display: none;">
+                            <!-- Phần 1: Tác vụ & Điều hướng nhanh -->
+                            <div class="search-section-header">
+                                <i class="fa-solid fa-bolt"></i> TÁC VỤ & ĐIỀU HƯỚNG NHANH
+                            </div>
+                            <div class="search-quick-actions" id="searchQuickActions">
+                                <a href="../safety-checklist/worker-safety-checklist.html" class="search-action-item">
+                                    <div class="action-icon icon-checklist"><i class="fa-solid fa-clipboard-check"></i></div>
+                                    <div class="action-info">
+                                        <strong>Kiểm tra an toàn (Safety Checklist)</strong>
+                                        <span>Chuyển sang làm checklist hiện trường theo ca</span>
+                                    </div>
+                                    <span class="action-tag">Trang tác vụ</span>
+                                </a>
+
+                                <a href="../hazard_create/worker-hazard-create.html" class="search-action-item">
+                                    <div class="action-icon icon-create"><i class="fa-solid fa-plus"></i></div>
+                                    <div class="action-info">
+                                        <strong>Tạo báo cáo mối nguy mới</strong>
+                                        <span>Chuyển sang form tạo báo cáo phân tích AI</span>
+                                    </div>
+                                    <span class="action-tag">Tạo mới</span>
+                                </a>
+
+                                <div class="search-action-item filter-action" data-filter="pending">
+                                    <div class="action-icon icon-pending"><i class="fa-regular fa-clock"></i></div>
+                                    <div class="action-info">
+                                        <strong>Lọc: Báo cáo Chờ duyệt</strong>
+                                        <span id="searchPendingSubtext">Xem danh sách các sự cố chưa được duyệt</span>
+                                    </div>
+                                    <span class="action-tag">Bộ lọc</span>
+                                </div>
+
+                                <div class="search-action-item filter-action" data-filter="processing">
+                                    <div class="action-icon icon-processing"><i class="fa-solid fa-screwdriver-wrench"></i></div>
+                                    <div class="action-info">
+                                        <strong>Lọc: Báo cáo Đang xử lý</strong>
+                                        <span id="searchProcessingSubtext">Xem danh sách các sự cố đang khắc phục</span>
+                                    </div>
+                                    <span class="action-tag">Bộ lọc</span>
+                                </div>
+
+                                <div class="search-action-item filter-action" data-filter="resolved">
+                                    <div class="action-icon icon-resolved"><i class="fa-solid fa-circle-check"></i></div>
+                                    <div class="action-info">
+                                        <strong>Lọc: Báo cáo Đã khắc phục</strong>
+                                        <span id="searchResolvedSubtext">Xem các sự cố đã hoàn thành</span>
+                                    </div>
+                                    <span class="action-tag">Bộ lọc</span>
+                                </div>
+                            </div>
+
+                            <!-- Phần 2: Kết quả danh sách báo cáo phù hợp -->
+                            <div class="search-section-header" id="searchHazardsSectionHeader">
+                                <i class="fa-solid fa-list-check"></i> BÁO CÁO MỐI NGUY PHÙ HỢP (<span id="searchMatchCount">0</span>)
+                            </div>
+                            <div class="search-results-list" id="searchHazardsResultsList">
+                                <!-- Render danh sách sự cố khớp từ khóa -->
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 2. Status Filter Tabs  -->
+                    <div class="filter-tabs-container" id="filterTabsContainer">
+                        <button class="filter-tab-btn active" data-status="all">
+                            <span class="tab-label">Tất cả</span>
+                            <span class="tab-count" id="countAll">6</span>
+                        </button>
+                        <button class="filter-tab-btn" data-status="pending">
+                            <span class="tab-label">Chờ duyệt</span>
+                            <span class="tab-count" id="countPending">2</span>
+                        </button>
+                        <button class="filter-tab-btn" data-status="processing">
+                            <span class="tab-label">Đang xử lý</span>
+                            <span class="tab-count" id="countProcessing">2</span>
+                        </button>
+                        <button class="filter-tab-btn" data-status="resolved">
+                            <span class="tab-label">Đã khắc phục</span>
+                            <span class="tab-count" id="countResolved">2</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Sub-bar: Số đếm báo cáo & Dự án context -->
+                <div class="list-meta-bar">
+                    <span class="reports-count-text" id="reportsCountText">6 báo cáo</span>
+                    <span class="project-context-text desktop-only" id="projectContextText">
+                        Dự án Metro Tower · Báo cáo của tôi
+                    </span>
+                </div>
+
+                <!-- ===================================================== -->
+                <!-- VIEW A: DATA GRID -->
+                <!-- ===================================================== -->
+                <div class="hazard-cards-grid" id="hazardCardsGrid">
+                    <!-- Render dynamic cards via JavaScript -->
+                </div>
+
+                <!-- ===================================================== -->
+                <!-- VIEW B: EMPTY STATE -->
+                <!-- ===================================================== -->
+                <div class="empty-state-card" id="emptyStateCard" style="display: none;">
+                    <div class="empty-helmet-illustration">
+                        <svg viewBox="0 0 120 120" width="100" height="100" fill="none"
+                            xmlns="http://www.w3.org/2000/svg">
+                            <!-- Circular soft background tint -->
+                            <circle cx="60" cy="60" r="54" fill="#fef3c7" />
+                            <!-- Yellow safety helmet illustration -->
+                            <path
+                                d="M60 26C41.2223 26 26 41.2223 26 60C26 62.5 27 64 30 64H90C93 64 94 62.5 94 60C94 41.2223 78.7777 26 60 26Z"
+                                fill="#F59E0B" />
+                            <path
+                                d="M56 26C58.6 26 60 30 60 46C60 62 58.6 64 56 64C53.4 64 52 62 52 46C52 30 53.4 26 56 26Z"
+                                fill="#D97706" />
+                            <path
+                                d="M22 62C22 60.8954 22.8954 60 24 60H96C97.1046 60 98 60.8954 98 62C98 65.3137 95.3137 68 92 68H28C24.6863 68 22 65.3137 22 62Z"
+                                fill="#FBBF24" />
+                            <path d="M34 68L44 86C45 88 47 89 50 89H70C73 89 75 88 76 86L86 68" stroke="#334155"
+                                stroke-width="5" stroke-linecap="round" stroke-linejoin="round" />
+                            <circle cx="60" cy="88" r="4" fill="#0F172A" />
+                        </svg>
+                    </div>
+
+                    <h3 class="empty-title">Bạn chưa có báo cáo nào</h3>
+                    <p class="empty-desc">
+                        Phát hiện mối nguy tại công trường? Tạo báo cáo để giám sát tiếp nhận và xử lý kịp thời.
+                    </p>
+
+                    <a href="../hazard_create/worker-hazard-create.html" class="btn-create-empty">
+                        <i class="fa-solid fa-plus"></i> Tạo báo cáo
+                    </a>
+
+                    <span class="empty-subnote">Báo cáo bạn gửi sẽ xuất hiện tại đây.</span>
+                </div>
+
+                <!-- Bottom Safety Reminder Card (Chỉ hiện khi Empty State hoặc dưới chân trang) -->
+                <div class="safety-reminder-banner" id="safetyReminderBanner">
+                    <i class="fa-solid fa-shield-halved reminder-icon"></i>
+                    <span>Mỗi báo cáo giúp công trường an toàn hơn. Chỉ chụp ảnh khi bạn ở vị trí an toàn.</span>
+                </div>
+
+                <!-- Footer Copyright & Info (Desktop) -->
+                <footer class="page-desktop-footer">
+                    <span>SiteSafe · An toàn để xây dựng.</span>
+                    <span>Nguyễn Văn Minh · Nhân sự hiện trường</span>
+                </footer>
+
+            </div>
+
+        </main>
+    </div>
+
+    <!-- ============================================================= -->
+    <!-- 4. HAZARD DETAIL / VIEW / EDIT MODAL                          -->
+    <!-- ============================================================= -->
+    <div class="modal-backdrop" id="hazardDetailModal">
+        <div class="modal-box hazard-detail-box">
+            <div class="modal-header">
+                <div>
+                    <span class="modal-sub-tag" id="modalHazardId">HAZARD-01</span>
+                    <h3 id="modalHazardTitle">Thiếu lan can tại mép sàn</h3>
+                </div>
+                <button class="btn-close-modal" id="btnCloseModal"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+
+            <div class="modal-body">
+                <div class="modal-detail-img-wrap">
+                    <img src="" alt="Minh chứng mối nguy" id="modalHazardImg" class="modal-hazard-img">
+                    <span class="modal-status-badge" id="modalHazardStatus">Chờ duyệt</span>
+                </div>
+
+                <div class="modal-info-grid">
+                    <div class="info-item">
+                        <span class="info-label"><i class="fa-solid fa-location-dot"></i> Vị trí:</span>
+                        <strong id="modalHazardLocation">Zone A - Tầng 4</strong>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label"><i class="fa-regular fa-clock"></i> Thời gian:</span>
+                        <strong id="modalHazardTime">03/10/2026 · 09:15</strong>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label"><i class="fa-solid fa-triangle-exclamation"></i> Rủi ro:</span>
+                        <strong id="modalHazardRisk">Rủi ro cao</strong>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label"><i class="fa-solid fa-user-shield"></i> Người giám sát:</span>
+                        <strong id="modalHazardReceiver">Trần Minh Đức</strong>
+                    </div>
+                </div>
+
+                <div class="modal-section-block">
+                    <h4 class="section-heading">Mô tả hiện trạng:</h4>
+                    <p class="section-text" id="modalHazardDesc">
+                        Mép sàn phía Đông tầng 12 chưa có lan can bảo vệ. Công nhân đang di chuyển gần khu vực hở, có
+                        nguy cơ ngã từ độ cao.
+                    </p>
+                </div>
+
+                <div class="modal-section-block highlight-ai">
+                    <h4 class="section-heading"><i class="fa-solid fa-wand-magic-sparkles"></i> Đề xuất từ AI:</h4>
+                    <p class="section-text" id="modalHazardAI">
+                        Cô lập khu vực bên dưới; lắp lan can và kiểm tra các liên kết trước khi tiếp tục thi công.
+                    </p>
+                </div>
+
+                <div class="modal-section-block">
+                    <h4 class="section-heading">Biện pháp đã thực hiện:</h4>
+                    <p class="section-text" id="modalHazardAction">
+                        Đã căng dây cảnh báo, yêu cầu tổ thi công tránh khu vực và báo giám sát.
+                    </p>
+                </div>
+            </div>
+
+            <div class="modal-footer">
+                <button class="btn-delete-report" id="btnDeleteCurrentReport">
+                    <i class="fa-solid fa-trash-can"></i> Xóa báo cáo
+                </button>
+                <button class="btn-close-action" id="btnCloseModalAction">Đóng</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ============================================================= -->
+    <!-- 5. CONFIRM DELETE MODAL  -->
+    <!-- ============================================================= -->
+    <div class="modal-backdrop confirm-modal-backdrop" id="confirmDeleteModal">
+        <div class="modal-box confirm-delete-box" role="dialog" aria-modal="true" aria-labelledby="confirmDeleteTitle">
+            <!-- Icon cảnh báo xóa nổi bật -->
+            <div class="confirm-icon-wrapper danger-ring">
+                <div class="confirm-icon-circle">
+                    <i class="fa-solid fa-trash-can"></i>
+                </div>
+            </div>
+
+            <div class="confirm-content">
+                <h3 class="confirm-title" id="confirmDeleteTitle">Xóa báo cáo mối nguy?</h3>
+                <p class="confirm-desc">
+                    Bạn có chắc chắn muốn xóa báo cáo này không? Dữ liệu sự cố sẽ bị xóa hoàn toàn khỏi hệ thống theo dõi của công trường.
+                </p>
+
+                <!-- Thẻ tóm tắt thông tin báo cáo chuẩn bị xóa -->
+                <div class="confirm-target-card">
+                    <span class="target-card-badge" id="confirmTargetId">HAZARD-01</span>
+                    <strong class="target-card-title" id="confirmTargetTitle">Thiếu lan can tại mép sàn</strong>
+                </div>
+
+                <!-- Cảnh báo không thể hoàn tác -->
+                <div class="confirm-warning-banner">
+                    <i class="fa-solid fa-triangle-exclamation"></i>
+                    <span>Hành động này không thể hoàn tác sau khi xác nhận.</span>
+                </div>
+            </div>
+
+            <!-- Nút thao tác -->
+            <div class="confirm-actions">
+                <button type="button" class="btn-confirm-cancel" id="btnCancelDelete">
+                    <i class="fa-solid fa-xmark"></i>
+                    <span>Hủy bỏ</span>
+                </button>
+                <button type="button" class="btn-confirm-delete" id="btnConfirmDelete">
+                    <i class="fa-solid fa-trash-can"></i>
+                    <span>Xóa vĩnh viễn</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ============================================================= -->
+    <!-- 6. TOAST NOTIFICATION (ĐA TRẠNG THÁI: SUCCESS / DANGER / INFO) -->
+    <!-- ============================================================= -->
+    <div class="toast-notification" id="toastNotification" role="alert" aria-live="assertive">
+        <div class="toast-icon-wrap" id="toastIconWrap">
+            <i class="fa-solid fa-circle-check toast-icon" id="toastIcon"></i>
+        </div>
+        <div class="toast-body">
+            <div class="toast-title" id="toastTitle">Thành công</div>
+            <div class="toast-message" id="toastMessage">Thông báo SiteSafe</div>
+        </div>
+        <button type="button" class="toast-close-btn" id="toastCloseBtn" aria-label="Đóng thông báo">
+            <i class="fa-solid fa-xmark"></i>
+        </button>
+    </div>
+
+    <!-- ============================================================= -->
+    <!-- 3. MOBILE NAVIGATION DRAWER -->
+    <!-- ============================================================= -->
+    <div class="mobile-nav-backdrop" id="mobileNavBackdrop">
+        <aside class="mobile-nav-drawer" id="mobileNavDrawer" role="dialog" aria-modal="true" aria-label="Menu tác vụ">
+            <div class="drawer-top-section">
+                <!-- Brand Logo & Nút đóng menu -->
+                <div class="drawer-brand-row">
+                    <a href="../safety-checklist/worker-safety-checklist.html" class="drawer-logo-link" title="Trang chủ SiteSafe">
+                        <img src="../../assets/logo_SiteSafe.png" alt="SiteSafe" class="drawer-logo-img">
+                    </a>
+                    <button type="button" class="drawer-close-btn" id="btnCloseNavDrawer" aria-label="Đóng menu" title="Đóng menu">
+                        <i class="fa-solid fa-xmark"></i>
+                    </button>
+                </div>
+
+                <!-- Chọn công trường trong Sidebar Mobile -->
+                <div class="drawer-project-selector">
+                    <label class="select-label">CÔNG TRƯỜNG</label>
+                    <div class="custom-dropdown" id="drawerProjectSelect">
+                        <div class="dropdown-trigger">
+                            <span class="selected-text" id="drawerProjectTitle">Metro Tower - Khu B</span>
+                            <i class="fa-solid fa-chevron-down arrow-icon"></i>
+                        </div>
+                        <div class="dropdown-menu" id="drawerProjectOptions">
+                            <!-- Render bằng JavaScript -->
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Phân mục Role -->
+                <div class="drawer-section-heading">NHÂN SỰ HIỆN TRƯỜNG</div>
+
+                <!-- Navigation Menu -->
+                <nav class="drawer-menu-list">
+                    <a href="../safety-checklist/worker-safety-checklist.html" class="drawer-menu-item">
+                        <i class="fa-solid fa-clipboard-check"></i>
+                        <span>Kiểm tra an toàn</span>
+                    </a>
+                    <a href="../hazard_create/worker-hazard-create.html" class="drawer-menu-item">
+                        <i class="fa-solid fa-triangle-exclamation"></i>
+                        <span>Báo cáo mối nguy</span>
+                    </a>
+                    <a href="worker-my-hazard.html" class="drawer-menu-item active">
+                        <i class="fa-solid fa-folder-open"></i>
+                        <span>Mối nguy của tôi</span>
+                    </a>
+                </nav>
+            </div>
+
+            <!-- Profile & Logout ở chân Sidebar Mobile -->
+            <div class="drawer-bottom-section">
+                <a href="../../share/profile/profile.html?role=worker" class="drawer-user-brief" id="drawerUserProfileBrief" title="Xem hồ sơ người dùng" style="text-decoration: none;">
+                    <div class="avatar-circle">ĐT</div>
+                    <div class="user-info">
+                        <div class="user-name">Đinh Trọng Tài</div>
+                        <span class="user-role-badge">Cán bộ An toàn</span>
+                    </div>
+                    <i class="fa-solid fa-chevron-right arrow-profile"></i>
+                </a>
+                <a href="../../share/login/login.html" class="btn-logout" id="btnDrawerLogout" title="Đăng xuất khỏi hệ thống">
+                    <i class="fa-solid fa-arrow-right-from-bracket"></i> Đăng xuất
+                </a>
+            </div>
+        </aside>
+    </div>
+
+    <!-- ============================================================= -->
+    <!-- USER PROFILE SUMMARY MODAL -->
+    <!-- ============================================================= -->
+    <div class="user-profile-modal-backdrop" id="userProfileModalBackdrop">
+        <div class="user-profile-modal-box" role="dialog" aria-modal="true" aria-labelledby="modalUserName">
+            <div class="profile-modal-header">
+                <div class="profile-avatar-wrap">
+                    <div class="profile-avatar-circle">NM</div>
+                    <span class="profile-online-badge" title="Đang trực ca"></span>
+                </div>
+                <div class="profile-header-info">
+                    <h3 class="profile-user-name" id="modalUserName">Nguyễn Văn Minh</h3>
+                    <div class="profile-role-pill">
+                        <i class="fa-solid fa-user-shield"></i> Nhân sự hiện trường
+                    </div>
+                    <div class="profile-employee-code">
+                        <span>Mã NV: <strong>NV-2026-088</strong></span> · <span>Tổ An toàn số 2</span>
+                    </div>
+                </div>
+                <button type="button" class="btn-close-profile-modal" id="btnCloseUserProfileModal" aria-label="Đóng">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+
+            <div class="profile-modal-body">
+                <div class="profile-info-grid">
+                    <div class="profile-info-card">
+                        <div class="info-card-icon blue"><i class="fa-solid fa-building-shield"></i></div>
+                        <div class="info-card-content">
+                            <span class="info-card-label">CÔNG TRƯỜNG PHỤ TRÁCH</span>
+                            <strong class="info-card-value" id="modalUserProfileProject">Dự án Metro Tower - Zone B</strong>
+                        </div>
+                    </div>
+
+                    <div class="profile-info-card">
+                        <div class="info-card-icon orange"><i class="fa-regular fa-clock"></i></div>
+                        <div class="info-card-content">
+                            <span class="info-card-label">CA LÀM VIỆC HIỆN TẠI</span>
+                            <strong class="info-card-value">Ca sáng (07:00 - 15:30) · Đang trực ca</strong>
+                        </div>
+                    </div>
+
+                    <div class="profile-info-card">
+                        <div class="info-card-icon green"><i class="fa-solid fa-phone"></i></div>
+                        <div class="info-card-content">
+                            <span class="info-card-label">SỐ ĐIỆN THOẠI</span>
+                            <strong class="info-card-value">0912.345.678</strong>
+                        </div>
+                    </div>
+
+                    <div class="profile-info-card">
+                        <div class="info-card-icon purple"><i class="fa-solid fa-envelope"></i></div>
+                        <div class="info-card-content">
+                            <span class="info-card-label">EMAIL NỘI BỘ</span>
+                            <strong class="info-card-value">minh.nv@sitesafe.vn</strong>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="profile-duties-box">
+                    <h4 class="duties-title"><i class="fa-solid fa-shield-halved"></i> QUYỀN HẠN & NHIỆM VỤ ROLE</h4>
+                    <ul class="duties-list">
+                        <li><i class="fa-solid fa-check"></i> Thực hiện và nộp kiểm tra an toàn ca (Safety Checklist)</li>
+                        <li><i class="fa-solid fa-check"></i> Chụp ảnh, tạo báo cáo mối nguy hiện trường với AI</li>
+                        <li><i class="fa-solid fa-check"></i> Theo dõi tiến độ khắc phục và quản lý các báo cáo đã gửi</li>
+                    </ul>
+                </div>
+
+                <div class="profile-modal-actions">
+                    <a href="../../share/profile/profile.html?role=worker" class="btn-profile-view-detail" style="text-decoration: none; display: inline-flex; align-items: center; justify-content: center; gap: 8px; padding: 10px 16px; background: #ff6b00; color: #fff; border-radius: 8px; font-weight: 600; font-size: 13px;">
+                        <i class="fa-solid fa-id-card"></i> Xem chi tiết hồ sơ
+                    </a>
+                    <button type="button" class="btn-profile-logout" id="btnModalLogout">
+                        <i class="fa-solid fa-arrow-right-from-bracket"></i> Đăng xuất tài khoản
+                    </button>
+                    <button type="button" class="btn-profile-close" id="btnModalCloseSecondary">
+                        Đóng
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- JavaScript File -->
+    <script src="worker-my-hazard.js"></script></body>
+
+</html>

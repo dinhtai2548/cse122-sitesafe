@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SiteSafe - Tiến độ xử lý sự cố</title>
+    <!-- Thư viện biểu tượng FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <!-- Phông chữ Google Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="manager-corrective-actions.css">
+</head>
+<body>
+    <!-- Lớp phủ màn hình khi mở menu trên di động -->
+    <div class="lop-phu-mobile" id="lopPhuMobile"></div>
+
+    <div class="khung-ung-dung">
+        <!-- MENU TRÁI CỐ ĐỊNH (SIDEBAR) -->
+        <aside class="thanh-ben" id="thanhBen">
+            <div class="dau-thanh-ben">
+                <div class="hang-dau-logo">
+                    <!-- Logo thương hiệu SiteSafe -->
+                    <a href="../zone_risk_map/manager-zone-risk-map.html" class="logo-thuong-hieu">
+                        <img src="../../assets/logo_SiteSafe.png" alt="SiteSafe Logo" class="anh-logo-sitesafe">
+                    </a>
+                    <button type="button" class="nut-dong-menu-mobile" id="nutDongMenuMobile" aria-label="Đóng menu">
+                        <i class="fa-solid fa-xmark"></i>
+                    </button>
+                </div>
+
+                <!-- Chọn công trường -->
+                <div class="hop-chon-cong-truong" id="hopChonCongTruong">
+                    <span class="nhan-cong-truong">CÔNG TRƯỜNG</span>
+                    <div class="gia-tri-cong-truong">
+                        <span id="tenCongTruongHienTai">Metro Tower - Khu B</span>
+                        <i class="fa-solid fa-chevron-down bieu-tuong-mui-ten"></i>
+                    </div>
+                    <div class="menu-chon-khu-vuc" aria-label="Chọn công trường">
+                        <button type="button" class="lua-chon-khu-vuc" data-project="Metro Tower - Khu B">Metro Tower - Khu B</button>
+                        <button type="button" class="lua-chon-khu-vuc" data-project="Landmark Riverside - Zone A">Landmark Riverside - Zone A</button>
+                        <button type="button" class="lua-chon-khu-vuc" data-project="Hầm chui Hoàng Cầu - Gói 3">Hầm chui Hoàng Cầu - Gói 3</button>
+                        <button type="button" class="lua-chon-khu-vuc" data-project="Grand Marina - Tháp C">Grand Marina - Tháp C</button>
+                    </div>
+                </div>
+
+                <!-- Danh mục quản lý -->
+                <div class="nhan-phan-muc">QUẢN LÝ CÔNG TRƯỜNG</div>
+                <nav class="thanh-dieu-huong">
+                    <a href="../zone_risk_map/manager-zone-risk-map.html" class="muc-dieu-huong">
+                        <i class="fa-solid fa-table-cells-large bieu-tuong-nav"></i>
+                        <span>Bản đồ rủi ro</span>
+                    </a>
+                    <a href="manager-corrective-actions.html" class="muc-dieu-huong kich-hoat">
+                        <i class="fa-solid fa-triangle-exclamation bieu-tuong-nav"></i>
+                        <span>Hành động khắc phục</span>
+                    </a>
+                    <a href="../safety_report/manager-safety-report.html" class="muc-dieu-huong">
+                        <i class="fa-regular fa-file-lines bieu-tuong-nav"></i>
+                        <span>Báo cáo an toàn</span>
+                    </a>
+                </nav>
+            </div>
+
+            <!-- Chân menu trái: Liên kết trực tiếp sang trang Profile người dùng -->
+            <div class="chan-thanh-ben">
+                <a href="../../share/profile/profile.html?role=manager" class="khung-nguoi-dung" title="Xem hồ sơ cá nhân" style="text-decoration: none; cursor: pointer; display: flex; align-items: center; gap: 10px;">
+                    <div class="anh-dai-dien">NM</div>
+                    <div class="thong-tin-nguoi-dung">
+                        <span class="ten-nguoi-dung">Nguyễn Văn Minh</span>
+                        <span class="chuc-danh-badge">Quản lý công trường</span>
+                    </div>
+                    <i class="fa-solid fa-chevron-right" style="margin-left: auto; color: #94a3b8; font-size: 11px;"></i>
+                </a>
+                <a href="../../share/login/login.html" class="nut-dang-xuat" style="text-decoration: none; display: flex; align-items: center; justify-content: center; gap: 8px;">
+                    <i class="fa-solid fa-arrow-right-from-bracket"></i> Đăng xuất
+                </a>
+            </div>
+        </aside>
+
+        <!-- NỘI DUNG CHÍNH (CUỘN ĐỘC LẬP) -->
+        <div class="noi-dung-chinh">
+            <!-- THANH TRÊN (HEADER) -->
+            <header class="thanh-tren" id="thanhTren">
+                <!-- Hàng trên: Menu + Logo (trên mobile) / Dự án (trên desktop) + Cụm hành động -->
+                <div class="thanh-tren-hang-dau">
+                    <!-- Nhóm bên trái Header: Menu/Logo (Mobile) + Chọn dự án (Desktop) -->
+                    <div class="thanh-tren-trai">
+                        <div class="cum-menu-logo-mobile">
+                            <button type="button" class="nut-mo-menu-mobile" id="nutMenuMobile" aria-label="Mở menu">
+                                <i class="fa-solid fa-bars"></i>
+                            </button>
+                            <a href="../zone_risk_map/manager-zone-risk-map.html" class="anh-logo-mobile-link">
+                                <img src="../../assets/logo_SiteSafe.png" alt="SiteSafe" class="anh-logo-mobile">
+                            </a>
+                        </div>
+
+                        <!-- Dự án trên Desktop Header - Căn bên trái -->
+                        <div class="thong-tin-du-an-tren">
+                            <div class="bieu-tuong-du-an">
+                                <i class="fa-solid fa-helmet-safety"></i>
+                            </div>
+                            <div class="chi-tiet-du-an">
+                                <span class="nhan-theo-doi">CÔNG TRƯỜNG ĐANG THEO DÕI</span>
+                                <div class="ten-du-an-dropdown" id="topbarProjectSelect">
+                                    <span id="topbarProjectTitle">Metro Tower - Khu B</span>
+                                    <i class="fa-solid fa-chevron-down"></i>
+                                </div>
+                                <div class="menu-chon-khu-vuc menu-khu-vuc-tren" id="topbarProjectMenu" aria-label="Chọn công trường">
+                                    <button type="button" class="lua-chon-khu-vuc" data-project="Metro Tower - Khu B">Metro Tower - Khu B</button>
+                                    <button type="button" class="lua-chon-khu-vuc" data-project="Landmark Riverside - Zone A">Landmark Riverside - Zone A</button>
+                                    <button type="button" class="lua-chon-khu-vuc" data-project="Hầm chui Hoàng Cầu - Gói 3">Hầm chui Hoàng Cầu - Gói 3</button>
+                                    <button type="button" class="lua-chon-khu-vuc" data-project="Grand Marina - Tháp C">Grand Marina - Tháp C</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Cụm hành động phải (Thông báo + Hồ sơ) -->
+                    <div class="khu-vuc-hanh-dong-tren">
+                        <a href="../../share/notifications/notifications.html?role=manager" class="nut-bieu-tuong-tren" title="Thông báo" id="nutThongBao">
+                            <i class="fa-regular fa-bell"></i>
+                        </a>
+                        <a href="../../share/profile/profile.html?role=manager" class="nut-bieu-tuong-tren" title="Hồ sơ cá nhân" id="nutTroGiup">
+                            <i class="fa-regular fa-user"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Hàng dưới trên Mobile: Chọn công trường (Đồng bộ chuẩn Worker) -->
+                <div class="mobile-project-info" id="mobileProjectSection">
+                    <span class="sub-label">CÔNG TRƯỜNG ĐANG THEO DÕI</span>
+                    <div class="custom-dropdown mobile-project-dropdown" id="mobileProjectSelect">
+                        <div class="dropdown-trigger" id="mobileProjectTrigger">
+                            <span class="selected-text" id="mobileProjectTitle">Metro Tower - Khu B</span>
+                            <i class="fa-solid fa-chevron-down arrow-icon"></i>
+                        </div>
+                        <div class="dropdown-menu" id="mobileProjectOptions">
+                            <div class="dropdown-item" data-project="Metro Tower - Khu B">Metro Tower - Khu B</div>
+                            <div class="dropdown-item" data-project="Landmark Riverside - Zone A">Landmark Riverside - Zone A</div>
+                            <div class="dropdown-item" data-project="Hầm chui Hoàng Cầu - Gói 3">Hầm chui Hoàng Cầu - Gói 3</div>
+                            <div class="dropdown-item" data-project="Grand Marina - Tháp C">Grand Marina - Tháp C</div>
+                        </div>
+                    </div>
+                </div>
+            </header>
+
+            <!-- VÙNG NỘI DUNG CHÍNH -->
+            <main class="vung-noi-dung">
+                <!-- Đường dẫn điều hướng phụ (Breadcrumb) -->
+                <div class="duong-dan-breadcrumb">Hành động khắc phục / Tiến độ xử lý</div>
+
+                <!-- Tiêu đề trang & Nút xuất báo cáo -->
+                <div class="phan-tieu-de-trang">
+                    <div class="thong-tin-tieu-de">
+                        <h1 class="tieu-de-trang">Tiến độ xử lý sự cố</h1>
+                        <p class="thoi-gian-cap-nhat">Thứ Bảy, 03/10/2026 · Ca sáng · Cập nhật lúc 10:32</p>
+                    </div>
+                    <button type="button" class="nut nut-phu nut-xuat-bao-cao" id="nutXuatBaoCao">
+                        <i class="fa-solid fa-file-arrow-down"></i>
+                        <span>Xuất báo cáo</span>
+                    </button>
+                </div>
+
+                <!-- Thanh tóm tắt ưu tiên (Priority Banner) -->
+                <section class="thanh-thong-tin-uu-tien">
+                    <div class="khoi-thong-tin-trai">
+                        <i class="fa-solid fa-flag bieu-tuong-co-cam"></i>
+                        <div class="van-ban-uu-tien">
+                            <strong class="so-luong-uu-tien" id="nhanTongUuTien">12 sự cố ưu tiên</strong>
+                            <span class="chu-thich-mo-rong">· <span id="soSuCoDangMo">9</span> đang mở / 24 toàn dự án</span>
+                        </div>
+                    </div>
+                    <div class="khoi-thong-tin-phai">
+                        <span class="chi-so-nhan mau-do"><b id="soQuaHan">3</b> quá hạn</span>
+                        <span class="chi-so-nhan mau-cam"><b id="soDenHan">6</b> đến hạn trong 48 giờ</span>
+                        <span class="chi-so-nhan mau-xanh"><b id="soDaDong">3</b> đã đóng</span>
+                    </div>
+                </section>
+
+                <!-- Thanh công cụ: Tìm kiếm, Lọc, Chế độ xem -->
+                <section class="thanh-cong-cu-tac-vu">
+                    <div class="hop-tim-kiem-su-co">
+                        <i class="fa-solid fa-magnifying-glass"></i>
+                        <input type="text" id="oTimKiemSuCo" placeholder="Tìm mã, tiêu đề sự cố...">
+                    </div>
+
+                    <div class="hop-chon-thau-phu">
+                        <select id="boLocThauPhu">
+                            <option value="all">Tất cả thầu phụ</option>
+                            <option value="Kết cấu Hòa Bình">Kết cấu Hòa Bình</option>
+                            <option value="Hoàn thiện Minh Phát">Hoàn thiện Minh Phát</option>
+                            <option value="Giàn giáo Đại Việt">Giàn giáo Đại Việt</option>
+                            <option value="Cơ điện An Khang">Cơ điện An Khang</option>
+                            <option value="Cốp pha Thành Đạt">Cốp pha Thành Đạt</option>
+                            <option value="Cơ khí Việt Thành">Cơ khí Việt Thành</option>
+                            <option value="Nâng hạ Đại Việt">Nâng hạ Đại Việt</option>
+                        </select>
+                        <i class="fa-solid fa-chevron-down bieu-tuong-select"></i>
+                    </div>
+
+                    <button type="button" class="nut-loc-chip" id="nutLocUuTien">
+                        <i class="fa-solid fa-flag"></i>
+                        <span>Ưu tiên</span>
+                    </button>
+
+                    <button type="button" class="nut-loc-chip" id="nutMoBoLoc">
+                        <i class="fa-solid fa-sliders"></i>
+                        <span>Bộ lọc</span>
+                    </button>
+
+                    <!-- Chuyển đổi chế độ xem Kanban / Danh sách -->
+                    <div class="nhom-chuyen-che-do-xem">
+                        <button type="button" class="nut-che-do-xem active" id="nutCheDoKanban">
+                            <i class="fa-solid fa-table-cells-large"></i>
+                            <span>Bảng Kanban</span>
+                        </button>
+                        <button type="button" class="nut-che-do-xem" id="nutCheDoDanhSach">
+                            <i class="fa-solid fa-list"></i>
+                            <span>Danh sách</span>
+                        </button>
+                    </div>
+                </section>
+
+                <!-- Dòng trạng thái số lượng & Chú thích màu sắc -->
+                <div class="dong-trang-thai-so-luong">
+                    <span class="van-ban-hien-thi" id="vanBanDemKetQua">Hiển thị 12 sự cố · Ưu tiên các sự cố quá hạn</span>
+                    <div class="chu-thich-mau-han">
+                        <span class="muc-chu-thich"><span class="cham-mau cham-do"></span> Quá hạn</span>
+                        <span class="muc-chu-thich"><span class="cham-mau cham-cam"></span> Đến hạn 48 giờ</span>
+                        <span class="muc-chu-thich"><span class="cham-mau cham-xanh"></span> Đã đóng</span>
+                    </div>
+                </div>
+
+                <!-- BẢNG KANBAN 4 CỘT -->
+                <section class="bang-kanban-chinh" id="bangKanbanChinh">
+                    <!-- CỘT 1: CẦN LÀM -->
+                    <div class="cot-kanban" data-cot="can-lam">
+                        <div class="dau-cot-kanban">
+                            <div class="thong-tin-cot">
+                                <div class="hang-tieu-de-cot">
+                                    <span class="cham-trang-thai-cot cham-xam"></span>
+                                    <h3 class="ten-cot">Cần làm</h3>
+                                    <span class="so-luong-the-cot" id="demCanLam">3</span>
+                                </div>
+                                <p class="mo-ta-cot">Chờ phân công & kế hoạch</p>
+                            </div>
+                            <button class="nut-tuy-chon-cot" title="Tùy chọn cột"><i class="fa-solid fa-ellipsis"></i></button>
+                        </div>
+                        <div class="danh-sach-the-kanban" id="danhSachCanLam"></div>
+                    </div>
+
+                    <!-- CỘT 2: ĐANG XỬ LÝ -->
+                    <div class="cot-kanban" data-cot="dang-xu-ly">
+                        <div class="dau-cot-kanban">
+                            <div class="thong-tin-cot">
+                                <div class="hang-tieu-de-cot">
+                                    <span class="cham-trang-thai-cot cham-cam"></span>
+                                    <h3 class="ten-cot">Đang xử lý</h3>
+                                    <span class="so-luong-the-cot" id="demDangXuLy">3</span>
+                                </div>
+                                <p class="mo-ta-cot">Thầu phụ đang khắc phục</p>
+                            </div>
+                            <button class="nut-tuy-chon-cot" title="Tùy chọn cột"><i class="fa-solid fa-ellipsis"></i></button>
+                        </div>
+                        <div class="danh-sach-the-kanban" id="danhSachDangXuLy"></div>
+                    </div>
+
+                    <!-- CỘT 3: ĐANG NGHIỆM THU -->
+                    <div class="cot-kanban" data-cot="nghiem-thu">
+                        <div class="dau-cot-kanban">
+                            <div class="thong-tin-cot">
+                                <div class="hang-tieu-de-cot">
+                                    <span class="cham-trang-thai-cot cham-cam"></span>
+                                    <h3 class="ten-cot">Đang nghiệm thu</h3>
+                                    <span class="so-luong-the-cot" id="demNghiemThu">3</span>
+                                </div>
+                                <p class="mo-ta-cot">Chờ HSE xác nhận hiện trường</p>
+                            </div>
+                            <button class="nut-tuy-chon-cot" title="Tùy chọn cột"><i class="fa-solid fa-ellipsis"></i></button>
+                        </div>
+                        <div class="danh-sach-the-kanban" id="danhSachNghiemThu"></div>
+                    </div>
+
+                    <!-- CỘT 4: ĐÃ ĐÓNG -->
+                    <div class="cot-kanban" data-cot="da-dong">
+                        <div class="dau-cot-kanban">
+                            <div class="thong-tin-cot">
+                                <div class="hang-tieu-de-cot">
+                                    <span class="cham-trang-thai-cot cham-xanh"></span>
+                                    <h3 class="ten-cot">Đã đóng</h3>
+                                    <span class="so-luong-the-cot" id="demDaDong">3</span>
+                                </div>
+                                <p class="mo-ta-cot">Đã xác nhận an toàn</p>
+                            </div>
+                            <button class="nut-tuy-chon-cot" title="Tùy chọn cột"><i class="fa-solid fa-ellipsis"></i></button>
+                        </div>
+                        <div class="danh-sach-the-kanban" id="danhSachDaDong"></div>
+                    </div>
+                </section>
+
+                <!-- CHẾ ĐỘ XEM BẢNG DANH SÁCH (LIST VIEW) -->
+                <section class="bang-danh-sach-chi-tiet" id="bangDanhSachChiTiet" hidden>
+                    <table class="bang-du-lieu">
+                        <thead>
+                            <tr>
+                                <th style="width: 70px;">MÃ SỰ CỐ</th>
+                                <th style="width: 55px;">ẢNH</th>
+                                <th>TIÊU ĐỀ SỰ CỐ</th>
+                                <th>KHU VỰC & VỊ TRÍ</th>
+                                <th>ĐỘI THI CÔNG</th>
+                                <th>TRẠNG THÁI</th>
+                                <th>HẠN XỬ LÝ</th>
+                                <th>NGƯỜI PHỤ TRÁCH</th>
+                                <th style="text-align: right; width: 80px;">CHI TIẾT</th>
+                            </tr>
+                        </thead>
+                        <tbody id="thanBangDanhSach"></tbody>
+                    </table>
+                </section>
+
+                <!-- Chân trang phụ -->
+                <footer class="chan-trang-phu">
+                    <span>SiteSafe · An toàn để xây dựng.</span>
+                    <span class="dong-bo-luc"><span class="cham-dong-bo"></span> Đã đồng bộ lúc 10:32 · Nguyễn Văn Minh</span>
+                </footer>
+            </main>
+        </div>
+    </div>
+
+    <!-- MODAL POPUP: CHI TIẾT SỰ CỐ -->
+    <div class="lop-phu-modal" id="modalChiTietSuCo" hidden>
+        <div class="khung-modal-chi-tiet" role="dialog" aria-modal="true" aria-labelledby="tieuDeModalChiTiet">
+            <div class="dau-modal-chi-tiet">
+                <div class="tieu-de-khoi-dau">
+                    <span class="nhan-ma-so-cam" id="modalMaSuCo">MÃ SỰ CỐ B-121</span>
+                    <h2 class="tieu-de-su-co-lon" id="tieuDeModalChiTiet">Giàn giáo thiếu giằng chéo</h2>
+                </div>
+                <button type="button" class="nut-dong-modal-vuong" id="nutDongModalChiTiet" aria-label="Đóng">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+
+            <div class="khung-anh-hien-truong-lon">
+                <img id="modalAnhHienTruong" src="Ảnh hiện trường (3).jpg" alt="Ảnh hiện trường sự cố">
+            </div>
+
+            <div class="luoi-ba-hop-thong-tin">
+                <div class="hop-thong-tin-nho">
+                    <span class="nhan-hop-thong-tin">Khu vực</span>
+                    <strong class="gia-tri-hop-thong-tin" id="modalKhuVuc">Zone B</strong>
+                </div>
+                <div class="hop-thong-tin-nho">
+                    <span class="nhan-hop-thong-tin">Trạng thái</span>
+                    <strong class="gia-tri-hop-thong-tin" id="modalTrangThai">Đang xử lý</strong>
+                </div>
+                <div class="hop-thong-tin-nho">
+                    <span class="nhan-hop-thong-tin">Người phụ trách</span>
+                    <div class="gia-tri-hop-thong-tin nguoi-phu-trach-dong" id="modalNguoiPhuTrach">
+                        <span class="anh-dai-dien-mini">DG</span>
+                        <span>Đội Giàn giáo Việt</span>
+                    </div>
+                </div>
+            </div>
+
+            <p class="doan-mo-ta-su-co" id="modalMoTaSuCo">
+                Cần kiểm tra hiện trường, xác nhận biện pháp khắc phục và cập nhật minh chứng trước khi đóng sự cố.
+            </p>
+
+            <div class="khu-vuc-cap-nhat-trang-thai">
+                <label for="selectCapNhatTrangThai" class="nhan-chon-trang-thai">Cập nhật trạng thái</label>
+                <div class="hop-select-tuy-chinh">
+                    <select id="selectCapNhatTrangThai">
+                        <option value="can-lam">Cần làm</option>
+                        <option value="dang-xu-ly">Đang xử lý</option>
+                        <option value="nghiem-thu">Đang nghiệm thu</option>
+                        <option value="da-dong">Đã đóng</option>
+                    </select>
+                    <i class="fa-solid fa-chevron-down"></i>
+                </div>
+            </div>
+
+            <div class="chan-modal-chi-tiet">
+                <button type="button" class="nut nut-phu" id="nutDongModalChiTietPhu">Đóng</button>
+                <button type="button" class="nut nut-dam-luu" id="nutLuuTrangThaiModal">Lưu trạng thái</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL POPUP: XUẤT BÁO CÁO -->
+    <div class="lop-phu-modal" id="modalXuatBaoCao" hidden>
+        <div class="khung-modal" role="dialog" aria-modal="true" aria-labelledby="tieuDeModalXuat">
+            <div class="dau-modal">
+                <div>
+                    <span class="nhan-modal-nho">SITESAFE · TRÍCH XUẤT DỮ LIỆU HIỆN TRƯỜNG</span>
+                    <h2 class="tieu-de-modal" id="tieuDeModalXuat">Xuất báo cáo tiến độ xử lý</h2>
+                </div>
+                <button type="button" class="nut-dong-modal" id="nutDongModalXuat" aria-label="Đóng">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+            <div class="noi-dung-modal-xuat">
+                <p class="mo-ta-modal-xuat">Báo cáo sẽ được xuất mặc định dưới dạng bảng tính Excel (.csv), có thể mở bằng Microsoft Excel.</p>
+                
+                <div class="danh-sach-lua-chon-xuat">
+                    <label class="muc-lua-chon-xuat kich-hoat">
+                        <input type="radio" name="dinhDangXuat" value="csv" checked>
+                        <div class="bieu-tuong-dinh-dang mau-xanh"><i class="fa-solid fa-file-excel"></i></div>
+                        <div class="chi-tiet-dinh-dang">
+                            <strong>Tệp bảng tính Excel (.csv)</strong>
+                            <span>Đầy đủ 12 sự cố, thông tin thầu phụ, thời hạn và trạng thái xử lý hiện tại.</span>
+                        </div>
+                    </label>
+                </div>
+
+                <div class="hop-thong-tin-truoc-xuat" id="thongKeTruocXuat">
+                    <span><i class="fa-solid fa-circle-check"></i> Đang có <b id="soLuongXuatBaoCao">12</b> sự cố sẵn sàng trích xuất.</span>
+                </div>
+            </div>
+            <div class="chan-modal">
+                <button type="button" class="nut nut-phu" id="nutHuyModalXuat">Đóng</button>
+                <button type="button" class="nut nut-chinh" id="nutXacNhanXuatBaoCao">
+                    <i class="fa-solid fa-file-excel"></i> Tải Excel ngay
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- THÔNG BÁO TOAST NỔI -->
+    <div class="thong-bao-toast" id="thongBaoToast" role="status" aria-live="polite">
+        <i class="fa-solid fa-circle-check bieu-tuong-toast"></i>
+        <span class="noi-dung-toast" id="noiDungToast">Đã thao tác thành công.</span>
+    </div>
+
+    <!-- TẬP TIN JAVASCRIPT ĐIỀU KHIỂN -->
+    <script src="manager-corrective-actions.js"></script></body>
+</html>

@@ -1,0 +1,245 @@
+<!doctype html>
+<html lang="vi">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>SiteSafe — Mẫu kiểm tra an toàn</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="admin-checklist-template-management.css">
+</head>
+
+<body>
+  <!-- Lớp phủ nền mờ khi mở menu trên thiết bị di động -->
+  <div class="lop-phu-menu" id="lopPhuMenu"></div>
+
+  <aside class="thanh-dieu-huong" id="thanhDieuHuong">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:24px;">
+        <a class="logo-thuong-hieu" href="admin-checklist-template-management.html" aria-label="SiteSafe trang chủ">
+          <img src="../../assets/logo_SiteSafe.png" alt="SiteSafe Logo" class="anh-logo-sitesafe" />
+        </a>
+        <button type="button" class="nut-dong-menu-mobile" id="nutDongMenuMobile" aria-label="Đóng menu">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>    
+      <div class="khu-vuc-cong-truong">
+        <small class="nhan-phu">CÔNG TRƯỜNG</small>
+        <select id="siteSelect" class="nut-chon-cong-truong">
+          <option value="Metro Tower - Khu B">Metro Tower - Khu B</option>
+          <option value="Landmark Riverside - Zone A">Landmark Riverside - Zone A</option>
+          <option value="Hầm chui Hoàng Cầu - Gói 3">Hầm chui Hoàng Cầu - Gói 3</option>
+          <option value="Grand Marina - Tháp C">Grand Marina - Tháp C</option>
+        </select>
+      </div>
+      <small class="nhan-dieu-huong">QUẢN TRỊ HỆ THỐNG</small>
+      <nav>
+        <a class="lien-ket-dieu-huong dang-chon" href="admin-checklist-template-management.html">
+          <i class="fa-solid fa-clipboard-list"></i><span>Mẫu kiểm tra</span>
+        </a>
+        <a class="lien-ket-dieu-huong" href="../zone_management/admin-zone-management.html">
+          <i class="fa-solid fa-map-location-dot"></i><span>Quản lý khu vực</span>
+        </a>
+        <a class="lien-ket-dieu-huong" href="../user-management/admin-user-management.html">
+          <i class="fa-solid fa-users-gear"></i><span>Quản lý người dùng</span>
+        </a>
+      </nav>
+      <div class="chan-thanh-dieu-huong">
+        <a href="../../share/profile/profile.html?role=admin" class="thong-tin-nguoi-dung-nho" style="text-decoration: none; color: inherit;">
+          <div class="anh-dai-dien">NM</div>
+          <div class="chu-nguoi-dung">
+            <strong id="tenNguoiDungToanCau">Nguyễn Văn Minh</strong>
+            <span id="vaiTroNguoiDungToanCau">Quản trị viên</span>
+          </div>
+          <i class="fa-solid fa-chevron-right" style="margin-left: auto; color: #94a3b8; font-size: 11px;"></i>
+        </a>
+        <a href="../../share/login/login.html" class="nut-dang-xuat" style="text-decoration: none; display: flex; align-items: center; justify-content: center; gap: 8px;">
+          <i class="fa-solid fa-arrow-right-from-bracket"></i> Đăng xuất
+        </a>
+      </div>
+  </aside>
+  <header class="thanh-tren">
+    <button class="menu-di-dong" id="menuDiDong" aria-label="Mở menu" type="button"><i class="fa-solid fa-bars"></i></button>
+    <a href="admin-checklist-template-management.html" class="anh-logo-mobile-link">
+      <img src="../../assets/logo_SiteSafe.png" alt="SiteSafe" class="anh-logo-mobile">
+    </a>
+    <div class="du-an-thanh-tren">
+      <i class="fa-solid fa-building-shield" style="font-size: 18px; color: #64748b;"></i>
+      <div><small class="nhan-phu">CÔNG TRƯỜNG ĐANG THEO DÕI</small><b id="topbarProjectTitle">Metro Tower - Khu B ⌄</b></div>
+    </div>
+    <div class="ha-dong-thao-tac-tren">
+      <a href="../../share/notifications/notifications.html?role=admin" class="bieu-tuong-icon" title="Thông báo" id="thongBao"><i class="fa-regular fa-bell"></i></a>
+      <a href="../../share/profile/profile.html?role=admin" class="bieu-tuong-icon" title="Hồ sơ cá nhân"><i class="fa-regular fa-user"></i></a>
+    </div>
+  </header>
+  <main class="noi-dung">
+    <div class="duong-dan-trang">Kiểm tra hiện trường / Thư viện mẫu / Tạo mẫu bằng AI</div>
+    <div class="tieu-de-trang">
+      <div>
+        <h1>Tạo mẫu kiểm tra an toàn</h1>
+        <p>Từ mô tả công việc đến danh sách kiểm tra — AI đề xuất, HSE quyết định.</p>
+      </div><button class="nut-bam nut-chinh" id="nutTaoMauMoi">＋ Tạo mẫu mới</button>
+    </div>
+    <div class="cac-buoc">
+      <div class="buoc hoan-thanh"><b>1</b>Mô tả công việc <i>›</i></div>
+      <div class="buoc hoan-thanh"><b>2</b>AI tạo bản nháp <i>›</i></div>
+      <div class="buoc dang-lam"><b>3</b>Rà soát &amp; lưu mẫu</div>
+    </div>
+    <section class="the-ai">
+      <div class="dau-ai"><span class="bieu-tuong-ai">✣</span>
+        <div class="tieu-de-ai">
+          <h2>Trợ lý tạo mẫu bằng AI</h2>
+          <p>Mô tả rõ công việc và điều kiện hiện trường để nhận gợi ý phù hợp.</p>
+        </div><span class="nhan-trang-thai san-sang">Bản nháp đã sẵn sàng</span>
+      </div>
+      <label for="moTaCongViec">Loại công việc</label>
+      <div class="hang-cong-viec"><input id="moTaCongViec" value="Lắp dựng giàn giáo khung tại mặt ngoài tầng 3"
+          maxlength="240"><button class="nut-bam nut-chinh" id="nutTaoAi">✣ Tạo mẫu bằng AI</button></div>
+      <div class="chan-ai"><span id="chuPhamVi">Zone B · Trước mỗi ca thi công · Dự kiến 10 mục kiểm tra</span><span
+          class="canh-bao">AI hỗ trợ soạn thảo, không thay thế đánh giá HSE</span></div>
+    </section>
+    <section class="khung-ra-soat">
+      <div class="dau-ra-soat">
+        <div>
+          <h2>Danh sách kiểm tra do AI đề xuất</h2>
+          <p><strong id="soLuongMuc">10 mục kiểm tra</strong> — Đã tạo bản nháp, có thể chỉnh sửa trước khi lưu</p>
+        </div><span class="nhan-trang-thai san-sang">Bản nháp · Chưa lưu</span>
+      </div>
+      <div class="hang-bieu-mau"><label class="truong-nhap">Tên mẫu kiểm tra<input id="tenMau"
+            value="Kiểm tra an toàn lắp dựng giàn giáo" maxlength="120"></label><label class="truong-nhap">Nhóm công
+          việc<select id="nhomCongViec">
+            <option>Giàn giáo &amp; làm việc trên cao</option>
+            <option>Công tác nâng hạ</option>
+            <option>Công tác điện</option>
+            <option>Công tác đào đất</option>
+          </select></label></div>
+      <div class="thong-bao-ai"><span>ⓘ</span>
+        <div><b>Đề xuất từ AI cần được rà soát trước khi lưu</b>
+          <p>Vui lòng kiểm tra tính phù hợp với điều kiện thực tế, quy định và biện pháp thi công được phê duyệt. AI
+            không kiểm định hay xác nhận tuân thủ thay cán bộ HSE.</p>
+        </div>
+      </div>
+      <div class="dau-bang"><span>☑</span><b>MỤC KIỂM TRA · TÍCH CHỌN ĐỂ ĐƯA VÀO MẪU</b><span
+          class="nguon-tham-chiếu">THAM CHIẾU / GỢI Ý</span></div>
+      <div class="danh-sach-kiem-tra" id="danhSachKiemTra">
+        <article class="muc-kiem-tra"><label class="nut-chon-muc"><input type="checkbox" checked><span
+              class="o-tich-gia"></span></label><span class="so-thu-tu">01</span>
+          <div class="noi-dung-muc"><b>Xác nhận biện pháp lắp dựng và năng lực nhân sự</b>
+            <p>Kiểm tra biện pháp được duyệt, đội ngũ được phân công và người giám sát có đủ năng lực.</p>
+          </div>
+          <div class="tham-chieu"><span>Biện pháp thi công</span><small>Cần HSE xác nhận</small></div><button
+            class="sua-muc" aria-label="Sửa mục kiểm tra">✎</button>
+        </article>
+        <article class="muc-kiem-tra"><label class="nut-chon-muc"><input type="checkbox" checked><span
+              class="o-tich-gia"></span></label><span class="so-thu-tu">02</span>
+          <div class="noi-dung-muc"><b>Kiểm tra nền đặt giàn giáo và tấm kê chân</b>
+            <p>Nền ổn định, không lún trượt; tấm kê đủ diện tích và chân đế được đặt đúng vị trí.</p>
+          </div>
+          <div class="tham-chieu"><span>Hướng dẫn nhà sản xuất</span><small>Cần HSE xác nhận</small></div><button
+            class="sua-muc" aria-label="Sửa mục kiểm tra">✎</button>
+        </article>
+        <article class="muc-kiem-tra"><label class="nut-chon-muc"><input type="checkbox" checked><span
+              class="o-tich-gia"></span></label><span class="so-thu-tu">03</span>
+          <div class="noi-dung-muc"><b>Kiểm tra thanh giằng và khóa liên kết</b>
+            <p>Thanh giằng, khóa nối và các liên kết được lắp đủ, siết chặt, không cong vênh hoặc hư hỏng.</p>
+          </div>
+          <div class="tham-chieu"><span>Hướng dẫn nhà sản xuất</span><small>Cần HSE xác nhận</small></div><button
+            class="sua-muc" aria-label="Sửa mục kiểm tra">✎</button>
+        </article>
+        <article class="muc-kiem-tra"><label class="nut-chon-muc"><input type="checkbox" checked><span
+              class="o-tich-gia"></span></label><span class="so-thu-tu">04</span>
+          <div class="noi-dung-muc"><b>Kiểm tra sàn thao tác và lan can bảo vệ</b>
+            <p>Sàn thao tác chắc chắn, không có khe hở nguy hiểm; lan can và tấm chắn chân được lắp đặt.</p>
+          </div>
+          <div class="tham-chieu"><span>Hướng dẫn nhà sản xuất</span><small>Cần HSE xác nhận</small></div><button
+            class="sua-muc" aria-label="Sửa mục kiểm tra">✎</button>
+        </article>
+        <article class="muc-kiem-tra"><label class="nut-chon-muc"><input type="checkbox" checked><span
+              class="o-tich-gia"></span></label><span class="so-thu-tu">05</span>
+          <div class="noi-dung-muc"><b>Kiểm tra neo giằng vào kết cấu công trình</b>
+            <p>Vị trí và liên kết neo đúng thiết kế được duyệt; không tự ý tháo hoặc thay đổi điểm neo.</p>
+          </div>
+          <div class="tham-chieu"><span>Biện pháp thi công</span><small>Cần HSE xác nhận</small></div><button
+            class="sua-muc" aria-label="Sửa mục kiểm tra">✎</button>
+        </article>
+        <article class="muc-kiem-tra"><label class="nut-chon-muc"><input type="checkbox" checked><span
+              class="o-tich-gia"></span></label><span class="so-thu-tu">06</span>
+          <div class="noi-dung-muc"><b>Kiểm tra sàn công tác và tải trọng sử dụng</b>
+            <p>Sàn kín, vật liệu được xếp gọn; không tập trung tải trọng vượt giới hạn cho phép.</p>
+          </div>
+          <div class="tham-chieu"><span>Hướng dẫn nhà sản xuất</span><small>Cần HSE xác nhận</small></div><button
+            class="sua-muc" aria-label="Sửa mục kiểm tra">✎</button>
+        </article>
+        <article class="muc-kiem-tra"><label class="nut-chon-muc"><input type="checkbox" checked><span
+              class="o-tich-gia"></span></label><span class="so-thu-tu">07</span>
+          <div class="noi-dung-muc"><b>Bố trí lối lên, xuống thành giàn giáo và lan can chắn</b>
+            <p>Các lối tiếp cận an toàn, không cản trở di chuyển; khu vực bên dưới được cảnh báo.</p>
+          </div>
+          <div class="tham-chieu"><span>Quy định làm việc trên cao</span><small>Cần HSE xác nhận</small></div><button
+            class="sua-muc" aria-label="Sửa mục kiểm tra">✎</button>
+        </article>
+        <article class="muc-kiem-tra"><label class="nut-chon-muc"><input type="checkbox" checked><span
+              class="o-tich-gia"></span></label><span class="so-thu-tu">08</span>
+          <div class="noi-dung-muc"><b>Bảo đảm liên kết xuống giàn giáo an toàn</b>
+            <p>Trang bị và sử dụng phương tiện chống ngã khi làm việc trên cao theo phương án được duyệt.</p>
+          </div>
+          <div class="tham-chieu"><span>Quy định làm việc trên cao</span><small>Cần HSE xác nhận</small></div><button
+            class="sua-muc" aria-label="Sửa mục kiểm tra">✎</button>
+        </article>
+        <article class="muc-kiem-tra"><label class="nut-chon-muc"><input type="checkbox" checked><span
+              class="o-tich-gia"></span></label><span class="so-thu-tu">09</span>
+          <div class="noi-dung-muc"><b>Kiểm tra bảo hộ và hệ thống chống ngã</b>
+            <p>Người lao động mang PPE phù hợp, dây đai và điểm neo được kiểm tra trước khi sử dụng.</p>
+          </div>
+          <div class="tham-chieu"><span>Quy định bảo hộ cá nhân</span><small>Cần HSE xác nhận</small></div><button
+            class="sua-muc" aria-label="Sửa mục kiểm tra">✎</button>
+        </article>
+        <article class="muc-kiem-tra"><label class="nut-chon-muc"><input type="checkbox" checked><span
+              class="o-tich-gia"></span></label><span class="so-thu-tu">10</span>
+          <div class="noi-dung-muc"><b>Ngừng thi công trước tác động và kiểm tra điều kiện thời tiết</b>
+            <p>Có biện pháp ứng phó gió lớn, mưa và điều kiện bất lợi; dừng việc khi không bảo đảm an toàn.</p>
+          </div>
+          <div class="tham-chieu"><span>Quy trình nghiệm thu nội bộ</span><small>Cần HSE xác nhận</small></div><button
+            class="sua-muc" aria-label="Sửa mục kiểm tra">✎</button>
+        </article>
+      </div>
+      <div class="chan-danh-sach"><span id="chuSoLuongChon">10/10 mục được chọn</span><span>Checkbox dùng để chọn mục đưa
+          vào mẫu, không phải kết quả kiểm tra hiện trường.</span><button class="nut-bam them-muc" id="nutThemMuc">＋ Thêm
+          mục thủ công</button></div>
+      <div class="thanh-luu"><label><input type="checkbox" id="xacNhanRaSoat"> Tôi đã rà soát nội dung và xác nhận các
+          mục phù hợp với thực tế.</label>
+        <div class="tom-tat-luu"><b id="chuSoLuongLuu">10 mục đã chọn</b><small>Mẫu chỉ được lưu dưới dạng bản nháp</small>
+        </div>
+        <div class="thao-tac-luu"><button class="nut-bam" id="nutHuy">Hủy</button><button class="nut-bam nut-chinh"
+            id="nutLuu">▣ Lưu bản nháp</button></div>
+      </div>
+    </section>
+    <footer><span>SiteSafe · An toàn để xây dựng.</span><span>Không gian Xây dựng An Phú · Dữ liệu minh họa</span>
+    </footer>
+  </main> 
+  <div class="thong-bao-noi" id="thongBaoNoi" role="status"></div>
+  <dialog id="hopThoaiSua">
+    <form id="bieuMauSua">
+      <div class="dau-hop-thoai">
+        <div>
+          <h2 id="tieuDeHopThoaiSua">Chỉnh sửa mục kiểm tra</h2>
+          <p>Cập nhật nội dung đề xuất trước khi lưu.</p>
+        </div><button type="button" id="nutDongSua" class="nut-dong">×</button>
+      </div><label>Nội dung mục kiểm tra<textarea id="noiDungMucSua" rows="4" required
+          maxlength="300"></textarea></label><label>Tài liệu tham chiếu<input id="thamChieuSua" maxlength="100"
+          value="Cần HSE xác nhận"></label>
+      <div class="thao-tac-hop-thoai"><button type="button" class="nut-bam" id="nutHuySua">Hủy</button><button type="submit"
+          class="nut-bam nut-chinh">Lưu thay đổi</button></div>
+    </form>
+  </dialog>
+  <script src="admin-checklist-template-management.js"></script>
+<script>
+document.querySelectorAll('.dieu-huong-chinh a, .lien-ket-dieu-huong').forEach(link => {
+  const label = link.textContent.trim();
+  link.classList.toggle('dang-chon', label.includes('Mẫu kiểm tra'));
+});
+</script></body>
+
+</html>
