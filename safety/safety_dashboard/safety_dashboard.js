@@ -269,16 +269,76 @@ function luuMoiNguyVaoLocalStorage(item) {
 }
 
 function napDanhSachMoiNguyDaLuu() {
-  try {
-    const stored = localStorage.getItem('sitesafe_safety_hazards');
-    if (!stored) return;
-    const list = JSON.parse(stored);
-    if (Array.isArray(list)) {
-      list.slice().reverse().forEach(item => {
-        themTheMoiNguyVaoGiaoDien(item, true);
-      });
-    }
-  } catch (e) {}
+  const danhSach = document.querySelector('.danh-sach-su-co');
+  if (!danhSach) return;
+
+  let hazards = [];
+  if (window.SiteSafeStore) {
+    hazards = window.SiteSafeStore.getHazards();
+  } else {
+    try {
+      const stored = localStorage.getItem('sitesafe_safety_hazards') || localStorage.getItem('sitesafe_hazards');
+      if (stored) hazards = JSON.parse(stored);
+    } catch (e) {}
+  }
+
+  // Cập nhật số liệu thống kê KPI
+  const total = hazards.length;
+  const pending = hazards.filter(h => h.status === 'Chờ duyệt').length;
+  const inProgress = hazards.filter(h => h.status === 'Đang khắc phục' || h.status === 'Chờ nghiệm thu').length;
+  const closed = hazards.filter(h => h.status === 'Đã đóng').length;
+
+  const elTong = document.getElementById('valTongMoiNguy');
+  const elMo = document.getElementById('valHanhDongMo');
+  const elDescTong = document.getElementById('descTongMoiNguy');
+  const elDescMo = document.getElementById('descHanhDongMo');
+
+  if (elTong) {
+    elTong.innerHTML = `${total} <small>Zone B</small>`;
+    if (elDescTong) elDescTong.textContent = `${closed} đã đóng · ${pending + inProgress} đang mở`;
+  }
+  if (elMo) {
+    elMo.innerHTML = `${pending + inProgress} <small>hành động</small>`;
+    if (elDescMo) elDescMo.textContent = `${inProgress} đang xử lý · ${pending} chờ duyệt`;
+  }
+
+  // Render các sự cố vào Luồng sự cố
+  danhSach.innerHTML = '';
+  hazards.slice(0, 6).forEach(item => {
+    const isPending = item.status === 'Chờ duyệt';
+    const isHigh = item.riskLevel === 'high' || (item.riskText && item.riskText.includes('Cao'));
+    const theClass = isHigh ? 'the-su-co nguy-hiem' : 'the-su-co canh-bao';
+    const nhanClass = isHigh ? 'nguy-hiem' : 'canh-bao';
+    const statusText = item.status || 'Chờ duyệt';
+
+    const article = document.createElement('article');
+    article.className = theClass;
+    article.innerHTML = `
+      <div class="dau-su-co">
+        <span class="ma">${item.ma || item.id}</span>
+        <span class="han">${item.time ? item.time.slice(0, 10) : 'Hôm nay'}</span>
+      </div>
+      <h4>${item.title}</h4>
+      <p class="vi-tri">${item.zone || 'Zone B'} · ${item.reporter || 'Tổ thi công'}</p>
+      <p class="mo-ta">${item.description || ''}</p>
+      <div class="chan-su-co">
+        <mark class="nhan-trang-thai ${nhanClass}">${statusText} · ${item.riskText || 'Rủi ro cao'}</mark>
+        <a href="../hazard_detail/safety-hazard-detail.html?id=${item.id}" class="nut-chinh nut-nho" style="text-decoration:none; display:inline-flex; align-items:center; gap:4px;">
+          ${isPending ? 'Phê duyệt & Giao việc' : 'Xem chi tiết'} &rarr;
+        </a>
+      </div>
+    `;
+    danhSach.appendChild(article);
+  });
+
+  // Gắn link cho bảng Hành động ưu tiên
+  const tableRows = document.querySelectorAll('.bang-du-lieu tbody tr');
+  tableRows.forEach(row => {
+    row.style.cursor = 'pointer';
+    row.addEventListener('click', () => {
+      window.location.href = '../hazard_detail/safety-hazard-detail.html';
+    });
+  });
 }
 
 function showToast(message) {
