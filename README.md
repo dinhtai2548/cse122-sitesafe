@@ -4,7 +4,6 @@
 > **Mô tả:** Mini-product Frontend quản lý an toàn công trường đa vai trò, tích hợp quy trình nghiệp vụ thực tế và các tính năng AI mô phỏng phía client.
 
 ---
-
 ## 1. Giới thiệu & Ngữ cảnh bài toán
 
 Công trường xây dựng là môi trường lao động có độ rủi ro cao với các đội nhóm làm việc phân tán. Công tác an toàn lao động truyền thống thường bị rời rạc, phụ thuộc vào checklist giấy hoặc tin nhắn qua Zalo/Messenger khiến dữ liệu dễ bị trôi, mất vết xử lý và thiếu minh chứng theo thời gian.
@@ -16,7 +15,6 @@ Công trường xây dựng là môi trường lao động có độ rủi ro ca
 - **Quản lý mù thông tin:** Cán bộ quản lý thiếu cái nhìn toàn cục về các "điểm nóng" (Hotspot) rủi ro trên sơ đồ mặt bằng.
 
 ---
-
 ## 2. Mục tiêu sản phẩm
 
 - Xây dựng ứng dụng Frontend hoàn chỉnh với hành trình người dùng rõ ràng theo từng phân quyền (Role-based UI).
@@ -26,7 +24,6 @@ Công trường xây dựng là môi trường lao động có độ rủi ro ca
 - Mô phỏng thành công các tính năng AI hỗ trợ phân tích và gợi ý ngay trên phía Frontend.
 
 ---
-
 ## 3. Công nghệ sử dụng
 
 - **Frontend Core:** HTML5, CSS3 (CSS Variables, CSS Grid, Flexbox, Media Queries), JavaScript (ES6+ / DOM Manipulation).
@@ -34,7 +31,6 @@ Công trường xây dựng là môi trường lao động có độ rủi ro ca
 - **Công cụ thiết kế & Quản lý:** Figma, Git & GitHub (quản lý mã nguồn theo nhánh và pull request), Trello.
 
 ---
-
 ## 4. Phân quyền Người dùng & Hệ thống Màn hình (Screen Inventory)
 
 ### 1. Nhân sự hiện trường (`SV1`)
@@ -68,7 +64,6 @@ Công trường xây dựng là môi trường lao động có độ rủi ro ca
 - **Error 404 (`404.html`):** Trang hiển thị khi truy cập sai đường dẫn.
 
 ---
-
 ## 5. Hướng dẫn chạy dự án
 
 ### Cách 1: Chạy trực tiếp trên trình duyệt
@@ -81,7 +76,6 @@ Công trường xây dựng là môi trường lao động có độ rủi ro ca
 3. Nhấp chuột phải vào file `login.html` và chọn **Open with Live Server** để trải nghiệm.
 
 ---
-
 ## 6. Cấu trúc thư mục dự án
 
 ```text
@@ -178,7 +172,6 @@ SITE_SAFE/
 ```
 
 ---
-
 ## 7. Link playlist minh chứng
 
 - Đinh Trọng Tài: https://www.youtube.com/playlist?list=PLf-etCQbhUns
