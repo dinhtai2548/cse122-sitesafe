@@ -228,11 +228,15 @@
           <footer class="thanh-phan-trang">
             <span id="nhanHienThiPhanTrang">Hiển thị 1–10 trong tổng số 10 đợt kiểm tra</span>
             <div class="nhom-dieu-huong-trang">
-              <small>Số dòng mỗi trang</small>
-              <select class="bo-chon-nho"><option>10</option></select>
-              <button type="button" class="nut-trang"><i class="fa-solid fa-chevron-left"></i></button>
+              <small>Số dòng mỗi trang:</small>
+              <select class="bo-chon-nho" aria-label="Số dòng mỗi trang">
+                <option value="10">10 dòng</option>
+                <option value="25">25 dòng</option>
+                <option value="50">50 dòng</option>
+              </select>
+              <button type="button" class="nut-trang" aria-label="Trang trước"><i class="fa-solid fa-chevron-left"></i></button>
               <button type="button" class="nut-trang kich-hoat">1</button>
-              <button type="button" class="nut-trang"><i class="fa-solid fa-chevron-right"></i></button>
+              <button type="button" class="nut-trang" aria-label="Trang sau"><i class="fa-solid fa-chevron-right"></i></button>
             </div>
           </footer>
         </article>
@@ -240,7 +244,7 @@
 
       <footer class="chan-trang-ung-dung">
         <span><i class="fa-regular fa-clock"></i> Giờ Việt Nam (GMT+7) · Cập nhật lúc 09:10, 03/10/2026</span>
-        <span>Dữ liệu kiểm tra được lưu tự động</span>
+        <span><i class="fa-solid fa-shield-halved"></i> Dữ liệu kiểm tra được lưu tự động trên hệ thống SiteSafe</span>
       </footer>
     </main>
   </div>
@@ -349,6 +353,7 @@
     </div>
   </dialog>
 
+  <script src="../../share/sitesafe-shared-store.js"></script>
   <script src="safety-inspection-management_table.js" defer></script>
 </body>
 </html>

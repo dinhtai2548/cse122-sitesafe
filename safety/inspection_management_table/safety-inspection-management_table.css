@@ -637,6 +637,112 @@ html, body {
   border-color: var(--mau-duong-vien);
 }
 
+/* PHÂN TRANG CUỐI BẢNG */
+.thanh-phan-trang {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 20px;
+  background: #FFFFFF;
+  border-top: 1px solid var(--mau-duong-vien);
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+#nhanHienThiPhanTrang {
+  font-size: 13px;
+  color: var(--mau-chu-xam);
+  font-weight: 500;
+}
+
+.nhom-dieu-huong-trang {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.nhom-dieu-huong-trang small {
+  font-size: 12.5px;
+  color: var(--mau-chu-xam);
+  font-weight: 500;
+}
+
+.bo-chon-nho {
+  height: 32px;
+  padding: 0 8px;
+  border: 1px solid var(--mau-duong-vien);
+  border-radius: 6px;
+  background: #FFFFFF;
+  color: var(--mau-chu-chinh);
+  font-size: 12.5px;
+  font-weight: 600;
+  cursor: pointer;
+  outline: none;
+  transition: border-color 0.2s ease;
+}
+
+.bo-chon-nho:focus,
+.bo-chon-nho:hover {
+  border-color: var(--mau-cam-chinh);
+}
+
+.nut-trang {
+  min-width: 32px;
+  height: 32px;
+  padding: 0 8px;
+  border: 1px solid var(--mau-duong-vien);
+  border-radius: 6px;
+  background: #FFFFFF;
+  color: var(--mau-chu-chinh);
+  font-size: 12.5px;
+  font-weight: 600;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+}
+
+.nut-trang:hover {
+  border-color: var(--mau-cam-chinh);
+  color: var(--mau-cam-chinh);
+  background-color: #FFF7ED;
+}
+
+.nut-trang.kich-hoat {
+  background: var(--mau-cam-chinh);
+  color: #FFFFFF;
+  border-color: var(--mau-cam-chinh);
+  box-shadow: 0 2px 6px rgba(255, 107, 0, 0.25);
+}
+
+/* CHÂN TRANG ỨNG DỤNG */
+.chan-trang-ung-dung {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 24px;
+  padding: 14px 20px;
+  background: #FFFFFF;
+  border: 1px solid var(--mau-duong-vien);
+  border-radius: 8px;
+  font-size: 12.5px;
+  color: var(--mau-chu-xam);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.03);
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.chan-trang-ung-dung span {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.chan-trang-ung-dung i {
+  color: var(--mau-cam-chinh);
+}
+
 /* MENU DROPDOWN CỦA NÚT 3 CHẤM */
 .menu-thao-tac-khac {
   display: none;
@@ -909,6 +1015,28 @@ html, body {
 
   .o-tim-kiem-bang {
     width: 100%;
+  }
+
+  .thanh-phan-trang {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 12px;
+    padding: 12px 14px;
+  }
+
+  .nhom-dieu-huong-trang {
+    width: 100%;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  .chan-trang-ung-dung {
+    flex-direction: column;
+    text-align: center;
+    gap: 8px;
+    padding: 12px 14px;
+    margin-top: 16px;
   }
 }
 
